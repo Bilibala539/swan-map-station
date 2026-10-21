@@ -1,0 +1,159 @@
+{
+ "page_height": 622,
+ "palette": [
+  {
+   "count": 28,
+   "prop_color": "color oklch(0.05 0.075 256.91)"
+  },
+  {
+   "count": 26,
+   "prop_color": "border-top-color oklch(0.05 0.075 256.91)"
+  },
+  {
+   "count": 5,
+   "prop_color": "background-color rgb(255, 255, 255)"
+  },
+  {
+   "count": 1,
+   "prop_color": "background-color rgb(254, 254, 254)"
+  },
+  {
+   "count": 1,
+   "prop_color": "border-top-color oklch(0.55 0.2308 256.91)"
+  },
+  {
+   "count": 1,
+   "prop_color": "border-top-color color(srgb 0.38884 0.509371 0.67833 / 0.25)"
+  },
+  {
+   "count": 1,
+   "prop_color": "color rgb(254, 254, 254)"
+  },
+  {
+   "count": 1,
+   "prop_color": "border-top-color rgb(254, 254, 254)"
+  }
+ ],
+ "sample": [
+  {
+   "background-color": "rgb(254, 254, 254)",
+   "border": "0px none oklch(0.05 0.075 256.91)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "app-sign-in-register",
+   "color": "oklch(0.05 0.075 256.91)",
+   "font-family": "system-ui, \"Segoe UI\", roboto, \"Noto Sans\", oxygen, ubuntu, cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+   "font-size": "14px",
+   "font-weight": "400",
+   "height": "622px",
+   "letter-spacing": "normal",
+   "line-height": "21px",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "body",
+   "tag": "body",
+   "text": "Sign in to JenkinsUsernamePasswordKeep m"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none oklch(0.05 0.075 256.91)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "oklch(0.05 0.075 256.91)",
+   "font-family": "Georgia, serif",
+   "font-size": "28.8px",
+   "font-weight": "600",
+   "height": "34.5469px",
+   "letter-spacing": "normal",
+   "line-height": "34.56px",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "h1",
+   "tag": "h1",
+   "text": "Sign in to Jenkins"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(254, 254, 254)",
+   "border-radius": "10px",
+   "box-shadow": "none",
+   "cls": "jenkins-button jenkins-button--primary",
+   "color": "rgb(254, 254, 254)",
+   "font-family": "system-ui, \"Segoe UI\", roboto, \"Noto Sans\", oxygen, ubuntu, cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+   "font-size": "15.2px",
+   "font-weight": "400",
+   "height": "47.7812px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "14.4px 16px",
+   "sel": "button",
+   "tag": "button",
+   "text": "Sign in"
+  },
+  {
+   "background-color": "rgb(255, 255, 255)",
+   "border": "2px solid oklch(0.55 0.2308 256.91)",
+   "border-radius": "10px",
+   "box-shadow": "color(srgb -0.150788 0.404593 0.954589 / 0.15) 0px 0px 0px 4px",
+   "cls": "jenkins-input ",
+   "color": "oklch(0.05 0.075 256.91)",
+   "font-family": "system-ui, \"Segoe UI\", roboto, \"Noto Sans\", oxygen, ubuntu, cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+   "font-size": "15.2px",
+   "font-weight": "400",
+   "height": "42.1875px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "9.6px 12px",
+   "sel": "input",
+   "tag": "input",
+   "text": ""
+  },
+  {
+   "background-color": "rgb(255, 255, 255)",
+   "border": "0px none oklch(0.05 0.075 256.91)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "oklch(0.05 0.075 256.91)",
+   "font-family": "system-ui, \"Segoe UI\", roboto, \"Noto Sans\", oxygen, ubuntu, cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+   "font-size": "15.2px",
+   "font-weight": "400",
+   "height": "1px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "input",
+   "tag": "input",
+   "text": ""
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(254, 254, 254)",
+   "border-radius": "10px",
+   "box-shadow": "none",
+   "cls": "jenkins-button jenkins-button--primary",
+   "color": "rgb(254, 254, 254)",
+   "font-family": "system-ui, \"Segoe UI\", roboto, \"Noto Sans\", oxygen, ubuntu, cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+   "font-size": "15.2px",
+   "font-weight": "400",
+   "height": "47.7812px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "14.4px 16px",
+   "sel": "[class*=\"button\"]",
+   "tag": "button",
+   "text": "Sign in"
+  }
+ ],
+ "title": "Sign in - Jenkins",
+ "url": "http://192.168.12.167:8082/login",
+ "viewport": {
+  "h": 622,
+  "w": 1416
+ }
+}

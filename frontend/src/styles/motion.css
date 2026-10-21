@@ -1,0 +1,382 @@
+/* ============================================================
+   swan-map-web 动效模式层 0.3.0（DesignSystem）
+   原则：所有视觉值只引用 tokens.css 变量（一致性硬判据）；
+         keyframes 集中定义，组件类只组合不造值。
+   素材来源：React Bits（glow/glass）· Aceternity（spotlight/reveal）
+             · Uiverse（progress/stepper/shimmer）· anime.js（JS 侧）
+   ============================================================ */
+
+/* ---- 字体：Inter variable（拉丁+数字，48KB 本地自包含；中文回落系统雅黑）---- */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-var.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+body, button, input, select { font-family: "Inter", "Segoe UI", "Microsoft YaHei", system-ui, sans-serif; }
+
+/* ---- 全站卡片聚光（由 App 级 mousemove 驱动 --mx/--my；与 KPI 磁贴同一效果，全站统一）---- */
+.card { position: relative; }
+.card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border-radius: inherit;
+  background: var(--spot-glow);
+  opacity: 0; transition: opacity var(--tr);
+}
+.card:hover::after { opacity: 1; }
+
+/* ---- 主题切换过场（View Transitions「景深对焦」：旧景模糊淡出，新景从模糊中对焦）---- */
+@keyframes vt-blur-out { to { opacity: 0; filter: blur(16px) saturate(.8); transform: scale(.988); } }
+@keyframes vt-blur-in { from { opacity: 0; filter: blur(16px) saturate(.8); transform: scale(1.014); } }
+::view-transition-old(root) { animation: vt-blur-out 360ms cubic-bezier(.4, 0, .2, 1) both; }
+::view-transition-new(root) { animation: vt-blur-in 440ms cubic-bezier(.16, 1, .3, 1) both; }
+
+/* ---- SmartImage 三态框（加载骨架/损坏/空统一占位，全站图片标准容器）---- */
+.ds-imgframe {
+  position: relative; width: 100%; overflow: hidden;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel-2) 60%, transparent);
+}
+.ds-imgframe-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity var(--tr); }
+.ds-imgframe-empty {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  color: var(--muted); font-size: var(--fs-sm); text-align: center; padding: var(--sp-3);
+}
+.ds-imgframe-error { color: var(--danger); opacity: .85; }
+.ds-imgframe-file { font-family: var(--mono); font-size: var(--fs-xs); opacity: .7; word-break: break-all; }
+
+/* ---- chip 网格（治按钮 wrap 长短不齐：等宽网格强制对齐）---- */
+.ds-chipgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
+.ds-chipgrid .btn { justify-content: center; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- 滚动条（近隐形：默认 7% 透明悬浮细条，hover 才到 20%；轨道全透明不占视觉）---- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+  border-radius: 99px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+:hover::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text) 20%, transparent);
+  background-clip: content-box;
+}
+::-webkit-scrollbar-corner { background: transparent; }
+* { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--text) 10%, transparent) transparent; }
+
+/* ---- 液态玻璃（MotionSites「Slate」提示词原版整套吸收：内高光 + mask xor 渐变描边）---- */
+.ds-liquid {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.ds-liquid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---- 氛围底（Slate 视频背景的 CSS 降级版：环境光双层 + 基底深化 + 噪点；
+       预留 <img class="ds-atmo-media"> 槽位，AI 生成图到位后叠加即可）---- */
+.ds-atmo {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 460px at 72% -12%, #1e2b4580, transparent 62%),
+    radial-gradient(880px 400px at 8% 112%, #818cf80f, transparent 60%),
+    linear-gradient(180deg, #0b1120 0%, var(--bg) 46%, var(--bg) 100%);
+}
+.ds-atmo::after { /* 微噪点：压平渐变条带感 */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+.ds-atmo-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .85; animation: ds-kenburns 34s ease-in-out infinite alternate; }
+@keyframes ds-kenburns { from { transform: scale(1); } to { transform: scale(1.05); } }
+/* 双主题双图：暗图随暗色、亮图随亮色（显式选择 + 系统偏好两条路） */
+.ds-atmo-media-light { display: none; }
+:root[data-theme="light"] .ds-atmo-media-light { display: block; }
+:root[data-theme="light"] .ds-atmo-media-dark { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]):not([data-theme="light"]) .ds-atmo-media-light { display: block; }
+  :root:not([data-theme="dark"]):not([data-theme="light"]) .ds-atmo-media-dark { display: none; }
+}
+/* 尊重低动效偏好：关呼吸 */
+@media (prefers-reduced-motion: reduce) { .ds-atmo-media { animation: none; } }
+/* 亮色氛围：浅底冷灰环境光（Slate 白盒审美），噪点降半 */
+:root[data-theme="light"] .ds-atmo {
+  background:
+    radial-gradient(1100px 460px at 72% -12%, #dbe6f5c9, transparent 62%),
+    radial-gradient(880px 400px at 8% 112%, #e8ecf499, transparent 60%),
+    linear-gradient(180deg, #eef2f8 0%, var(--bg) 46%, var(--bg) 100%);
+}
+:root[data-theme="light"] .ds-atmo::after { opacity: .025; }
+:root[data-theme="light"] .ds-atmo-media { opacity: .5; mix-blend-mode: multiply; }
+
+/* ---- Hero 排版（Slate 式：超细字重大标题 + 负字距 + 柔和投影）---- */
+.ds-hero-title {
+  font-weight: 200;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  color: var(--text-strong);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+.ds-hero-sub { color: var(--muted); }
+:root[data-theme="light"] .ds-hero-title { text-shadow: none; }
+/* 亮色毛玻璃：磨砂白（Slate 暗色版玻璃在浅底不可见，换高白底+同款描边）*/
+:root[data-theme="light"] .ds-liquid { background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 10px #0f172a0d; }
+:root[data-theme="light"] .ds-liquid::before { background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.35) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.35) 80%, rgba(255,255,255,0.9) 100%); }
+
+/* ---- 逐字入场（Slate SplitText 模式，anime.js 实现；.ds-split-char 由组件生成）---- */
+.ds-split-char { display: inline-block; will-change: transform, opacity; }
+
+/* ---- 全局背景层（Slate「video stays behind type and interface chrome」的正确实现：
+       AI 背景图 + 氛围光 + 噪点 fixed 垫在整页之下，所有毛玻璃面板透出它）---- */
+.ds-global-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ds-global-bg::before { /* 氛围光衬底：图之下的渐变保证极端情况下不裸底 */
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(1200px 520px at 74% -14%, #2331525c, transparent 62%),
+    radial-gradient(900px 420px at 6% 114%, #818cf810, transparent 60%),
+    var(--bg);
+}
+:root[data-theme="light"] .ds-global-bg::before {
+  background:
+    radial-gradient(1200px 520px at 74% -14%, #d7e3f4b8, transparent 62%),
+    radial-gradient(900px 420px at 6% 114%, #e6ebf48c, transparent 60%),
+    var(--bg);
+}
+.ds-global-bg .ds-atmo-media { opacity: .8; }
+:root[data-theme="light"] .ds-global-bg .ds-atmo-media { opacity: .85; }
+.ds-global-bg::after { /* 全局微噪点 */
+  content: ""; position: absolute; inset: 0; opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* ---- 完成度条填充入场（全站完成度条统一动效）---- */
+@keyframes ds-rank-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---- keyframes ---- */
+@keyframes ds-shimmer {          /* 骨架屏微光（Uiverse 模式） */
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+@keyframes ds-glow-spin {        /* conic 旋转光边（React Bits 模式） */
+  to { transform: rotate(1turn); }
+}
+@keyframes ds-striping {         /* 不定进度条流条（Uiverse 模式） */
+  from { background-position: 0 0; }
+  to   { background-position: 28px 0; }
+}
+@keyframes ds-pulse-dot {        /* 活动态圆点呼吸 */
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: .55; transform: scale(.82); }
+}
+
+/* ---- 滚动入场（Aceternity reveal 模式；JS 侧由 useReveal 加 .ds-revealed）---- */
+.ds-reveal { opacity: 0; transform: translateY(14px); }
+.ds-reveal.ds-revealed {
+  opacity: 1; transform: none;
+  transition: opacity var(--tr), transform var(--tr);
+}
+
+/* ---- 玻璃拟态卡片（React Bits Glass；backdrop-filter 需现代浏览器）---- */
+.ds-glass {
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+}
+.ds-glass:hover { border-color: var(--border-strong); transition: border-color var(--tr); }
+
+/* ---- 旋转光边框（React Bits Glow Border：外层旋转 conic + 内层实底遮出 1px 光圈）---- */
+.ds-glow { position: relative; padding: 1px; border-radius: var(--radius-lg); }
+.ds-glow::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: conic-gradient(from 0deg, transparent 0%, var(--accent) 12%, transparent 26%, transparent 55%, var(--accent-2) 66%, transparent 80%);
+  animation: ds-glow-spin 4.5s linear infinite;
+}
+.ds-glow > .ds-glow-inner {
+  position: relative; border-radius: calc(var(--radius-lg) - 1px);
+  background: var(--panel); height: 100%;
+}
+.ds-glow[data-static]::before { animation: none; }
+
+/* ---- Spotlight 聚光卡（Aceternity：--mx/--my 由 JS 写入，radial 跟随）---- */
+.ds-spotlight { position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.ds-spotlight::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: var(--spot-glow);
+  opacity: 0; transition: opacity var(--tr);
+}
+.ds-spotlight:hover::after { opacity: 1; }
+.ds-spotlight:hover { border-color: var(--border-strong); transition: border-color var(--tr); }
+
+/* ---- 进度条（Uiverse 模式：确定性填充 + 可选流条）---- */
+.ds-progress { height: 8px; border-radius: 99px; background: var(--panel-3); overflow: hidden; }
+.ds-progress > .ds-progress-fill {
+  height: 100%; border-radius: inherit;
+  background: var(--grad-data);
+  transition: width 600ms ease;
+}
+.ds-progress[data-indeterminate] > .ds-progress-fill {
+  width: 38% !important;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 40%, var(--accent-2) 60%, transparent 100%), var(--panel-3);
+  background-size: 28px 100%, 100% 100%;
+  background-repeat: repeat-x;
+  animation: ds-striping 900ms linear infinite;
+}
+
+/* ---- Stepper 分步指示（两道门审核用；状态色走语义 token）---- */
+.ds-stepper { display: flex; align-items: center; gap: var(--sp-2); }
+.ds-stepper .ds-step { display: flex; align-items: center; gap: var(--sp-2); color: var(--muted); font-size: var(--fs-sm); }
+.ds-stepper .ds-step-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1.5px solid var(--border-strong);
+  font-size: var(--fs-xs); color: var(--muted);
+  background: var(--panel-2);
+}
+.ds-stepper .ds-step[data-state="done"] .ds-step-dot { background: var(--ok); border-color: var(--ok); color: var(--bg); }
+.ds-stepper .ds-step[data-state="active"] .ds-step-dot {
+  border-color: var(--accent); color: var(--accent);
+  animation: ds-pulse-dot 2s ease infinite;
+}
+.ds-stepper .ds-step[data-state="active"] { color: var(--text-strong); }
+.ds-stepper .ds-step-link { width: 28px; height: 1.5px; background: var(--border-strong); }
+.ds-stepper .ds-step[data-state="done"] + .ds-step .ds-step-link,
+.ds-stepper .ds-step-link[data-done] { background: var(--ok); }
+
+/* ---- 骨架屏强化（接入全局 .skeleton 之外的 shimmer 版）---- */
+.ds-skeleton {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(100deg, var(--panel-2) 40%, var(--panel-3) 50%, var(--panel-2) 60%);
+  background-size: 200% 100%;
+  animation: ds-shimmer 1.6s linear infinite;
+}
+
+/* ---- Toast 容器（入场弹性由 anime.js 驱动；此处只管布局与视觉）---- */
+.ds-toast-root { position: fixed; right: var(--sp-5); bottom: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-2); z-index: 1000; }
+.ds-toast {
+  padding: var(--sp-3) var(--sp-4); border-radius: var(--radius);
+  background: var(--panel-3); border: 1px solid var(--border-strong);
+  color: var(--text-strong); font-size: var(--fs-md);
+  box-shadow: var(--shadow-2); max-width: 360px;
+}
+.ds-toast[data-kind="ok"]    { border-left: 3px solid var(--ok); }
+.ds-toast[data-kind="warn"]  { border-left: 3px solid var(--warn); }
+.ds-toast[data-kind="error"] { border-left: 3px solid var(--danger); }
+
+/* ---- 状态分布条（segmented 分段胶囊：与进度条同语言，段间 2px 间隙，段可 hover）---- */
+.ds-dist { display: flex; gap: 2px; height: 10px; }
+.ds-dist > .ds-dist-seg {
+  border-radius: 99px; min-width: 6px;
+  transition: filter var(--tr), flex-grow var(--tr);
+  filter: saturate(1);
+}
+.ds-dist > .ds-dist-seg:hover { filter: saturate(1.4) brightness(1.15); }
+
+/* ---- 数字滚动计数（值由 CountUp 组件写文本，样式只管呈现）---- */
+.ds-countup { font-variant-numeric: tabular-nums; color: var(--text-strong); }
+
+/* ---- 页面切换（.content-inner 上由 App 控制 opacity 过渡即可，无需额外类）---- */
+
+/* ---- Workbench 控制台+画布（0.3.0 信息架构重排：左控制列 260px / 右预览画布）---- */
+.workcanvas-card { padding: 0; overflow: hidden; }
+.workcanvas { display: grid; grid-template-columns: 320px minmax(0, 1fr); min-height: 540px; }
+.wc-ctl { border-right: 1px solid var(--border); padding: var(--sp-4); overflow-y: auto; max-height: 80vh; display: flex; flex-direction: column; gap: var(--sp-4); }
+.wc-group-head { font-size: var(--fs-sm); color: var(--muted); font-weight: 600; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.wc-toggle { display: inline-flex; gap: 4px; }
+.wc-hint { font-size: var(--fs-xs); margin: 0 0 6px; }
+.wc-states { display: flex; flex-direction: column; gap: 4px; }
+.wc-states .btn { text-align: left; }
+.wc-canvas { padding: var(--sp-4); display: flex; gap: var(--sp-5); align-items: flex-start; flex-wrap: wrap; overflow-y: auto; max-height: 78vh; }
+.wc-shot-col { flex: 0 0 300px; }
+.wc-shot { position: relative; }
+.wc-shot .bounds-overlay { position: absolute; }
+.wc-detail { flex: 1; min-width: 260px; }
+.linkage-note { border-left: 3px solid var(--ok); padding: 8px 12px; margin: 10px 0; background: var(--accent-dim); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+@media (max-width: 1100px) { .workcanvas { grid-template-columns: 1fr; } .wc-ctl { border-right: none; border-bottom: 1px solid var(--border); max-height: none; } }
+
+/* ---- 树面板折叠（0.3.0：40px 窄条释放工作区）---- */
+.left { position: relative; transition: width var(--tr); overflow: hidden; }
+.left.left-collapsed { width: 40px !important; }
+.left .tree-toggle {
+  position: absolute; top: 10px; right: 6px; z-index: 5;
+  width: 26px; height: 26px; padding: 0; line-height: 1;
+  background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--muted); cursor: pointer; font-size: 13px;
+}
+.left .tree-toggle:hover { color: var(--accent); border-color: var(--accent); }
+.left .tree-body { min-width: 300px; }
+.left.left-collapsed .tree-body { opacity: 0; pointer-events: none; }
+
+/* ---- 图谱工具条与详情浮卡（0.3.0 d3-force 重做）---- */
+.graph-tools { position: absolute; top: 12px; left: 12px; display: flex; gap: 8px; align-items: center; z-index: 6; }
+.graph-detail { z-index: 6; }
+.graph-tools .seg { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.graph-tools .seg .btn { border: none; border-radius: 0; }
+.graph-detail { position: absolute; top: 48px; right: 14px; width: 300px; padding: 14px 16px; }
+
+/* ---- 代码社区 treemap（0.3.0：空间填充治密恐——面积=规模，无连线无飘动）---- */
+.comm-treemap { position: absolute; inset: 0; }
+.comm-cell {
+  position: absolute; border: 1px solid; border-radius: var(--radius-sm);
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end;
+  padding: 8px 10px; cursor: pointer; overflow: hidden; text-align: left;
+  opacity: 0; animation: ds-reveal-in .5s cubic-bezier(.16,1,.3,1) forwards;
+  transition: filter var(--tr), transform var(--tr);
+}
+.comm-cell:hover { filter: brightness(1.25); transform: scale(1.012); z-index: 2; }
+.comm-cell.adjacent { filter: brightness(1.18); border-color: var(--accent) !important; z-index: 1; }
+.comm-cell.faded { opacity: .35 !important; }
+.comm-cell-label { font-size: var(--fs-sm); color: var(--text-strong); font-weight: 600; text-shadow: 0 1px 4px #0006; word-break: break-all; }
+.comm-cell-size { font-size: var(--fs-xs); color: var(--muted); }
+@keyframes ds-reveal-in { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+
+/* ---- 用例人审队列行与弹层（T6）---- */
+.queue-row { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: var(--radius-sm);
+  border: 1px solid transparent; cursor: pointer; transition: background var(--tr-fast), border-color var(--tr-fast); }
+.queue-row:hover { background: var(--accent-dim); }
+.queue-row.selected { background: var(--accent-dim); border-color: var(--accent); }
+.modal-mask { position: fixed; inset: 0; background: var(--overlay); display: grid; place-items: center; z-index: 50; }
+.modal-body { width: min(560px, 92vw); margin: 0; }
+
+/* ---- 用例队列卡片（DEMO 卡片流：三行分层，杜绝单行挤压）---- */
+.queue-card { padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius);
+  margin-bottom: 8px; cursor: pointer; background: color-mix(in srgb, var(--panel-2) 45%, transparent);
+  transition: border-color var(--tr-fast), background var(--tr-fast); }
+.queue-card:hover { border-color: var(--border-strong); }
+.queue-card.selected { border-color: var(--accent); background: var(--accent-dim); }
+.qc-top { display: flex; align-items: center; gap: 8px; }
+.qc-title { font-size: var(--fs-md); color: var(--text-strong); margin: 6px 0 4px; line-height: 1.45; }
+.qc-meta { font-size: var(--fs-xs); color: var(--muted); line-height: 1.5; }
+
+/* ---- 两道门审阅内容（DEMO 结构化字段块/步骤表/审核要点）---- */
+.gate-fields { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 18px; margin: 8px 0; }
+.gate-field span { display: block; font-size: var(--fs-xs); color: var(--muted); }
+.gate-field b { font-size: var(--fs-sm); color: var(--text-strong); word-break: break-all; }
+.gate-steps { width: 100%; min-width: 720px; border-collapse: collapse; font-size: var(--fs-sm); }
+.gate-steps th { text-align: left; font-size: var(--fs-xs); color: var(--muted); font-weight: 600; padding: 6px 10px; border-bottom: 1px solid var(--border); }
+.gate-steps td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.gate-checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.gate-check b { font-size: var(--fs-sm); display: block; margin-bottom: 3px; }
+@media (max-width: 1100px) { .gate-checks { grid-template-columns: 1fr; } }

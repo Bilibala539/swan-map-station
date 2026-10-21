@@ -1,0 +1,379 @@
+{
+ "page_height": 1950,
+ "palette": [
+  {
+   "count": 170,
+   "prop_color": "color rgb(34, 34, 34)"
+  },
+  {
+   "count": 164,
+   "prop_color": "border-top-color rgb(34, 34, 34)"
+  },
+  {
+   "count": 69,
+   "prop_color": "color rgb(217, 217, 217)"
+  },
+  {
+   "count": 69,
+   "prop_color": "border-top-color rgb(217, 217, 217)"
+  },
+  {
+   "count": 31,
+   "prop_color": "color rgb(255, 255, 255)"
+  },
+  {
+   "count": 31,
+   "prop_color": "border-top-color rgb(255, 255, 255)"
+  },
+  {
+   "count": 29,
+   "prop_color": "color rgb(0, 0, 0)"
+  },
+  {
+   "count": 29,
+   "prop_color": "border-top-color rgb(0, 0, 0)"
+  },
+  {
+   "count": 12,
+   "prop_color": "color rgb(102, 102, 102)"
+  },
+  {
+   "count": 12,
+   "prop_color": "border-top-color rgb(102, 102, 102)"
+  },
+  {
+   "count": 4,
+   "prop_color": "background-color rgb(170, 170, 170)"
+  },
+  {
+   "count": 3,
+   "prop_color": "border-top-color rgb(209, 209, 209)"
+  },
+  {
+   "count": 3,
+   "prop_color": "background-color rgb(255, 255, 255)"
+  },
+  {
+   "count": 3,
+   "prop_color": "border-top-color rgb(204, 204, 204)"
+  },
+  {
+   "count": 3,
+   "prop_color": "background-color rgb(119, 119, 119)"
+  },
+  {
+   "count": 2,
+   "prop_color": "background-color rgb(35, 43, 47)"
+  },
+  {
+   "count": 2,
+   "prop_color": "color rgb(114, 169, 188)"
+  },
+  {
+   "count": 2,
+   "prop_color": "border-top-color rgb(114, 169, 188)"
+  },
+  {
+   "count": 1,
+   "prop_color": "background-color rgb(246, 246, 246)"
+  },
+  {
+   "count": 1,
+   "prop_color": "color rgb(68, 68, 68)"
+  },
+  {
+   "count": 1,
+   "prop_color": "border-top-color rgb(68, 68, 68)"
+  },
+  {
+   "count": 1,
+   "prop_color": "background-color rgb(29, 161, 242)"
+  },
+  {
+   "count": 1,
+   "prop_color": "background-color rgb(28, 135, 189)"
+  },
+  {
+   "count": 1,
+   "prop_color": "background-color rgb(59, 89, 152)"
+  },
+  {
+   "count": 1,
+   "prop_color": "background-color rgb(117, 117, 117)"
+  }
+ ],
+ "sample": [
+  {
+   "background-color": "rgb(246, 246, 246)",
+   "border": "0px none rgb(34, 34, 34)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "home",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "16px",
+   "font-weight": "100",
+   "height": "1950.03px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "body",
+   "tag": "body",
+   "text": "Diawi\n    \n\n        \n                   "
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(34, 34, 34)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "32px",
+   "font-weight": "700",
+   "height": "51px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "24px 0px",
+   "padding": "0px",
+   "sel": "h1",
+   "tag": "h1",
+   "text": "Diawi"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(34, 34, 34)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "30px",
+   "font-weight": "100",
+   "height": "34px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "14px 0px",
+   "padding": "0px",
+   "sel": "h2",
+   "tag": "h2",
+   "text": "Development & In-house Apps Wireless Ins"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(34, 34, 34)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "24px",
+   "font-weight": "100",
+   "height": "28px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "12px 0px",
+   "padding": "0px",
+   "sel": "h3",
+   "tag": "h3",
+   "text": "Upload your app"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(217, 217, 217)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(217, 217, 217)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "24px",
+   "font-weight": "100",
+   "height": "28px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "14px 0px 16px",
+   "padding": "0px",
+   "sel": "h3",
+   "tag": "h3",
+   "text": "Twitter"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(34, 34, 34)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "32px",
+   "font-weight": "700",
+   "height": "51px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "a",
+   "tag": "a",
+   "text": "Diawi"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(114, 169, 188)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(114, 169, 188)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "14px",
+   "font-weight": "100",
+   "height": "auto",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "a",
+   "tag": "a",
+   "text": "Log in"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(255, 255, 255)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(255, 255, 255)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "16px",
+   "font-weight": "100",
+   "height": "auto",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "a",
+   "tag": "a",
+   "text": ""
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(34, 34, 34)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "14px",
+   "font-weight": "100",
+   "height": "13px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "4px 0px 0px",
+   "padding": "0px",
+   "sel": "input",
+   "tag": "input",
+   "text": ""
+  },
+  {
+   "background-color": "rgb(255, 255, 255)",
+   "border": "1px solid rgb(204, 204, 204)",
+   "border-radius": "3px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "14px",
+   "font-weight": "100",
+   "height": "auto",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "6px",
+   "sel": "input",
+   "tag": "input",
+   "text": ""
+  },
+  {
+   "background-color": "rgb(82, 137, 156)",
+   "border": "0px none rgb(255, 255, 255)",
+   "border-radius": "3px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(255, 255, 255)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "16px",
+   "font-weight": "100",
+   "height": "40px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "11px 0px",
+   "sel": "input",
+   "tag": "input",
+   "text": ""
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(255, 255, 255)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "menu-button",
+   "color": "rgb(255, 255, 255)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "16px",
+   "font-weight": "100",
+   "height": "auto",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "[class*=\"button\"]",
+   "tag": "a",
+   "text": ""
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(34, 34, 34)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "badges-container",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "16px",
+   "font-weight": "100",
+   "height": "0px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "[class*=\"badge\"]",
+   "tag": "div",
+   "text": ""
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(34, 34, 34)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "form-row checkbox",
+   "color": "rgb(34, 34, 34)",
+   "font-family": "\"Helvetica Light\", Helvetica, Arial, sans-serif",
+   "font-size": "14px",
+   "font-weight": "100",
+   "height": "16px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "10px",
+   "padding": "0px",
+   "sel": "[class*=\"row\"]",
+   "tag": "div",
+   "text": "Allow your testers to find the app on Di"
+  }
+ ],
+ "title": "Upload your App - Diawi - Development and In-house Apps Wireless Installation",
+ "url": "https://www.diawi.com/",
+ "viewport": {
+  "h": 1811,
+  "w": 1416
+ }
+}

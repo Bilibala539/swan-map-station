@@ -1,0 +1,7 @@
+{"actor": "审核员", "action": "gate-view", "caseId": "AUTH-001", "detail": "门一审阅", "time": "2026-09-29T09:50:52"}
+{"actor": "审核员", "action": "gate-view", "caseId": "AUTH-001", "detail": "门二审阅", "time": "2026-09-29T09:50:52"}
+{"actor": "审核员", "action": "approve", "caseId": "AUTH-001", "detail": "两道门均已通过，已入库", "time": "2026-09-29T09:50:52"}
+{"actor": "审核员", "action": "reject", "caseId": "TS-001", "detail": "驳回（定义错误）；批量驳回测试备注需要十个字以上", "time": "2026-09-29T09:50:53"}
+{"actor": "审核员", "action": "reject", "caseId": "TS-002", "detail": "驳回（定义错误）；批量驳回测试备注需要十个字以上", "time": "2026-09-29T09:50:53"}
+{"actor": "审核员", "action": "reject", "caseId": "TS-003", "detail": "驳回（定义错误）；批量驳回测试备注需要十个字以上", "time": "2026-09-29T09:50:53"}
+{"actor": "用例审核员 · 登录与设备域", "action": "gate-view", "caseId": "AUTH-001", "detail": "门一审阅", "time": "2026-09-29T09:57:52"}

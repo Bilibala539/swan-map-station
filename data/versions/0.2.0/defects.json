@@ -1,0 +1,45 @@
+{
+ "bugs": [
+  {
+   "id": "SWAN-BUG-20260910-001",
+   "file": "BUG报告-SWAN-BUG-20260910-001-weibo-login-crash.md",
+   "classification": "`crash`（致命候选，未定级未提单）",
+   "module": "`com.swan.network` 登录页 / 第三方登录（微博）",
+   "phenomenon": "登录页点击微博第三方登录按钮，进程立即崩溃退桌面。崩溃链：`SwanThirdPartyLoginPlugin.startWeiboAuthorization:119 → UMShareAPI → 新浪微博 SDK WeiboSsoSdk 类初始化 → System.loadLibrary`，`UnsatisfiedLinkError: dlopen failed: library \"libwind.so\" not found`。库缺失类，疑似 100% 复现。",
+   "evidence": "`results\\SWAN-20260910-001-feature-boundary\\executor\\evidence\\crash-weibo-fatal-stack.txt`（完整栈）+ dropbox `data_app_crash` 归档 + `states-matrix.md` §12（U6 轻量复核单元）",
+   "conclusion": "证据齐备的致命候选。待 qa-reporter 定级、主对话复核后方可经禅道提单。"
+  },
+  {
+   "id": "SWAN-BUG-20260910-002",
+   "file": "BUG报告-SWAN-BUG-20260910-002-password-no-validation-anr.md",
+   "classification": "`anr + validation-missing`（高危候选，未定级未提单）",
+   "module": "`com.swan.network` 登录页 / 密码登入模式",
+   "phenomenon": "密码框无前端长度校验——6 位 \"123456\"（占位假值）即点亮登录键；点击后主线程 ANR 循环（FocusEvent 5s 超时，dropbox ErrorId 57f0fd98），\"等待\"无法恢复，仅 force-stop 可退出。对照：验证码模式手机号框同样只校验位数≥11 不校验号段（非法号段点击→行内红字 `login_error_text`，不发码）。",
+   "evidence": "`results\\SWAN-20260910-001-feature-boundary\\executor\\states-matrix.md` §11-12 + progress.md 片 2 段 + dropbox ANR trace（ErrorId 57f0fd98）",
+   "conclusion": "证据齐备的高危候选。执行从已按探索边界终止深试。"
+  }
+ ],
+ "oItems": [
+  "O-12 协议 4 入口同指未部署 URL network.hivi.com/privacy（渲染空白，/terms 404 佐证使用政策无独立页）",
+  "O-23 搜索返回栈无根防护（搜索→首页→back 直接退出 App）",
+  "O-16 设备页 WIFI 空态占位文案误用音乐域（\"暂无歌曲/暂无艺术家\"）",
+  "O-8 完整手机号明文展示 3 处（验证码页/我的页/person_info）",
+  "O-7 发码点击后 t+3s 无任何反馈、t+60s 已跳转（无 loading）",
+  "O-15 未授权行体无响应（引导仅 + 钮触发）；O-13/O-14 平台详情模板与引导样式非统一（自动化锚点须按平台分维护）",
+  "O-20 常见问题 EN 语言切换（i18n 新维度非缺陷）；O-19 可适配音箱型号远程内容加载慢；O-3 手机号框聚焦键盘未渲染；O-24 结果懒加载+∨ 折叠"
+ ],
+ "boundaryNotes": [
+  "**UI 无挂载**：设置/切服/平台通道在本基线无 UI 入口（全量 dump 检索仅命中\"音质设置\"），判归代码路由层——相关测试需先由考古线核对挂载关系",
+  "**需真机人工 checklist**：播放类验证（电台行体点击=自动播放实证 P-9-1，播放类 UI 一律禁点）、蓝牙/音频客观指标",
+  "**模拟器环境限制（非缺陷）**：扫一扫相机预览（虚拟相机无视频流）、推送（Port 为 no-op 空实现）",
+  "**危险区**（探索禁点，测试时需专卡）：注销账号/退出登入按钮、切服/平台通道、取消授权 − 钮、软件升级（检查更新）、账号绑定管理",
+  "**模拟器待裁决项**：检查更新点击、账号绑定管理、用户反馈新建表单（写操作）、消费明细页（财务）"
+ ],
+ "deepPending": [
+  "M06-F32 全域 （行为级深考古仍在待测绘清单）",
+  "M09-F73 AI 网关与仓库 [保持未考古]（原因：流式协议与仓库层属行为级深考古，本轮只确认锚点存在）",
+  "M09-F74 AI 音乐/文本音频联动 [保持未考古]（原因：同上，协调器行为未深读）",
+  "M10-F81 Vision 数据层 [保持未考古]（原因：repositories/models 目录级确认，未逐文件）",
+  "M11-F88 固件升级 [保持未考古]（原因：升级全链路（协调器/进度/保护存储/门控）为待测绘清单明确排除项）"
+ ]
+}

@@ -1,0 +1,416 @@
+import { useEffect, useRef, useState } from "react";
+import type { MapData } from "../types";
+import { loadNav, loadGraphify, loadVaultGraph } from "../api";
+import type { NavData, GraphifyCommunityData, CommNode, VaultNode, VaultGraphData } from "../api";
+import {
+  forceSimulation, forceLink, forceManyBody, forceCollide, forceCenter, type Simulation,
+} from "d3-force";
+import { treemap, treemapSquarify, hierarchy } from "d3-hierarchy";
+
+interface Props {
+  map: MapData;
+  gotoFeature: (id: string) => void;
+  gotoNavPage: (matrixPage: string) => void;
+  selectModule: (id: string) => void;
+}
+
+/** 0.3.0 图谱重做（d3-force 物理 + focus+context 交互）：
+ *  物理引擎：d3-force（多体斥力+弹簧+防重叠碰撞+alpha 冷却）——治手写物理「乱飞」；
+ *  节点形态：模块=圆角方块（label 内嵌 chrome 感）；功能点=圆；语义色（绿=有采证 灰=未采证 红=死路由）；
+ *  交互：hover 高亮邻居+连通边、其余淡出；拖节点/拖背景平移/滚轮缩放；点击跳转。
+ *  三模式保留：默认模块级 / ?mode=nav 导航图 / ?mode=comm 社区图（745 节点预热静态布局）。 */
+interface GNode {
+  id: string; label: string; kind: "module" | "feature" | "page" | "comm" | "vault";
+  r: number; x?: number; y?: number; vx?: number; vy?: number; fx?: number | null; fy?: number | null;
+  index?: number; color: string; dead?: boolean; data?: unknown;
+}
+interface GLink { source: string | GNode; target: string | GNode; kind: string; label?: string; note?: string }
+
+export default function GraphView({ map, gotoFeature, gotoNavPage, selectModule }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [showFeatures, setShowFeatures] = useState(false);
+  const [navMode, setNavMode] = useState(() => new URLSearchParams(location.search).get("mode") === "nav");
+  const [commMode, setCommMode] = useState(() => new URLSearchParams(location.search).get("mode") === "comm");
+  const [nav, setNav] = useState<NavData | null>(null);
+  const [graphify, setGraphify] = useState<GraphifyCommunityData | null>(null);
+  const [commDetail, setCommDetail] = useState<CommNode | null>(null);
+  const [vaultMode, setVaultMode] = useState(() => new URLSearchParams(location.search).get("mode") === "vault");
+  const [vaultGraph, setVaultGraph] = useState<VaultGraphData | null>(null);
+  const [vaultDetail, setVaultDetail] = useState<VaultNode | null>(null);
+  const [commAll, setCommAll] = useState(false); // 密恐治理：默认 top60 社区，可展开全部
+  const [hoverComm, setHoverComm] = useState<string | null>(null); // treemap 邻接高亮：hover 社区→有边关系的亮、其余暗
+  const cbRef = useRef({ gotoFeature, gotoNavPage, selectModule, setCommDetail, setVaultDetail });
+  cbRef.current = { gotoFeature, gotoNavPage, selectModule, setCommDetail, setVaultDetail };
+  useEffect(() => {
+    loadNav().then(setNav).catch(() => {});
+    loadGraphify().then(setGraphify).catch(() => {});
+    loadVaultGraph().then(setVaultGraph).catch(() => {});
+  }, []);
+  useEffect(() => {
+    loadNav().then(setNav).catch(() => {});
+    loadGraphify().then(setGraphify).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (vaultMode && !vaultGraph) return;
+    if (commMode) return; // 社区图走 treemap（div 渲染，见下方 JSX），不进 canvas 力导向
+    if (!nav) return; // 模块跳转边与导航边都来自 nav
+    const nv = nav as NavData;
+    const canvas = canvasRef.current!;
+    const wrap = wrapRef.current!;
+    const ctx = canvas.getContext("2d")!;
+    let W = 0, H = 0, dpr = 1;
+    const resize = () => {
+      dpr = window.devicePixelRatio || 1;
+      W = wrap.clientWidth; H = wrap.clientHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = `${W}px`; canvas.style.height = `${H}px`;
+      draw();
+      fitView(); // 尺寸就绪即适配（comm 静态图无 tick，这是唯一触发点）
+    };
+
+    const css = getComputedStyle(document.documentElement);
+    const ACCENT = css.getPropertyValue("--accent").trim() || "#818cf8";
+    const OK = css.getPropertyValue("--ok").trim() || "#34d399";
+    const MUTED = css.getPropertyValue("--muted").trim() || "#8b98ab";
+    const WARN = css.getPropertyValue("--warn").trim() || "#fbbf24";
+    const DANGER = css.getPropertyValue("--danger").trim() || "#f87171";
+    const INK = css.getPropertyValue("--text").trim() || "#e2e8f0";
+
+    const nodes: GNode[] = [];
+    const links: GLink[] = [];
+    if (vaultMode && vaultGraph) {
+      // S5+：知识图谱（中心机快照 vault 的 wikilink 网络，Obsidian 同款形态）
+      const groupColor: Record<string, string> = { "页面": ACCENT, "功能枢纽": OK, "流程": WARN };
+      for (const v of vaultGraph.nodes) {
+        nodes.push({
+          id: v.id, label: v.name, kind: "vault", r: Math.min(14, 4 + v.deg * 0.9),
+          color: groupColor[v.group] ?? MUTED, data: v,
+        });
+      }
+      for (const l of vaultGraph.links) {
+        links.push({ source: l.s, target: l.t, kind: "vault" }); // 悬空链接由 simLinks 过滤兜底
+      }
+    } else if (navMode) {
+      const deg = new Map<string, number>();
+      for (const e of nv.edges) {
+        deg.set(e.from, (deg.get(e.from) ?? 0) + 1);
+        deg.set(e.to, (deg.get(e.to) ?? 0) + 1);
+      }
+      for (const p of nv.pages) {
+        nodes.push({ id: p, label: p, kind: "page", r: 6 + Math.sqrt(deg.get(p) ?? 1) * 1.8, color: ACCENT });
+      }
+      for (const e of nv.edges) links.push({ source: e.from, target: e.to, kind: "nav", label: e.label, note: e.note });
+    } else {
+      for (const m of map.modules) {
+        const w = 30 + Math.min(58, m.name.length * 7);
+        nodes.push({ id: m.id, label: m.name, kind: "module", r: w / 2, color: ACCENT });
+      }
+      // 模块跳转边（导航边经 pageJoin→采证页→归属模块聚合）：默认图谱有边、有语义
+      for (const me of nv.moduleEdges ?? []) {
+        links.push({ source: me.a, target: me.b, kind: "module", label: `${me.w} 条跳转` });
+      }
+      if (showFeatures) {
+        for (const f of map.features) {
+          const color = f.deadRoute ? DANGER : (f.status.includes("已考古") ? OK : MUTED);
+          links.push({ source: f.moduleId, target: f.id, kind: "feature" });
+          nodes.push({ id: f.id, label: f.name.length > 12 ? f.name.slice(0, 11) + "…" : f.name, kind: "feature", r: 4.5, color, dead: f.deadRoute });
+        }
+      }
+    }
+
+    const nodeById = new Map(nodes.map((n) => [n.id, n]));
+    const simLinks = links.filter((l) => nodeById.has(String(l.source)) && nodeById.has(String(l.target)));
+
+    const view = { k: 1, tx: 0, ty: 0 };
+    const sim: Simulation<GNode, GLink> = forceSimulation<GNode, GLink>(nodes as GNode[])
+      .force("link", forceLink<GNode, GLink>(simLinks).id((d) => d.id).distance(vaultMode ? 46 : navMode ? 70 : showFeatures ? 26 : 110).strength(0.25))
+      .force("charge", forceManyBody<GNode>().strength(-180))
+      .force("collide", forceCollide<GNode>().radius((d: GNode) => (d.kind === "module" ? d.r + 8 : d.r + 4)).iterations(2))
+      .force("center", forceCenter<GNode>(W / 2, H / 2))
+      .alphaDecay(commMode ? 1 : 0.028);
+
+    // zoom-to-fit：布局稳定后自动适配视口居中（只做一次）
+    let fitted = false;
+    const fitView = () => {
+      if (fitted || !nodes.length || !W || !H) return;
+      let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+      for (const n of nodes) {
+        const m = n.kind === "module" ? n.r + 24 : n.r + 8;
+        x0 = Math.min(x0, n.x! - m); y0 = Math.min(y0, n.y! - m);
+        x1 = Math.max(x1, n.x! + m); y1 = Math.max(y1, n.y! + m);
+      }
+      const k = Math.min(1.35, Math.max(0.3, Math.min(W / (x1 - x0), H / (y1 - y0)) * 0.9)); // 小图适度放大填充画布，大图只缩不放
+      view.k = k; view.tx = (W - (x1 - x0) * k) / 2 - x0 * k; view.ty = (H - (y1 - y0) * k) / 2 - y0 * k;
+      fitted = true; draw();
+    };
+
+    // ── 交互态（view 已前移声明供 fitView 使用）──
+    let hover: GNode | null = null;
+    let dragNode: GNode | null = null;
+    let panning = false;
+    let lastPx = 0, lastPy = 0;
+    const neighbors = new Map<string, Set<string>>();
+    for (const l of simLinks) {
+      const s = String(l.source), t = String(l.target);
+      if (!neighbors.has(s)) neighbors.set(s, new Set());
+      if (!neighbors.has(t)) neighbors.set(t, new Set());
+      neighbors.get(s)!.add(t); neighbors.get(t)!.add(s);
+    }
+
+    const rr = (x: number, y: number, w: number, h: number, r: number) => {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+    };
+
+    const draw = () => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      ctx.translate(view.tx, view.ty); ctx.scale(view.k, view.k);
+      const related = (n: GNode) => !hover || n === hover || (neighbors.get(hover.id)?.has(n.id) ?? false);
+      // 边
+      for (const l of simLinks) {
+        const s = l.source as GNode, t = l.target as GNode;
+        const hot = hover && (s === hover || t === hover);
+        ctx.globalAlpha = hover ? (hot ? 0.9 : 0.12) : l.kind === "feature" ? 0.22 : 0.3;
+        ctx.strokeStyle = hot ? ACCENT : INK;
+        ctx.lineWidth = hot ? 1.6 : 1;
+        ctx.beginPath(); ctx.moveTo(s.x!, s.y!); ctx.lineTo(t.x!, t.y!); ctx.stroke();
+      }
+      // 节点
+      ctx.font = `${11}px Inter, "Microsoft YaHei", sans-serif`;
+      for (const n of nodes) {
+        const rel = related(n);
+        ctx.globalAlpha = rel ? 1 : 0.28;
+        if (n.kind === "module") {
+          const w = n.r * 2, h = 40, x = n.x! - w / 2, y = n.y! - h / 2;
+          rr(x, y, w, h, 10);
+          ctx.fillStyle = n.color + "2e"; ctx.fill();
+          ctx.strokeStyle = n === hover ? INK : n.color; ctx.lineWidth = n === hover ? 2 : 1.2; ctx.stroke();
+          ctx.fillStyle = INK; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+          ctx.fillText(n.label.slice(0, 8), n.x!, n.y! - 6);
+          ctx.fillStyle = MUTED; ctx.font = "10px Inter, sans-serif";
+          ctx.fillText(commMode ? `${(n.data as CommNode | undefined)?.size ?? 0} 文件` : `${n.id}`, n.x!, n.y! + 9);
+          ctx.font = `${11}px Inter, "Microsoft YaHei", sans-serif`;
+        } else {
+          ctx.beginPath(); ctx.arc(n.x!, n.y!, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = n.color; ctx.fill();
+          if (n.kind === "vault") { // 知识图谱：常驻标签（Obsidian 形态）
+            ctx.fillStyle = INK; ctx.textAlign = "left"; ctx.font = "10px Inter, 'Microsoft YaHei', sans-serif";
+            ctx.fillText(n.label.slice(0, 14), n.x! + n.r + 4, n.y! + 3);
+            ctx.font = `${11}px Inter, "Microsoft YaHei", sans-serif`;
+            ctx.textAlign = "center";
+          }
+          if (n === hover || n.dead) { ctx.strokeStyle = n.dead ? DANGER : INK; ctx.lineWidth = 1.5; ctx.stroke(); }
+          if (n === hover) { // hover 光晕
+            ctx.beginPath(); ctx.arc(n.x!, n.y!, n.r + 5, 0, Math.PI * 2);
+            ctx.strokeStyle = ACCENT + "88"; ctx.lineWidth = 2; ctx.stroke();
+          }
+          if (n === hover) { // hover 悬浮卡：名称 + 关联跳转说明（恢复 R8.7 丢失的边标签）
+            const outs = simLinks.filter((l) => l.source === n).slice(0, 4) as { label?: string; target: GNode }[];
+            const lines = [n.label.slice(0, 18)];
+            for (const o of outs) lines.push(`→ ${(o.target as GNode).label.slice(0, 12)}${o.label ? " (" + o.label.slice(0, 10) + ")" : ""}`);
+            ctx.font = "11px Inter, 'Microsoft YaHei', sans-serif";
+            const tw = Math.max(...lines.map((t) => ctx.measureText(t).width)) + 18;
+            const th = lines.length * 16 + 10;
+            const lx = n.x! - tw / 2, ly = n.y! - n.r - th - 8;
+            rr(lx, ly, tw, th, 8); ctx.fillStyle = "#0f172aee"; ctx.fill(); ctx.strokeStyle = ACCENT + "66"; ctx.stroke();
+            ctx.textAlign = "center";
+            lines.forEach((t, i) => {
+              ctx.fillStyle = i === 0 ? INK : (i <= outs.length ? ACCENT : MUTED);
+              ctx.fillText(t, n.x!, ly + 14 + i * 16);
+            });
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    const toWorld = (px: number, py: number) => ({ x: (px - view.tx) / view.k, y: (py - view.ty) / view.k });
+    const pick = (px: number, py: number): GNode | null => {
+      const p = toWorld(px, py);
+      for (let i = nodes.length - 1; i >= 0; i--) {
+        const n = nodes[i];
+        const half = n.kind === "module" ? Math.max(n.r, 20) : n.r + 3;
+        if (Math.abs(p.x - n.x!) <= half && Math.abs(p.y - n.y!) <= (n.kind === "module" ? 20 : half)) return n;
+      }
+      return null;
+    };
+
+    const onMove = (e: MouseEvent) => {
+      const r = canvas.getBoundingClientRect();
+      const px = e.clientX - r.left, py = e.clientY - r.top;
+      if (dragNode) { const p = toWorld(px, py); dragNode.fx = p.x; dragNode.fy = p.y; sim.alpha(0.3).restart(); return; }
+      if (panning) { view.tx += px - lastPx; view.ty += py - lastPy; lastPx = px; lastPy = py; draw(); return; }
+      const hit = pick(px, py);
+      if (hit !== hover) { hover = hit; canvas.style.cursor = hit ? "pointer" : "grab"; draw(); }
+    };
+    const onDown = (e: MouseEvent) => {
+      const r = canvas.getBoundingClientRect();
+      const px = e.clientX - r.left, py = e.clientY - r.top;
+      dragNode = pick(px, py);
+      if (!dragNode) { panning = true; canvas.style.cursor = "grabbing"; }
+      lastPx = px; lastPy = py;
+    };
+    const onUp = () => {
+      if (dragNode) { dragNode.fx = null; dragNode.fy = null; sim.alpha(0.2).restart(); dragNode = null; }
+      panning = false; canvas.style.cursor = hover ? "pointer" : "grab";
+    };
+    const onClick = (e: MouseEvent) => {
+      const r = canvas.getBoundingClientRect();
+      const hit = pick(e.clientX - r.left, e.clientY - r.top);
+      if (!hit) return;
+      if (hit.kind === "feature") cbRef.current.gotoFeature(hit.id);
+      else if (hit.kind === "page") cbRef.current.gotoNavPage(hit.id);
+      else if (hit.kind === "comm") cbRef.current.setCommDetail((hit.data as CommNode) ?? null);
+      else if (hit.kind === "vault") cbRef.current.setVaultDetail(hit.data as VaultNode);
+      else cbRef.current.selectModule(hit.id);
+    };
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const r = canvas.getBoundingClientRect();
+      const px = e.clientX - r.left, py = e.clientY - r.top;
+      const k2 = Math.min(4, Math.max(0.3, view.k * (e.deltaY > 0 ? 0.9 : 1.1)));
+      view.tx = px - ((px - view.tx) / view.k) * k2;
+      view.ty = py - ((py - view.ty) / view.k) * k2;
+      view.k = k2; draw();
+    };
+
+    sim.on("tick", () => { draw(); if (sim.alpha() < 0.06) fitView(); });
+    canvas.addEventListener("mousemove", onMove);
+    canvas.addEventListener("mousedown", onDown);
+    window.addEventListener("mouseup", onUp);
+    canvas.addEventListener("click", onClick);
+    canvas.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("resize", resize);
+    resize();
+
+    return () => {
+      sim.stop();
+      canvas.removeEventListener("mousemove", onMove);
+      canvas.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mouseup", onUp);
+      canvas.removeEventListener("click", onClick);
+      canvas.removeEventListener("wheel", onWheel);
+      window.removeEventListener("resize", resize);
+    };
+  }, [map, navMode, commMode, vaultMode, showFeatures, nav, vaultGraph]);
+
+  // 社区 treemap 数据（面积=文件数，squarified；无连线无飘动——空间填充是大图的正确形式）
+  const commNodesForTree = graphify?.nodes ?? [];
+  const shownComm = commAll ? [...commNodesForTree].sort((a, b) => b.size - a.size) : [...commNodesForTree].sort((a, b) => b.size - a.size).slice(0, 60);
+  const hiddenCount = Math.max(0, commNodesForTree.length - shownComm.length);
+  const commAdj = (() => {
+    const m = new Map<string, Set<string>>();
+    for (const e of graphify?.links ?? []) {
+      if (!m.has(e.s)) m.set(e.s, new Set());
+      if (!m.has(e.t)) m.set(e.t, new Set());
+      m.get(e.s)!.add(e.t); m.get(e.t)!.add(e.s);
+    }
+    return m;
+  })();
+  const hoverAdj = hoverComm ? commAdj.get(hoverComm) : null;
+
+  return (
+    <div ref={wrapRef} style={{ flex: 1, minWidth: 0, position: "relative", height: "100%" }}>
+      {!commMode && <canvas ref={canvasRef} style={{ display: "block", width: "100%", height: "100%", cursor: "grab" }} />}
+      {commMode && graphify && (
+        <div className="comm-treemap">
+          {(() => {
+            type TDatum = { id: string; size?: number; children?: TDatum[] };
+            const rootData: TDatum = { id: "root", children: shownComm.map((c) => ({ id: c.id, size: Math.max(1, c.size) })) };
+            const root = hierarchy<TDatum>(rootData, (d) => d.children ?? [])
+              .sum((d) => d.size ?? 0)
+              .sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
+            const W = wrapRef.current?.clientWidth ?? 1000, H = wrapRef.current?.clientHeight ?? 640;
+            const laid = treemap<TDatum>()
+              .tile(treemapSquarify).size([W, H]).paddingInner(3).paddingOuter(0)(root);
+            const maxSize = shownComm[0]?.size ?? 1;
+            return laid.leaves().map((leaf, i) => {
+              const c = shownComm.find((x) => x.id === leaf.data.id)!;
+              const t = Math.min(1, Math.sqrt(c.size / maxSize));
+              return (
+                <button
+                  key={c.id}
+                  style={{
+                    left: leaf.x0, top: leaf.y0, width: leaf.x1 - leaf.x0, height: leaf.y1 - leaf.y0,
+                    background: `color-mix(in srgb, var(--accent) ${18 + t * 40}%, var(--panel-2))`,
+                    borderColor: `color-mix(in srgb, var(--accent) ${25 + t * 50}%, transparent)`,
+                    animationDelay: `${Math.min(i * 8, 400)}ms`,
+                  }}
+                  onClick={() => setCommDetail(c)}
+                  onMouseEnter={() => setHoverComm(c.id)}
+                  onMouseLeave={() => setHoverComm(null)}
+                  className={`comm-cell${hoverAdj ? (hoverComm === c.id ? "" : hoverAdj?.has(c.id) ? " adjacent" : " faded") : ""}`}
+                  title={`${c.label} · ${c.size} 文件`}
+                >
+                  {leaf.x1 - leaf.x0 > 90 && leaf.y1 - leaf.y0 > 44 ? (
+                    <>
+                      <span className="comm-cell-label">{c.label.slice(0, 22)}</span>
+                      <span className="comm-cell-size">{c.size} 文件</span>
+                    </>
+                  ) : null}
+                </button>
+              );
+            });
+          })()}
+        </div>
+      )}
+      <div className="graph-tools">
+        <div className="seg">
+          <button className={`btn ${!navMode && !commMode && !vaultMode ? "active" : ""}`} onClick={() => { setNavMode(false); setCommMode(false); setVaultMode(false); }}>模块级</button>
+          <button className={`btn ${navMode ? "active" : ""}`} onClick={() => { setCommMode(false); setVaultMode(false); setNavMode(true); }}>导航图</button>
+          <button className={`btn ${commMode ? "active" : ""}`} onClick={() => { setNavMode(false); setVaultMode(false); setCommMode(true); }}>代码社区</button>
+          <button className={`btn ${vaultMode ? "active" : ""}`} onClick={() => { setNavMode(false); setCommMode(false); setVaultMode(true); }}>知识图谱</button>
+        </div>
+        {!navMode && !commMode && !vaultMode && (
+          <button className={`btn ${showFeatures ? "active" : ""}`} onClick={() => setShowFeatures((v) => !v)} title="模块级视图下展开 141 个功能点">
+            {showFeatures ? "收起功能点" : "展开功能点"}
+          </button>
+        )}
+        {commMode && (
+          <button className={`btn ${commAll ? "active" : ""}`} onClick={() => setCommAll((v) => !v)} title="默认只显示规模最大的 60 个社区，防止过密">
+            {commAll ? "仅前 60 社区" : "展开全部社区"}
+          </button>
+        )}
+      </div>
+      {commDetail && (
+        <div className="card graph-detail">
+          <b>{commDetail.label}</b>
+          <div className="muted" style={{ fontSize: "var(--fs-sm)", margin: "6px 0" }}>
+            一个代码聚类：graphify 把调用/引用关系紧密的 {commDetail.size} 个文件划为一组。以下是其中最具代表性的文件：
+          </div>
+          {commDetail.top?.slice(0, 6).map((f) => <div key={f} className="mono" style={{ fontSize: "var(--fs-xs)" }}>{f}</div>)}
+          {commDetail.size > 6 && <div className="muted" style={{ fontSize: "var(--fs-xs)", marginTop: 4 }}>…等共 {commDetail.size} 个文件</div>}
+          <div style={{ marginTop: 8 }} className="muted">调用关联社区 {commAdj.get(commDetail.id)?.size ?? 0} 个</div>
+          <button className="btn" style={{ marginTop: 8 }} onClick={() => setCommDetail(null)}>关闭</button>
+        </div>
+      )}
+      {vaultDetail && vaultGraph && (() => {
+        const neighbors = vaultGraph.links
+          .filter((l) => l.s === vaultDetail.id || l.t === vaultDetail.id)
+          .map((l) => (l.s === vaultDetail.id ? l.t : l.s))
+          .map((id) => vaultGraph.nodes.find((n) => n.id === id)?.name ?? id);
+        return (
+          <div className="card graph-detail">
+            <b>{vaultDetail.name}</b>
+            <span className="tag tag-accent" style={{ marginLeft: 8 }}>{vaultDetail.group}</span>
+            <div className="muted" style={{ fontSize: "var(--fs-sm)", margin: "6px 0" }}>
+              {vaultDetail.deg} 条 wikilink 连接 · 来源：中心机知识库快照（{vaultDetail.rel}）
+            </div>
+            {neighbors.length > 0 && (
+              <>
+                <div style={{ fontWeight: 600, marginBottom: 4 }}>相邻节点（{neighbors.length}）</div>
+                {neighbors.slice(0, 8).map((n, i) => <div key={i} className="mono" style={{ fontSize: "var(--fs-xs)" }}>· {n}</div>)}
+                {neighbors.length > 8 && <div className="muted" style={{ fontSize: "var(--fs-xs)" }}>…等 {neighbors.length} 个</div>}
+              </>
+            )}
+            <button className="btn" style={{ marginTop: 8 }} onClick={() => setVaultDetail(null)}>关闭</button>
+          </div>
+        );
+      })()}
+    </div>
+  );
+}

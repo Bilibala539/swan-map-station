@@ -1,0 +1,2 @@
+# 平台侧仅测试需要(swand dashboard/tests);server/serve 纯标准库
+pytest>=7.4.0

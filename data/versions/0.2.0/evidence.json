@@ -1,0 +1,1989 @@
+{
+ "groups": [
+  {
+   "prefix": "about",
+   "label": "关于与升级",
+   "files": [
+    {
+     "name": "about__aboutus__opened.png",
+     "size": 159253,
+     "image": true,
+     "referencedBy": [
+      "Z030-S69"
+     ]
+    },
+    {
+     "name": "about__page__opened.png",
+     "size": 69338,
+     "image": true,
+     "referencedBy": [
+      "Z030-S133"
+     ]
+    },
+    {
+     "name": "about__privacy__chrome.png",
+     "size": 38385,
+     "image": true,
+     "referencedBy": [
+      "Z030-S68"
+     ]
+    },
+    {
+     "name": "about__terms__chrome.png",
+     "size": 37989,
+     "image": true,
+     "referencedBy": [
+      "Z030-S67"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "anr",
+   "label": "ANR 证据",
+   "files": [
+    {
+     "name": "anr-dialog-login-tap-20260910-0914.png",
+     "size": 82948,
+     "image": true,
+     "referencedBy": [
+      "Z035-S120"
+     ]
+    },
+    {
+     "name": "anr-dialog-recurrence-3rd-20260910-0652.png",
+     "size": 83724,
+     "image": true,
+     "referencedBy": []
+    },
+    {
+     "name": "anr-dialog-swan-audio-20260910-0649.png",
+     "size": 83591,
+     "image": true,
+     "referencedBy": []
+    },
+    {
+     "name": "anr-dropbox-snippet.txt",
+     "size": 0,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "anr-trace-data-app-20260910-064859.txt",
+     "size": 2591,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "anr-trace-login-tap-091332.txt",
+     "size": 196689,
+     "image": false,
+     "referencedBy": [
+      "Z035-S120"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "appshell",
+   "label": "AppShell",
+   "files": [
+    {
+     "name": "appshell__home__loaded.png",
+     "size": 672583,
+     "image": true,
+     "referencedBy": [
+      "Z015-S124",
+      "Z025-S129"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "area",
+   "label": "归属地页",
+   "files": [
+    {
+     "name": "area-p1.xml",
+     "size": 18199,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p10.xml",
+     "size": 18497,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p11.xml",
+     "size": 18147,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p12.xml",
+     "size": 18486,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p13.xml",
+     "size": 18515,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p14.xml",
+     "size": 18535,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p15.xml",
+     "size": 18536,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p16.xml",
+     "size": 18528,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p17.xml",
+     "size": 18190,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p18.xml",
+     "size": 17845,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p19.xml",
+     "size": 18179,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p2.xml",
+     "size": 18174,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p20.xml",
+     "size": 18259,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p21.xml",
+     "size": 18280,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p22.xml",
+     "size": 18225,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p23.xml",
+     "size": 18514,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p24.xml",
+     "size": 18195,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p25.xml",
+     "size": 18223,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p26.xml",
+     "size": 17870,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p27.xml",
+     "size": 10357,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p28.xml",
+     "size": 10357,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p29.xml",
+     "size": 10357,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p3.xml",
+     "size": 18514,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p30.xml",
+     "size": 10357,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p31.xml",
+     "size": 10357,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p32.xml",
+     "size": 10357,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p4.xml",
+     "size": 18522,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p5.xml",
+     "size": 18209,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p6.xml",
+     "size": 18512,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p7.xml",
+     "size": 18560,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p8.xml",
+     "size": 18216,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-p9.xml",
+     "size": 18191,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "area-rows-all.txt",
+     "size": 4931,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "area__list__after_index_drag.png",
+     "size": 138111,
+     "image": true,
+     "referencedBy": [
+      "Z034-S81"
+     ]
+    },
+    {
+     "name": "area__list__p0_top.png",
+     "size": 138357,
+     "image": true,
+     "referencedBy": [
+      "Z034-S79"
+     ]
+    },
+    {
+     "name": "area__list__z_section.png",
+     "size": 85432,
+     "image": true,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "chrome",
+   "label": "外部浏览器",
+   "files": [
+    {
+     "name": "chrome-firstrun-step2.png",
+     "size": 124675,
+     "image": true,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "codepage",
+   "label": "验证码页",
+   "files": [
+    {
+     "name": "codepage__after_submit_t3s.png",
+     "size": 45196,
+     "image": true,
+     "referencedBy": [
+      "Z014-S136"
+     ]
+    },
+    {
+     "name": "codepage__filled_7720.png",
+     "size": 45196,
+     "image": true,
+     "referencedBy": [
+      "Z014-S136"
+     ]
+    },
+    {
+     "name": "codepage__initial.png",
+     "size": 68463,
+     "image": true,
+     "referencedBy": [
+      "Z014-S49"
+     ]
+    },
+    {
+     "name": "codepage__t1.png",
+     "size": 68463,
+     "image": true,
+     "referencedBy": [
+      "Z014-S136"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "crash",
+   "label": "crash",
+   "files": [
+    {
+     "name": "crash-weibo-fatal-stack.txt",
+     "size": 4301,
+     "image": false,
+     "referencedBy": [
+      "Z012-S43"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "device",
+   "label": "设备页",
+   "files": [
+    {
+     "name": "device__add_entry__opened.png",
+     "size": 204739,
+     "image": true,
+     "referencedBy": [
+      "Z023-S60"
+     ]
+    },
+    {
+     "name": "device__add_page__after_permission.png",
+     "size": 169759,
+     "image": true,
+     "referencedBy": [
+      "Z023-S61"
+     ]
+    },
+    {
+     "name": "device__add_page__final.png",
+     "size": 248170,
+     "image": true,
+     "referencedBy": [
+      "Z023-S62"
+     ]
+    },
+    {
+     "name": "device__back_verify.png",
+     "size": 136958,
+     "image": true,
+     "referencedBy": [
+      "Z022-S137"
+     ]
+    },
+    {
+     "name": "device__page__dsp_section.png",
+     "size": 138249,
+     "image": true,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    },
+    {
+     "name": "device__page__initial.png",
+     "size": 151579,
+     "image": true,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    },
+    {
+     "name": "device__page__scrolled.png",
+     "size": 183671,
+     "image": true,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "dropbox",
+   "label": "dropbox",
+   "files": [
+    {
+     "name": "dropbox-full.txt",
+     "size": 5384205,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "dropbox-full2.txt",
+     "size": 5785248,
+     "image": false,
+     "referencedBy": []
+    }
+   ]
+  },
+  {
+   "prefix": "env",
+   "label": "环境",
+   "files": [
+    {
+     "name": "env__app_backgrounded_after_login_tap.png",
+     "size": 1238765,
+     "image": true,
+     "referencedBy": []
+    }
+   ]
+  },
+  {
+   "prefix": "feat",
+   "label": "feat",
+   "files": [
+    {
+     "name": "feat-slice1-final.mp4",
+     "size": 182586,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "feat-slice1-launch.mp4",
+     "size": 85651,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "feat-slice1-loginpage.mp4",
+     "size": 73723,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "feat-slice2-open.mp4",
+     "size": 530446,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "feat-slice3-sendcode.mp4",
+     "size": 138601,
+     "image": false,
+     "referencedBy": [
+      "Z014-S50"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "first",
+   "label": "首次启动",
+   "files": [
+    {
+     "name": "first-screen-raw.png",
+     "size": 85730,
+     "image": true,
+     "referencedBy": []
+    }
+   ]
+  },
+  {
+   "prefix": "flutter_debug",
+   "label": "flutter_debug 整页采集",
+   "files": [
+    {
+     "name": "flutter_debug_area_page_ocr.txt",
+     "size": 293,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "flutter_debug_area_page_screenshot.png",
+     "size": 191162,
+     "image": true,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "flutter_debug_area_page_semantics.json",
+     "size": 16209,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "flutter_debug_area_page_semantics.txt",
+     "size": 6044,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "flutter_debug_device_ocr.txt",
+     "size": 85,
+     "image": false,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    },
+    {
+     "name": "flutter_debug_device_screenshot.png",
+     "size": 175834,
+     "image": true,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    },
+    {
+     "name": "flutter_debug_device_semantics.json",
+     "size": 9282,
+     "image": false,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    },
+    {
+     "name": "flutter_debug_device_semantics.txt",
+     "size": 3454,
+     "image": false,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    },
+    {
+     "name": "flutter_debug_login_base_ocr.txt",
+     "size": 153,
+     "image": false,
+     "referencedBy": [
+      "Z009-S138"
+     ]
+    },
+    {
+     "name": "flutter_debug_login_base_screenshot.png",
+     "size": 108512,
+     "image": true,
+     "referencedBy": [
+      "Z009-S122"
+     ]
+    },
+    {
+     "name": "flutter_debug_login_base_semantics.json",
+     "size": 9302,
+     "image": false,
+     "referencedBy": [
+      "Z009-S138"
+     ]
+    },
+    {
+     "name": "flutter_debug_login_base_semantics.txt",
+     "size": 3457,
+     "image": false,
+     "referencedBy": [
+      "Z009-S138"
+     ]
+    },
+    {
+     "name": "flutter_debug_platform_ocr.txt",
+     "size": 357,
+     "image": false,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "flutter_debug_platform_screenshot.png",
+     "size": 514906,
+     "image": true,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "flutter_debug_platform_semantics.json",
+     "size": 14492,
+     "image": false,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "flutter_debug_platform_semantics.txt",
+     "size": 5391,
+     "image": false,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "flutter_debug_tabme_ocr.txt",
+     "size": 200,
+     "image": false,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    },
+    {
+     "name": "flutter_debug_tabme_screenshot.png",
+     "size": 206061,
+     "image": true,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    },
+    {
+     "name": "flutter_debug_tabme_semantics.json",
+     "size": 11410,
+     "image": false,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    },
+    {
+     "name": "flutter_debug_tabme_semantics.txt",
+     "size": 4239,
+     "image": false,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "heartbeat",
+   "label": "heartbeat",
+   "files": [
+    {
+     "name": "heartbeat.txt",
+     "size": 1316,
+     "image": false,
+     "referencedBy": []
+    }
+   ]
+  },
+  {
+   "prefix": "help",
+   "label": "帮助与反馈",
+   "files": [
+    {
+     "name": "help__faq__opened.png",
+     "size": 98429,
+     "image": true,
+     "referencedBy": [
+      "Z029-S66"
+     ]
+    },
+    {
+     "name": "help__manual__opened.png",
+     "size": 154651,
+     "image": true,
+     "referencedBy": [
+      "Z029-S64"
+     ]
+    },
+    {
+     "name": "help__models__opened.png",
+     "size": 27451,
+     "image": true,
+     "referencedBy": [
+      "Z029-S63"
+     ]
+    },
+    {
+     "name": "help__userfeedback__opened.png",
+     "size": 66686,
+     "image": true,
+     "referencedBy": [
+      "Z029-S65"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "home",
+   "label": "首页",
+   "files": [
+    {
+     "name": "home__channel_ai.png",
+     "size": 308094,
+     "image": true,
+     "referencedBy": [
+      "Z025-S139"
+     ]
+    },
+    {
+     "name": "home__channel_music.png",
+     "size": 141464,
+     "image": true,
+     "referencedBy": [
+      "Z025-S139"
+     ]
+    },
+    {
+     "name": "home__channel_radio.png",
+     "size": 237933,
+     "image": true,
+     "referencedBy": [
+      "Z025-S139"
+     ]
+    },
+    {
+     "name": "home__channel_speaker.png",
+     "size": 134033,
+     "image": true,
+     "referencedBy": [
+      "Z025-S139"
+     ]
+    },
+    {
+     "name": "home__radio_list.png",
+     "size": 241836,
+     "image": true,
+     "referencedBy": [
+      "Z038-S105"
+     ]
+    },
+    {
+     "name": "home__xiaowei_entry__opened.png",
+     "size": 241702,
+     "image": true,
+     "referencedBy": [
+      "Z027-S140"
+     ]
+    },
+    {
+     "name": "home__xiaowei_entry__opened2.png",
+     "size": 252749,
+     "image": true,
+     "referencedBy": [
+      "Z027-S131"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "logcat",
+   "label": "logcat",
+   "files": [
+    {
+     "name": "logcat-app-death-0843.txt",
+     "size": 229729,
+     "image": false,
+     "referencedBy": [
+      "Z012-S43"
+     ]
+    },
+    {
+     "name": "logcat-login-tap-window.txt",
+     "size": 128036,
+     "image": false,
+     "referencedBy": []
+    },
+    {
+     "name": "logcat-tail-anr.txt",
+     "size": 69658,
+     "image": false,
+     "referencedBy": []
+    }
+   ]
+  },
+  {
+   "prefix": "login",
+   "label": "登录页（验证码模式）",
+   "files": [
+    {
+     "name": "login__after_weibo_crash_relaunch.png",
+     "size": 93581,
+     "image": true,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "login__agreement__checked__phone123__submit_state.png",
+     "size": 83553,
+     "image": true,
+     "referencedBy": [
+      "Z002-S09"
+     ]
+    },
+    {
+     "name": "login__agreement__checked__submit_enabled.png",
+     "size": 86526,
+     "image": true,
+     "referencedBy": [
+      "Z002-S07",
+      "Z003-S11"
+     ]
+    },
+    {
+     "name": "login__agreement__unchecked__submit_disabled.png",
+     "size": 84899,
+     "image": true,
+     "referencedBy": [
+      "Z002-S08"
+     ]
+    },
+    {
+     "name": "login__area_code__opened.png",
+     "size": 57453,
+     "image": true,
+     "referencedBy": [
+      "Z005-S18"
+     ]
+    },
+    {
+     "name": "login__back_from_chrome.png",
+     "size": 85408,
+     "image": true,
+     "referencedBy": [
+      "Z012-S45"
+     ]
+    },
+    {
+     "name": "login__base_state_reset.png",
+     "size": 83318,
+     "image": true,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "login__password_field__filled_masked.png",
+     "size": 130193,
+     "image": true,
+     "referencedBy": [
+      "Z004-S15"
+     ]
+    },
+    {
+     "name": "login__password_field__filled_visible.png",
+     "size": 88421,
+     "image": true,
+     "referencedBy": [
+      "Z004-S16"
+     ]
+    },
+    {
+     "name": "login__phone_field__empty.png",
+     "size": 85730,
+     "image": true,
+     "referencedBy": [
+      "Z001-S01",
+      "Z003-S10",
+      "Z006-S20"
+     ]
+    },
+    {
+     "name": "login__phone_field__error_invalid_prefix.png",
+     "size": 96755,
+     "image": true,
+     "referencedBy": [
+      "Z001-S05"
+     ]
+    },
+    {
+     "name": "login__phone_field__filled_11digit_invalid_prefix.png",
+     "size": 88118,
+     "image": true,
+     "referencedBy": [
+      "Z001-S04"
+     ]
+    },
+    {
+     "name": "login__phone_field__filled_invalid.png",
+     "size": 81681,
+     "image": true,
+     "referencedBy": [
+      "Z001-S03"
+     ]
+    },
+    {
+     "name": "login__phone_field__filled_ready_submit.png",
+     "size": 86941,
+     "image": true,
+     "referencedBy": [
+      "Z014-S46"
+     ]
+    },
+    {
+     "name": "login__phone_field__filled_valid.png",
+     "size": 86526,
+     "image": true,
+     "referencedBy": [
+      "Z001-S06"
+     ]
+    },
+    {
+     "name": "login__phone_field__focus.png",
+     "size": 85491,
+     "image": true,
+     "referencedBy": [
+      "Z001-S02"
+     ]
+    },
+    {
+     "name": "login__privacy_policy__chrome-url-network-hivi.png",
+     "size": 124675,
+     "image": true,
+     "referencedBy": [
+      "Z007-S23",
+      "Z012-S44"
+     ]
+    },
+    {
+     "name": "login__privacy_policy__opened.png",
+     "size": 177332,
+     "image": true,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "login__slice2_start_state.png",
+     "size": 85455,
+     "image": true,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "login__submit__error_invalid_phone.png",
+     "size": 83553,
+     "image": true,
+     "referencedBy": [
+      "Z003-S13",
+      "Z003-S14"
+     ]
+    },
+    {
+     "name": "login__submit__error_invalid_phone_t1s.png",
+     "size": 83355,
+     "image": true,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "login__submit__tapped_invalid_prefix_t1s.png",
+     "size": 88300,
+     "image": true,
+     "referencedBy": [
+      "Z003-S12"
+     ]
+    },
+    {
+     "name": "login__submit__tapped_invalid_prefix_t2p5s.png",
+     "size": 96755,
+     "image": true,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "login__terms_policy__opened.png",
+     "size": 38310,
+     "image": true,
+     "referencedBy": [
+      "Z012-S44"
+     ]
+    },
+    {
+     "name": "login__third_party_wechat__tapped.png",
+     "size": 94049,
+     "image": true,
+     "referencedBy": [
+      "Z006-S21"
+     ]
+    },
+    {
+     "name": "login__third_party_weibo__tapped.png",
+     "size": 94276,
+     "image": true,
+     "referencedBy": [
+      "Z006-S22"
+     ]
+    },
+    {
+     "name": "login__third_party_weibo__tapped_recheck.png",
+     "size": 85854,
+     "image": true,
+     "referencedBy": [
+      "Z012-S43"
+     ]
+    },
+    {
+     "name": "login__third_party_weibo__tapped_recheck2_phonevalid.png",
+     "size": 1238306,
+     "image": true,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "login__use_password_button__opened.png",
+     "size": 89430,
+     "image": true,
+     "referencedBy": [
+      "Z004-S17"
+     ]
+    },
+    {
+     "name": "login__use_sms_button__back_to_sms.png",
+     "size": 86676,
+     "image": true,
+     "referencedBy": [
+      "Z008-S25",
+      "Z035-S121"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "loginpwd",
+   "label": "登录页（密码模式）",
+   "files": [
+    {
+     "name": "loginpwd__after_refocus.png",
+     "size": 82948,
+     "image": true,
+     "referencedBy": [
+      "Z035-S141"
+     ]
+    },
+    {
+     "name": "loginpwd__agreement__checked__submit_enabled.png",
+     "size": 91063,
+     "image": true,
+     "referencedBy": [
+      "Z035-S117"
+     ]
+    },
+    {
+     "name": "loginpwd__agreement__unchecked__submit_disabled.png",
+     "size": 90267,
+     "image": true,
+     "referencedBy": [
+      "Z035-S118"
+     ]
+    },
+    {
+     "name": "loginpwd__page__base_empty.png",
+     "size": 90501,
+     "image": true,
+     "referencedBy": [
+      "Z035-S110"
+     ]
+    },
+    {
+     "name": "loginpwd__password_field__filled_masked.png",
+     "size": 130660,
+     "image": true,
+     "referencedBy": [
+      "Z035-S114"
+     ]
+    },
+    {
+     "name": "loginpwd__password_field__filled_masked_settled.png",
+     "size": 130137,
+     "image": true,
+     "referencedBy": [
+      "Z035-S115"
+     ]
+    },
+    {
+     "name": "loginpwd__password_field__filled_visible.png",
+     "size": 91168,
+     "image": true,
+     "referencedBy": [
+      "Z035-S116"
+     ]
+    },
+    {
+     "name": "loginpwd__password_field__focus.png",
+     "size": 134417,
+     "image": true,
+     "referencedBy": [
+      "Z035-S113"
+     ]
+    },
+    {
+     "name": "loginpwd__phone_field__filled_valid.png",
+     "size": 88901,
+     "image": true,
+     "referencedBy": [
+      "Z035-S112"
+     ]
+    },
+    {
+     "name": "loginpwd__phone_field__focus.png",
+     "size": 90643,
+     "image": true,
+     "referencedBy": [
+      "Z035-S111"
+     ]
+    },
+    {
+     "name": "loginpwd__state_after_anr_dismiss.png",
+     "size": 83776,
+     "image": true,
+     "referencedBy": [
+      "Z035-S141"
+     ]
+    },
+    {
+     "name": "loginpwd__submit__error_shortpwd.png",
+     "size": 1238326,
+     "image": true,
+     "referencedBy": [
+      "Z035-S141"
+     ]
+    },
+    {
+     "name": "loginpwd__submit__ready_shortpwd.png",
+     "size": 115052,
+     "image": true,
+     "referencedBy": [
+      "Z035-S119"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "personinfo",
+   "label": "个人信息页",
+   "files": [
+    {
+     "name": "personinfo__page__full.png",
+     "size": 117360,
+     "image": true,
+     "referencedBy": [
+      "Z037-S132"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "platform",
+   "label": "平台页",
+   "files": [
+    {
+     "name": "platform__ai_channel.png",
+     "size": 380578,
+     "image": true,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "platform__applemusic_plus__tapped.png",
+     "size": 320647,
+     "image": true,
+     "referencedBy": [
+      "Z020-S142"
+     ]
+    },
+    {
+     "name": "platform__kugou_detail__opened.png",
+     "size": 163580,
+     "image": true,
+     "referencedBy": [
+      "Z020-S127"
+     ]
+    },
+    {
+     "name": "platform__list__scrolled_bottom.png",
+     "size": 373648,
+     "image": true,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "platform__netease_detail__opened.png",
+     "size": 629157,
+     "image": true,
+     "referencedBy": [
+      "Z020-S127"
+     ]
+    },
+    {
+     "name": "platform__page__top.png",
+     "size": 408209,
+     "image": true,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "platform__qq_detail__opened.png",
+     "size": 111105,
+     "image": true,
+     "referencedBy": [
+      "Z020-S127"
+     ]
+    },
+    {
+     "name": "platform__radio_channel.png",
+     "size": 339148,
+     "image": true,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "platform__spotify_plus__tapped.png",
+     "size": 281708,
+     "image": true,
+     "referencedBy": [
+      "Z020-S142"
+     ]
+    },
+    {
+     "name": "platform__spotify_unauthorized__tapped.png",
+     "size": 408291,
+     "image": true,
+     "referencedBy": [
+      "Z020-S142"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "radio",
+   "label": "电台",
+   "files": [
+    {
+     "name": "radio__after_stop_relaunch.png",
+     "size": 683839,
+     "image": true,
+     "referencedBy": [
+      "Z038-S109"
+     ]
+    },
+    {
+     "name": "radio__beijing__opened.png",
+     "size": 96095,
+     "image": true,
+     "referencedBy": [
+      "Z038-S106"
+     ]
+    },
+    {
+     "name": "radio__playback_paused.png",
+     "size": 429777,
+     "image": true,
+     "referencedBy": [
+      "Z038-S108"
+     ]
+    },
+    {
+     "name": "radio__player_page.png",
+     "size": 421779,
+     "image": true,
+     "referencedBy": [
+      "Z038-S107"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "search",
+   "label": "搜索",
+   "files": [
+    {
+     "name": "search__after_back.png",
+     "size": 1237591,
+     "image": true,
+     "referencedBy": [
+      "Z031-S143"
+     ]
+    },
+    {
+     "name": "search__bar_target.png",
+     "size": 673139,
+     "image": true,
+     "referencedBy": [
+      "Z031-S143"
+     ]
+    },
+    {
+     "name": "search__cleared.png",
+     "size": 44831,
+     "image": true,
+     "referencedBy": [
+      "Z031-S73"
+     ]
+    },
+    {
+     "name": "search__filled_hivi.png",
+     "size": 82553,
+     "image": true,
+     "referencedBy": [
+      "Z031-S71"
+     ]
+    },
+    {
+     "name": "search__page__initial.png",
+     "size": 77242,
+     "image": true,
+     "referencedBy": [
+      "Z031-S70"
+     ]
+    },
+    {
+     "name": "search__results_hivi.png",
+     "size": 152608,
+     "image": true,
+     "referencedBy": [
+      "Z031-S72"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "sendcode",
+   "label": "发码流程",
+   "files": [
+    {
+     "name": "sendcode__tapped_t3s.png",
+     "size": 87533,
+     "image": true,
+     "referencedBy": [
+      "Z014-S47"
+     ]
+    },
+    {
+     "name": "sendcode__tapped_t60s.png",
+     "size": 68463,
+     "image": true,
+     "referencedBy": [
+      "Z014-S136"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "splash",
+   "label": "启动页",
+   "files": [
+    {
+     "name": "splash__transient.png",
+     "size": 85799,
+     "image": true,
+     "referencedBy": [
+      "Z013-S123"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "state",
+   "label": "状态记录",
+   "files": [
+    {
+     "name": "state-check-s8.png",
+     "size": 1237090,
+     "image": true,
+     "referencedBy": []
+    },
+    {
+     "name": "state-check2.png",
+     "size": 83724,
+     "image": true,
+     "referencedBy": []
+    },
+    {
+     "name": "state-n2.png",
+     "size": 672970,
+     "image": true,
+     "referencedBy": []
+    }
+   ]
+  },
+  {
+   "prefix": "tabme",
+   "label": "我的页",
+   "files": [
+    {
+     "name": "tabme__about_entry__opened.png",
+     "size": 69140,
+     "image": true,
+     "referencedBy": [
+      "Z036-S104"
+     ]
+    },
+    {
+     "name": "tabme__device_entry__opened.png",
+     "size": 84578,
+     "image": true,
+     "referencedBy": [
+      "Z036-S100"
+     ]
+    },
+    {
+     "name": "tabme__family_entry__opened.png",
+     "size": 76296,
+     "image": true,
+     "referencedBy": [
+      "Z036-S99"
+     ]
+    },
+    {
+     "name": "tabme__feedback_entry__opened.png",
+     "size": 52110,
+     "image": true,
+     "referencedBy": [
+      "Z036-S102"
+     ]
+    },
+    {
+     "name": "tabme__final_state.png",
+     "size": 115932,
+     "image": true,
+     "referencedBy": [
+      "Z016-S144"
+     ]
+    },
+    {
+     "name": "tabme__page__bottom.png",
+     "size": 116310,
+     "image": true,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    },
+    {
+     "name": "tabme__page__scrolled.png",
+     "size": 116367,
+     "image": true,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    },
+    {
+     "name": "tabme__page__top.png",
+     "size": 166226,
+     "image": true,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    },
+    {
+     "name": "tabme__profile_entry__opened.png",
+     "size": 117268,
+     "image": true,
+     "referencedBy": [
+      "Z036-S96"
+     ]
+    },
+    {
+     "name": "tabme__recharge_entry__opened.png",
+     "size": 144862,
+     "image": true,
+     "referencedBy": [
+      "Z036-S98"
+     ]
+    },
+    {
+     "name": "tabme__scan_entry__opened.png",
+     "size": 137967,
+     "image": true,
+     "referencedBy": [
+      "Z036-S103"
+     ]
+    },
+    {
+     "name": "tabme__scan_page__opened.png",
+     "size": 60166,
+     "image": true,
+     "referencedBy": [
+      "Z026-S130"
+     ]
+    },
+    {
+     "name": "tabme__scan_recheck2.png",
+     "size": 160298,
+     "image": true,
+     "referencedBy": [
+      "Z026-S130"
+     ]
+    },
+    {
+     "name": "tabme__settings_hunt.png",
+     "size": 177502,
+     "image": true,
+     "referencedBy": [
+      "Z016-S144"
+     ]
+    },
+    {
+     "name": "tabme__soundquality_entry__opened.png",
+     "size": 127871,
+     "image": true,
+     "referencedBy": [
+      "Z036-S101"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "ui",
+   "label": "ui",
+   "files": [
+    {
+     "name": "ui-about-page.xml",
+     "size": 5680,
+     "image": false,
+     "referencedBy": [
+      "Z030-S133"
+     ]
+    },
+    {
+     "name": "ui-appshell-home.xml",
+     "size": 19672,
+     "image": false,
+     "referencedBy": [
+      "Z015-S124"
+     ]
+    },
+    {
+     "name": "ui-area-code-page.xml",
+     "size": 17878,
+     "image": false,
+     "referencedBy": [
+      "Z005-S19"
+     ]
+    },
+    {
+     "name": "ui-area-p0.xml",
+     "size": 17879,
+     "image": false,
+     "referencedBy": [
+      "Z034-S79",
+      "Z034-S81"
+     ]
+    },
+    {
+     "name": "ui-area-top.xml",
+     "size": 17879,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "ui-area-z.xml",
+     "size": 10357,
+     "image": false,
+     "referencedBy": [
+      "Z034-S134"
+     ]
+    },
+    {
+     "name": "ui-device-addpage.xml",
+     "size": 5150,
+     "image": false,
+     "referencedBy": [
+      "Z023-S145"
+     ]
+    },
+    {
+     "name": "ui-device-scrolled.xml",
+     "size": 11694,
+     "image": false,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    },
+    {
+     "name": "ui-device.xml",
+     "size": 11722,
+     "image": false,
+     "referencedBy": [
+      "Z022-S128"
+     ]
+    },
+    {
+     "name": "ui-error-state.xml",
+     "size": 11051,
+     "image": false,
+     "referencedBy": [
+      "Z009-S138"
+     ]
+    },
+    {
+     "name": "ui-help-feedback.xml",
+     "size": 5647,
+     "image": false,
+     "referencedBy": [
+      "Z029-S146"
+     ]
+    },
+    {
+     "name": "ui-home-verify.xml",
+     "size": 19672,
+     "image": false,
+     "referencedBy": [
+      "Z025-S139"
+     ]
+    },
+    {
+     "name": "ui-login-after-area.xml",
+     "size": 10356,
+     "image": false,
+     "referencedBy": [
+      "Z034-S82"
+     ]
+    },
+    {
+     "name": "ui-login.xml",
+     "size": 10356,
+     "image": false,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "ui-password-page.xml",
+     "size": 10645,
+     "image": false,
+     "referencedBy": [
+      "Z004-S147"
+     ]
+    },
+    {
+     "name": "ui-personinfo-full.xml",
+     "size": 9902,
+     "image": false,
+     "referencedBy": [
+      "Z037-S132"
+     ]
+    },
+    {
+     "name": "ui-platform-qq.xml",
+     "size": 13915,
+     "image": false,
+     "referencedBy": [
+      "Z020-S127"
+     ]
+    },
+    {
+     "name": "ui-platform.xml",
+     "size": 16081,
+     "image": false,
+     "referencedBy": [
+      "Z019-S126"
+     ]
+    },
+    {
+     "name": "ui-pwd-mode-base.xml",
+     "size": 10647,
+     "image": false,
+     "referencedBy": [
+      "Z035-S110"
+     ]
+    },
+    {
+     "name": "ui-radio-list.xml",
+     "size": 16720,
+     "image": false,
+     "referencedBy": [
+      "Z038-S109"
+     ]
+    },
+    {
+     "name": "ui-search-page.xml",
+     "size": 5909,
+     "image": false,
+     "referencedBy": [
+      "Z031-S73"
+     ]
+    },
+    {
+     "name": "ui-search-results.xml",
+     "size": 17874,
+     "image": false,
+     "referencedBy": [
+      "Z031-S73"
+     ]
+    },
+    {
+     "name": "ui-sendcode-t3s.xml",
+     "size": 8235,
+     "image": false,
+     "referencedBy": [
+      "Z014-S47"
+     ]
+    },
+    {
+     "name": "ui-sendcode-t60s.xml",
+     "size": 8228,
+     "image": false,
+     "referencedBy": [
+      "Z014-S48"
+     ]
+    },
+    {
+     "name": "ui-slice3-ready.xml",
+     "size": 10370,
+     "image": false,
+     "referencedBy": [
+      "Z014-S46"
+     ]
+    },
+    {
+     "name": "ui-slice3-start.xml",
+     "size": 10356,
+     "image": false,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "ui-sms-mode-after-switch.xml",
+     "size": 10371,
+     "image": false,
+     "referencedBy": [
+      "Z001-S135"
+     ]
+    },
+    {
+     "name": "ui-tabme-bottom.xml",
+     "size": 10930,
+     "image": false,
+     "referencedBy": [
+      "Z016-S144"
+     ]
+    },
+    {
+     "name": "ui-tabme-profile.xml",
+     "size": 9902,
+     "image": false,
+     "referencedBy": [
+      "Z036-S96"
+     ]
+    },
+    {
+     "name": "ui-tabme-scrolled.xml",
+     "size": 10930,
+     "image": false,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    },
+    {
+     "name": "ui-tabme-top-verify.xml",
+     "size": 12620,
+     "image": false,
+     "referencedBy": [
+      "Z016-S144"
+     ]
+    },
+    {
+     "name": "ui-tabme.xml",
+     "size": 12620,
+     "image": false,
+     "referencedBy": [
+      "Z016-S125"
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "total": 221,
+  "unreferenced": 19
+ },
+ "modulePrefixes": {
+  "M01": [
+   "env",
+   "first",
+   "flutter_debug",
+   "splash",
+   "state",
+   "ui"
+  ],
+  "M02": [
+   "anr",
+   "area",
+   "chrome",
+   "codepage",
+   "crash",
+   "feat",
+   "flutter_debug",
+   "logcat",
+   "login",
+   "loginpwd",
+   "sendcode",
+   "ui"
+  ],
+  "M03": [
+   "appshell",
+   "home",
+   "ui"
+  ],
+  "M04": [
+   "appshell",
+   "home",
+   "ui"
+  ],
+  "M05": [
+   "search",
+   "ui"
+  ],
+  "M07": [
+   "flutter_debug",
+   "platform",
+   "ui"
+  ],
+  "M08": [
+   "home",
+   "radio",
+   "ui"
+  ],
+  "M09": [
+   "home",
+   "ui"
+  ],
+  "M11": [
+   "device",
+   "flutter_debug",
+   "ui"
+  ],
+  "M12": [
+   "tabme"
+  ],
+  "M13": [
+   "flutter_debug",
+   "personinfo",
+   "tabme",
+   "ui"
+  ],
+  "M14": [
+   "tabme"
+  ],
+  "M15": [
+   "about",
+   "chrome",
+   "help",
+   "ui"
+  ]
+ }
+}

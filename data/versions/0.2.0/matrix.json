@@ -1,0 +1,1535 @@
+{
+ "pages": [
+  {
+   "name": "login 页",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z001",
+     "section": 1,
+     "title": "手机号输入区（login_phone_field，EditText，bounds [310,801][980,921]；区号 login_area_code_button [100,801][310,921]）",
+     "anchors": [
+      "login_phone_field",
+      "login_area_code_button"
+     ],
+     "bounds": [
+      [
+       "310,801",
+       "980,921"
+      ],
+      [
+       "100,801",
+       "310,921"
+      ]
+     ],
+     "raw": "login 页 · 手机号输入区（login_phone_field，EditText，bounds [310,801][980,921]；区号 login_area_code_button [100,801][310,921]）",
+     "states": [
+      {
+       "id": "Z001-S01",
+       "state": "empty",
+       "files": [
+        "login__phone_field__empty.png"
+       ],
+       "notes": "无键盘；placeholder=请输入手机号；下一步置灰"
+      },
+      {
+       "id": "Z001-S02",
+       "state": "normal-focus",
+       "files": [
+        "login__phone_field__focus.png"
+       ],
+       "notes": "未见键盘（mInputShown=true 但窗口未渲染，O-3）；输入框出现高亮描边"
+      },
+      {
+       "id": "Z001-S03",
+       "state": "filled-invalid（\"123\"）",
+       "files": [
+        "login__phone_field__filled_invalid.png"
+       ],
+       "notes": "无键盘；下一步仍置灰（<11 位）"
+      },
+      {
+       "id": "Z001-S04",
+       "state": "filled-invalid（\"12345678901\"，11 位非法号段）",
+       "files": [
+        "login__phone_field__filled_11digit_invalid_prefix.png"
+       ],
+       "notes": "无键盘；**下一步变黑启用——启用判断只校验位数不校验号段**"
+      },
+      {
+       "id": "Z001-S05",
+       "state": "error",
+       "files": [
+        "login__phone_field__error_invalid_prefix.png"
+       ],
+       "notes": "无键盘；锚点 login_error_text，文案\"请输入正确的手机号码!\"，bounds [100,948][980,995]；下一步被下推至 [100,1021][980,1142]"
+      },
+      {
+       "id": "Z001-S06",
+       "state": "filled-valid（\"13800138000\"）",
+       "files": [
+        "login__phone_field__filled_valid.png"
+       ],
+       "notes": "无键盘；下一步启用；错误文案消失"
+      },
+      {
+       "id": "Z001-S135",
+       "state": "补充采证",
+       "files": [
+        "chrome-firstrun-step2.png",
+        "login__after_weibo_crash_relaunch.png",
+        "login__base_state_reset.png",
+        "login__privacy_policy__opened.png",
+        "login__slice2_start_state.png",
+        "login__submit__error_invalid_phone_t1s.png",
+        "login__submit__tapped_invalid_prefix_t2p5s.png",
+        "login__third_party_weibo__tapped_recheck2_phonevalid.png",
+        "ui-login.xml",
+        "ui-slice3-start.xml",
+        "ui-sms-mode-after-switch.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    },
+    {
+     "id": "Z002",
+     "section": 2,
+     "title": "协议勾选联动（login_agreement_checkbox，CheckBox [81,1110][160,1189]）",
+     "anchors": [
+      "login_agreement_checkbox"
+     ],
+     "bounds": [
+      [
+       "81,1110",
+       "160,1189"
+      ]
+     ],
+     "raw": "login 页 · 协议勾选联动（login_agreement_checkbox，CheckBox [81,1110][160,1189]）",
+     "states": [
+      {
+       "id": "Z002-S07",
+       "state": "checked + 合法号码",
+       "files": [
+        "login__agreement__checked__submit_enabled.png"
+       ],
+       "notes": "下一步黑色启用"
+      },
+      {
+       "id": "Z002-S08",
+       "state": "unchecked + 合法号码",
+       "files": [
+        "login__agreement__unchecked__submit_disabled.png"
+       ],
+       "notes": "下一步置灰**且微信/微博图标同步变灰**——协议框同时控制两处入口"
+      },
+      {
+       "id": "Z002-S09",
+       "state": "checked + 非法\"123\"",
+       "files": [
+        "login__agreement__checked__phone123__submit_state.png"
+       ],
+       "notes": "下一步仍置灰（号码无效优先）"
+      }
+     ],
+     "linkage": "联动结论（显式记录）：**有**勾选联动——checkbox unchecked → 下一步禁用 + 第三方入口禁用；checked → 随号码有效性启用。"
+    },
+    {
+     "id": "Z003",
+     "section": 3,
+     "title": "下一步提交（login_submit_button [100,948][980,1068]）",
+     "anchors": [
+      "login_submit_button"
+     ],
+     "bounds": [
+      [
+       "100,948",
+       "980,1068"
+      ]
+     ],
+     "raw": "login 页 · 下一步提交（login_submit_button [100,948][980,1068]）",
+     "states": [
+      {
+       "id": "Z003-S10",
+       "state": "disabled 默认",
+       "files": [
+        "login__phone_field__empty.png"
+       ],
+       "notes": "灰底"
+      },
+      {
+       "id": "Z003-S11",
+       "state": "enabled",
+       "files": [
+        "login__agreement__checked__submit_enabled.png"
+       ],
+       "notes": "黑底"
+      },
+      {
+       "id": "Z003-S12",
+       "state": "enabled 点击·非法号段 t+1s",
+       "files": [
+        "login__submit__tapped_invalid_prefix_t1s.png"
+       ],
+       "notes": "尚无响应"
+      },
+      {
+       "id": "Z003-S13",
+       "state": "enabled 点击·非法号段 t+2.5s",
+       "files": [
+        "login__submit__error_invalid_phone.png"
+       ],
+       "notes": "行内红字报错，无 toast；**未发验证码（客户端拦截）**"
+      },
+      {
+       "id": "Z003-S14",
+       "state": "disabled 点击",
+       "files": [
+        "login__submit__error_invalid_phone.png"
+       ],
+       "notes": "禁用态吞掉点击，无 toast 无反应"
+      }
+     ],
+     "linkage": ""
+    },
+    {
+     "id": "Z005",
+     "section": 5,
+     "title": "区号选择（login_area_code_button [100,801][310,921]）",
+     "anchors": [
+      "login_area_code_button"
+     ],
+     "bounds": [
+      [
+       "100,801",
+       "310,921"
+      ]
+     ],
+     "raw": "login 页 · 区号选择（login_area_code_button [100,801][310,921]）",
+     "states": [
+      {
+       "id": "Z005-S18",
+       "state": "点击后",
+       "files": [
+        "login__area_code__opened.png"
+       ],
+       "notes": "**新页（非弹窗）\"选择归属地\"**：返回键 + 热门区（中国 +86 / 中国香港 +852 / 中国澳门 +853 / 中国台湾 +886）；右侧中部疑有悬浮\"热门\"标签"
+      },
+      {
+       "id": "Z005-S19",
+       "state": "语义树",
+       "files": [
+        "ui-area-code-page.xml"
+       ],
+       "notes": "**列表行无任何 text/content-desc/资源 id，仅 1 个可点击节点（O-4 无障碍缺口）**，自动化需坐标定位"
+      }
+     ],
+     "linkage": ""
+    },
+    {
+     "id": "Z006",
+     "section": 6,
+     "title": "第三方登录（微信 [388,1268][472,1352] / 微博 [608,1268][692,1352]）",
+     "anchors": [],
+     "bounds": [
+      [
+       "388,1268",
+       "472,1352"
+      ],
+      [
+       "608,1268",
+       "692,1352"
+      ]
+     ],
+     "raw": "login 页 · 第三方登录（微信 [388,1268][472,1352] / 微博 [608,1268][692,1352]）",
+     "states": [
+      {
+       "id": "Z006-S20",
+       "state": "默认（协议未勾选）",
+       "files": [
+        "login__phone_field__empty.png"
+       ],
+       "notes": "图标灰色（禁用态）"
+      },
+      {
+       "id": "Z006-S21",
+       "state": "微信点击（协议已勾选）",
+       "files": [
+        "login__third_party_wechat__tapped.png"
+       ],
+       "notes": "行内红字\"未安装微信客户端\"（复用 login_error_text 槽位）；无跳转"
+      },
+      {
+       "id": "Z006-S22",
+       "state": "微博点击（协议已勾选）",
+       "files": [
+        "login__third_party_weibo__tapped.png"
+       ],
+       "notes": "**无新提示，文案保持\"未安装微信客户端\"（O-5 待复核：微博按钮疑无独立处理或判断复用）**"
+      }
+     ],
+     "linkage": ""
+    },
+    {
+     "id": "Z007",
+     "section": 7,
+     "title": "政策链接（《隐私政策》[398,1116][591,1173] / 《使用政策》[623,1116][816,1173]）",
+     "anchors": [],
+     "bounds": [
+      [
+       "398,1116",
+       "591,1173"
+      ],
+      [
+       "623,1116",
+       "816,1173"
+      ]
+     ],
+     "raw": "login 页 · 政策链接（《隐私政策》[398,1116][591,1173] / 《使用政策》[623,1116][816,1173]）",
+     "states": [
+      {
+       "id": "Z007-S23",
+       "state": "隐私政策点击",
+       "files": [
+        "login__privacy_policy__chrome-url-network-hivi.png"
+       ],
+       "notes": "**外部 Chrome 打开 `network.hivi.com/privacy`**（非内嵌 WebView）；撞 Chrome 首启向导 + Chrome ANR（chrome-firstrun-step2.png / anr 系列证据）；政策页内容未深究（浏览器域，超出 App 边界）"
+      },
+      {
+       "id": "Z007-S24",
+       "state": "使用政策点击",
+       "files": [],
+       "notes": "同型推断为外部浏览器打开；为避免再入 Chrome 首启流程未复点（**待复核**）"
+      }
+     ],
+     "linkage": ""
+    },
+    {
+     "id": "Z008",
+     "section": 8,
+     "title": "模式切换回程（login_use_sms_button）",
+     "anchors": [
+      "login_use_sms_button"
+     ],
+     "bounds": [],
+     "raw": "login 页 · 模式切换回程（login_use_sms_button）",
+     "states": [
+      {
+       "id": "Z008-S25",
+       "state": "切回验证码模式",
+       "files": [
+        "login__use_sms_button__back_to_sms.png"
+       ],
+       "notes": "布局/锚点与首屏一致（ui-sms-mode-after-switch.xml）；**密码值被清除，不跨模式保留**；手机号值保留"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "login 页（密码模式）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z004",
+     "section": 4,
+     "title": "密码输入 + 可见性切换（login_password_field [92,982][846,1103]；模式入口 login_use_password_button [833,142][1025,213]）",
+     "anchors": [
+      "login_password_field",
+      "login_use_password_button"
+     ],
+     "bounds": [
+      [
+       "92,982",
+       "846,1103"
+      ],
+      [
+       "833,142",
+       "1025,213"
+      ]
+     ],
+     "raw": "login 页（密码模式）· 密码输入 + 可见性切换（login_password_field [92,982][846,1103]；模式入口 login_use_password_button [833,142][1025,213]）",
+     "states": [
+      {
+       "id": "Z004-S15",
+       "state": "filled 掩码",
+       "files": [
+        "login__password_field__filled_masked.png"
+       ],
+       "notes": "**有：键盘遮住\"登录\"按钮上沿**；圆点掩码；软键盘 Gboard 弹出可见"
+      },
+      {
+       "id": "Z004-S16",
+       "state": "filled 明码（切眼睛后）",
+       "files": [
+        "login__password_field__filled_visible.png"
+       ],
+       "notes": "无键盘（已收起）；\"Test1234\"明文；眼睛图标变开眼态"
+      },
+      {
+       "id": "Z004-S17",
+       "state": "空态整页",
+       "files": [
+        "login__use_password_button__opened.png"
+       ],
+       "notes": "无；右上角切为\"验证码登入\"(login_use_sms_button [791,142][1025,213])；按钮文案\"登录\"(login_submit_button [100,1145][980,1265])；无第三方图标区；手机号值跨模式保留"
+      },
+      {
+       "id": "Z004-S147",
+       "state": "补充采证",
+       "files": [
+        "ui-password-page.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": "可见性切换图标：无独立 resource-id（所在行 [0,982][1080,1103] clickable），点 (917,1043) 生效；**切换前后各一张（有）**。"
+    }
+   ]
+  },
+  {
+   "name": "基础态全量采集（flutter_page_debug.py，OCR 可用）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z009",
+     "section": 9,
+     "title": "基础态全量采集（flutter_page_debug.py，OCR 可用）",
+     "anchors": [
+      "flutter_page"
+     ],
+     "bounds": [],
+     "raw": "基础态全量采集（flutter_page_debug.py，OCR 可用）",
+     "states": [
+      {
+       "id": "Z009-S122",
+       "state": "整页采证",
+       "files": [
+        "flutter_debug_login_base_screenshot.png"
+       ],
+       "notes": "flutter_debug_login_base_screenshot.png / semantics.json / semantics.txt / ocr.txt（31 语义节点，OCR 8 条：密码登入/登入后就可畅享音乐世界/+86/请输入手机号/下一步/已经阅读并同意《/《隐私政策》和《使用"
+      },
+      {
+       "id": "Z009-S138",
+       "state": "补充采证",
+       "files": [
+        "flutter_debug_login_base_ocr.txt",
+        "flutter_debug_login_base_semantics.json",
+        "flutter_debug_login_base_semantics.txt",
+        "ui-error-state.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "area 选择归属地页（U4）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z034",
+     "section": 10,
+     "title": "O-4 闭合）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "area 选择归属地页（U4 · O-4 闭合）",
+     "states": [
+      {
+       "id": "Z034-S79",
+       "state": "顶部（热门+A 段）",
+       "files": [
+        "area__list__p0_top.png",
+        "ui-area-p0.xml"
+       ],
+       "notes": "标题\"选择归属地\"+返回键；分组头\"热门\"；行 content-desc=\"国家名\\n+区号\""
+      },
+      {
+       "id": "Z034-S80",
+       "state": "中段滚动",
+       "files": [],
+       "notes": "滚动实测去重 **235 个国家行**（部分快滑跳行，总行数约 240-250）；`area-rows-all.txt` 全量清单"
+      },
+      {
+       "id": "Z034-S81",
+       "state": "Z 段/索引",
+       "files": [
+        "ui-area-p0.xml",
+        "area__list__after_index_drag.png"
+       ],
+       "notes": "**A-Z 字母索引条**固定右侧 [985,520][1059,1656]，**无 X 段（25 字母）**；索引拖拽可跳段（点击单字母不跳，会穿透点到行）"
+      },
+      {
+       "id": "Z034-S82",
+       "state": "行点击",
+       "files": [
+        "ui-login-after-area.xml"
+       ],
+       "notes": "**行点击=选中并返回登录页回带区号**；区号按钮 content-desc 随之更新"
+      },
+      {
+       "id": "Z034-S83",
+       "state": "页面级全量采集",
+       "files": [],
+       "notes": "55 语义节点 / 31 条 OCR"
+      },
+      {
+       "id": "Z034-S134",
+       "state": "补充采证",
+       "files": [
+        "area__list__z_section.png",
+        "flutter_debug_area_page_screenshot.png",
+        "area-p1.xml",
+        "area-p10.xml",
+        "area-p11.xml",
+        "area-p12.xml",
+        "area-p13.xml",
+        "area-p14.xml",
+        "area-p15.xml",
+        "area-p16.xml",
+        "area-p17.xml",
+        "area-p18.xml",
+        "area-p19.xml",
+        "area-p2.xml",
+        "area-p20.xml",
+        "area-p21.xml",
+        "area-p22.xml",
+        "area-p23.xml",
+        "area-p24.xml",
+        "area-p25.xml",
+        "area-p26.xml",
+        "area-p27.xml",
+        "area-p28.xml",
+        "area-p29.xml",
+        "area-p3.xml",
+        "area-p30.xml",
+        "area-p31.xml",
+        "area-p32.xml",
+        "area-p4.xml",
+        "area-p5.xml",
+        "area-p6.xml",
+        "area-p7.xml",
+        "area-p8.xml",
+        "area-p9.xml",
+        "flutter_debug_area_page_ocr.txt",
+        "flutter_debug_area_page_semantics.json",
+        "flutter_debug_area_page_semantics.txt",
+        "ui-area-top.xml",
+        "ui-area-z.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "loginpwd 密码登录模式（U5）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z035",
+     "section": 11,
+     "title": "进入=login_use_password_button [833,142][1025,213]）",
+     "anchors": [
+      "login_use_password_button"
+     ],
+     "bounds": [
+      [
+       "833,142",
+       "1025,213"
+      ]
+     ],
+     "raw": "loginpwd 密码登录模式（U5 · 进入=login_use_password_button [833,142][1025,213]）",
+     "states": [
+      {
+       "id": "Z035-S110",
+       "state": "base empty",
+       "files": [
+        "loginpwd__page__base_empty.png",
+        "ui-pwd-mode-base.xml"
+       ],
+       "notes": "锚点：login_use_sms_button/login_phone_field/login_password_field/login_submit_button(desc=登录)/login_agreement_checkbox"
+      },
+      {
+       "id": "Z035-S111",
+       "state": "normal-focus",
+       "files": [
+        "loginpwd__phone_field__focus.png"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z035-S112",
+       "state": "filled valid",
+       "files": [
+        "loginpwd__phone_field__filled_valid.png"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z035-S113",
+       "state": "normal-focus",
+       "files": [
+        "loginpwd__password_field__focus.png"
+       ],
+       "notes": "键盘弹出可见，遮挡\"登录\"按钮"
+      },
+      {
+       "id": "Z035-S114",
+       "state": "filled 掩码（输入瞬间）",
+       "files": [
+        "loginpwd__password_field__filled_masked.png"
+       ],
+       "notes": "**末位字符短暂明文效果**被拍到"
+      },
+      {
+       "id": "Z035-S115",
+       "state": "filled 掩码（稳定）",
+       "files": [
+        "loginpwd__password_field__filled_masked_settled.png"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z035-S116",
+       "state": "filled 明码（眼睛切换）",
+       "files": [
+        "loginpwd__password_field__filled_visible.png"
+       ],
+       "notes": "\"Swan#Test12345\"完整接受（#保留），无格式限制"
+      },
+      {
+       "id": "Z035-S117",
+       "state": "checked→启用",
+       "files": [
+        "loginpwd__agreement__checked__submit_enabled.png"
+       ],
+       "notes": "登录变黑；**密码模式联动仅影响登录键（无第三方图标区）**"
+      },
+      {
+       "id": "Z035-S118",
+       "state": "unchecked→禁用",
+       "files": [
+        "loginpwd__agreement__unchecked__submit_disabled.png"
+       ],
+       "notes": "登录变灰"
+      },
+      {
+       "id": "Z035-S119",
+       "state": "短密码\"123456\"就绪态",
+       "files": [
+        "loginpwd__submit__ready_shortpwd.png"
+       ],
+       "notes": "**6 位短密码按钮即启用——密码无前端长度校验（发现 F-2）**"
+      },
+      {
+       "id": "Z035-S120",
+       "state": "短密码点击后",
+       "files": [
+        "anr-dialog-login-tap-20260910-0914.png",
+        "anr-trace-login-tap-091332.txt"
+       ],
+       "notes": "**点击登录→主线程 ANR 循环（A-1 第4次），非前端校验报错**；是否已发登录请求未确认（阻塞在 FocusEvent 处理，ErrorId 57f0fd98）；**按边界终止深试**"
+      },
+      {
+       "id": "Z035-S121",
+       "state": "验证码登入",
+       "files": [
+        "login__use_sms_button__back_to_sms.png"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z035-S141",
+       "state": "补充采证",
+       "files": [
+        "loginpwd__after_refocus.png",
+        "loginpwd__state_after_anr_dismiss.png",
+        "loginpwd__submit__error_shortpwd.png"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "U6 轻量复核",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z012",
+     "section": 12,
+     "title": "U6 轻量复核",
+     "anchors": [],
+     "bounds": [],
+     "raw": "U6 轻量复核",
+     "states": [
+      {
+       "id": "Z012-S43",
+       "state": "微博按钮复点",
+       "files": [
+        "login__third_party_weibo__tapped_recheck.png",
+        "logcat-app-death-0843.txt",
+        "crash-weibo-fatal-stack.txt"
+       ],
+       "notes": "**O-5 终结论升级为致命候选缺陷**：点击→`java.lang.UnsatisfiedLinkError: dlopen failed: library \"libwind.so\" not found`（WeiboSsoSdk 类初始化→System.loadLibrary）→FATAL→进程死亡退桌面。链路：SwanThirdPartyLoginPlugin.startWeiboAuthorization:119→UMShareAPI.isAuthorize→SinaSsoHandler.onCreate→registerApp。**库缺失类，疑似确定性复现**。dropbox data_app_crash 08:42:16。对照：微信按钮不崩（未装微信仅行内报错）"
+      },
+      {
+       "id": "Z012-S44",
+       "state": "政策链接 URL",
+       "files": [
+        "login__privacy_policy__chrome-url-network-hivi.png",
+        "login__terms_policy__opened.png"
+       ],
+       "notes": "隐私政策=`network.hivi.com/privacy/`（200，title=`swans-sub-privacy-agreement`，开发态标题）；`/terms` 404；**点《使用政策》后 Chrome 地址栏亦显示 `network.hivi.com/privacy`——两链接疑指向同一 URL（候选问题，Web 域待复核）**"
+      },
+      {
+       "id": "Z012-S45",
+       "state": "返回路径",
+       "files": [
+        "login__back_from_chrome.png"
+       ],
+       "notes": "Chrome→返回键→登录页完好"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "片 2 新增页面：splash 启动页",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z013",
+     "section": 13,
+     "title": "片 2 新增页面：splash 启动页",
+     "anchors": [],
+     "bounds": [],
+     "raw": "片 2 新增页面：splash 启动页",
+     "states": [
+      {
+       "id": "Z013-S123",
+       "state": "整页采证",
+       "files": [
+        "splash__transient.png"
+       ],
+       "notes": "splash__transient.png：SWAN logo + \"珠海惠威科技有限公司 / Zhuhai HiVi Technology Co., Ltd.\"，进程冷启动瞬态页（~2-3s），过渡到登录页。功能地图补录。"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "发码流程（login → code 验证码页）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z014",
+     "section": 14,
+     "title": "发码流程（login → code 验证码页）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "发码流程（login → code 验证码页）",
+     "states": [
+      {
+       "id": "Z014-S46",
+       "state": "手机号 filled + 协议勾选 + 下一步启用",
+       "files": [
+        "login__phone_field__filled_ready_submit.png",
+        "ui-slice3-ready.xml"
+       ],
+       "notes": "手机号=人工提供短信号码（脱敏 137\\*\\*\\*\\*633），逐字符输入全部落入"
+      },
+      {
+       "id": "Z014-S47",
+       "state": "下一步点击 t+3s",
+       "files": [
+        "sendcode__tapped_t3s.png",
+        "ui-sendcode-t3s.xml"
+       ],
+       "notes": "**仍在登录页（跳转慢，无 loading 指示、无报错）**"
+      },
+      {
+       "id": "Z014-S48",
+       "state": "点击后 t+60s",
+       "files": [
+        "ui-sendcode-t60s.xml"
+       ],
+       "notes": "已在验证码页（实际跳转时刻 3~60s 之间，未精确捕获；**发码到页面切换无即时反馈**，记观察 O-7）"
+      },
+      {
+       "id": "Z014-S49",
+       "state": "验证码页 initial",
+       "files": [
+        "codepage__initial.png"
+       ],
+       "notes": "布局见 §14.1"
+      },
+      {
+       "id": "Z014-S50",
+       "state": "录屏",
+       "files": [
+        "feat-slice3-sendcode.mp4"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z014-S136",
+       "state": "补充采证",
+       "files": [
+        "codepage__after_submit_t3s.png",
+        "codepage__filled_7720.png",
+        "codepage__t1.png",
+        "sendcode__tapped_t60s.png"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "AppShell 首页（登录成功判据达成：tab_me 可达）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z015",
+     "section": 15,
+     "title": "AppShell 首页（登录成功判据达成：tab_me 可达）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "AppShell 首页（登录成功判据达成：tab_me 可达）",
+     "states": [
+      {
+       "id": "Z015-S124",
+       "state": "整页采证",
+       "files": [
+        "appshell__home__loaded.png",
+        "ui-appshell-home.xml"
+       ],
+       "notes": "文件：appshell__home__loaded.png + ui-appshell-home.xml（55+ 节点）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "tab_me 我的页整页（U1）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z016",
+     "section": 16,
+     "title": "tab_me 我的页整页（U1）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "tab_me 我的页整页（U1）",
+     "states": [
+      {
+       "id": "Z016-S125",
+       "state": "整页采证",
+       "files": [
+        "tabme__page__top.png",
+        "tabme__page__scrolled.png",
+        "tabme__page__bottom.png",
+        "flutter_debug_tabme_screenshot.png",
+        "ui-tabme.xml",
+        "ui-tabme-scrolled.xml",
+        "flutter_debug_tabme_ocr.txt",
+        "flutter_debug_tabme_semantics.json",
+        "flutter_debug_tabme_semantics.txt"
+       ],
+       "notes": "文件：tabme__page__top.png / tabme__page__scrolled.png / tabme__page__bottom.png / ui-tabme.xml / ui-tabme-scrolled.xml / flutter_debug_tabme_*（38 节点 / 2"
+      },
+      {
+       "id": "Z016-S144",
+       "state": "补充采证",
+       "files": [
+        "tabme__final_state.png",
+        "tabme__settings_hunt.png",
+        "ui-tabme-bottom.xml",
+        "ui-tabme-top-verify.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "一级入口点击响应（U2）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z036",
+     "section": 17,
+     "title": "到达即拍即返）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "一级入口点击响应（U2 · 到达即拍即返）",
+     "states": [
+      {
+       "id": "Z036-S96",
+       "state": "用户信息入口",
+       "files": [
+        "tabme__profile_entry__opened.png",
+        "ui-tabme-profile.xml"
+       ],
+       "notes": "跳页 person_info_page；个人信息修改：头像/昵称 Miao/密码 ******/手机号/账号绑定管理/注销账号/退出登入"
+      },
+      {
+       "id": "Z036-S97",
+       "state": "SWAN收藏",
+       "files": [],
+       "notes": "跳页；歌单列表：我的家庭/我的音乐/22225/把allLJL111/檀木/图谋/111 + 底部\"添加新的收藏歌单+\"；**dump null-root（语义树未暴露，子页通病待复核）**"
+      },
+      {
+       "id": "Z036-S98",
+       "state": "充值与消费记录",
+       "files": [
+        "tabme__recharge_entry__opened.png"
+       ],
+       "notes": "跳页；充值消费记录：充值/消费 Tab+筛选+流水列表（苹果/微信/支付宝充值 ¥10-30）"
+      },
+      {
+       "id": "Z036-S99",
+       "state": "家庭管理",
+       "files": [
+        "tabme__family_entry__opened.png"
+       ],
+       "notes": "跳页；我的家庭（改名铅笔icon）+成员 Miao 创建人+邀请 icon+右上二维码icon"
+      },
+      {
+       "id": "Z036-S100",
+       "state": "设备管理",
+       "files": [
+        "tabme__device_entry__opened.png"
+       ],
+       "notes": "跳页；**空态**：此wifi未找到相关设备（插画）+底部\"添加设备+\""
+      },
+      {
+       "id": "Z036-S101",
+       "state": "音质设置",
+       "files": [
+        "tabme__soundquality_entry__opened.png"
+       ],
+       "notes": "**底部弹层**；单选：流畅/标准(选中)/HQ高品质/SQ无损 + 完成红字"
+      },
+      {
+       "id": "Z036-S102",
+       "state": "帮助与反馈",
+       "files": [
+        "tabme__feedback_entry__opened.png"
+       ],
+       "notes": "跳页；可适配音箱型号/使用说明/用户反馈/常见问题（4 子入口）"
+      },
+      {
+       "id": "Z036-S103",
+       "state": "扫一扫",
+       "files": [
+        "tabme__scan_entry__opened.png"
+       ],
+       "notes": "**未捕获到稳定新页**：画面仅整体变暗（疑权限弹窗一闪或相机预览失败），2-3s 后回稳；待复核"
+      },
+      {
+       "id": "Z036-S104",
+       "state": "关于与升级",
+       "files": [
+        "tabme__about_entry__opened.png"
+       ],
+       "notes": "跳页；关于我们/使用政策/隐私政策协议/**软件升级 版本5.3.0 (build 32) debug-test**"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "U3 退出/清理类入口定位（**只定位未点击**）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z018",
+     "section": 18,
+     "title": "U3 退出/清理类入口定位（**只定位未点击**）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "U3 退出/清理类入口定位（**只定位未点击**）",
+     "states": [],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "平台页整页（U1）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z019",
+     "section": 19,
+     "title": "平台页整页（U1）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "平台页整页（U1）",
+     "states": [
+      {
+       "id": "Z019-S126",
+       "state": "整页采证",
+       "files": [
+        "platform__page__top.png",
+        "platform__list__scrolled_bottom.png",
+        "platform__ai_channel.png",
+        "platform__radio_channel.png",
+        "flutter_debug_platform_screenshot.png",
+        "ui-platform.xml",
+        "flutter_debug_platform_ocr.txt",
+        "flutter_debug_platform_semantics.json",
+        "flutter_debug_platform_semantics.txt"
+       ],
+       "notes": "文件：platform__page__top.png / platform__list__scrolled_bottom.png / platform__ai_channel.png / platform__radio_channel.png / ui-platform.xml / flutter_"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "平台行清单与授权状态联动（U1/U2 核心）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z020",
+     "section": 20,
+     "title": "平台行清单与授权状态联动（U1/U2 核心）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "平台行清单与授权状态联动（U1/U2 核心）",
+     "states": [
+      {
+       "id": "Z020-S127",
+       "state": "整页采证",
+       "files": [
+        "platform__qq_detail__opened.png",
+        "platform__netease_detail__opened.png",
+        "platform__kugou_detail__opened.png",
+        "ui-platform-qq.xml"
+       ],
+       "notes": "整页采证集（源文档说明节）"
+      },
+      {
+       "id": "Z020-S142",
+       "state": "补充采证",
+       "files": [
+        "platform__applemusic_plus__tapped.png",
+        "platform__spotify_plus__tapped.png",
+        "platform__spotify_unauthorized__tapped.png"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "U3 滚动/空态维度",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z021",
+     "section": 21,
+     "title": "U3 滚动/空态维度",
+     "anchors": [],
+     "bounds": [],
+     "raw": "U3 滚动/空态维度",
+     "states": [],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "设备页整页（U1）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z022",
+     "section": 22,
+     "title": "设备页整页（U1）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "设备页整页（U1）",
+     "states": [
+      {
+       "id": "Z022-S128",
+       "state": "整页采证",
+       "files": [
+        "device__page__initial.png",
+        "device__page__scrolled.png",
+        "device__page__dsp_section.png",
+        "flutter_debug_device_screenshot.png",
+        "ui-device.xml",
+        "ui-device-scrolled.xml",
+        "flutter_debug_device_ocr.txt",
+        "flutter_debug_device_semantics.json",
+        "flutter_debug_device_semantics.txt"
+       ],
+       "notes": "文件：device__page__initial.png / device__page__scrolled.png / device__page__dsp_section.png / ui-device.xml / ui-device-scrolled.xml / flutter_debug_dev"
+      },
+      {
+       "id": "Z022-S137",
+       "state": "补充采证",
+       "files": [
+        "device__back_verify.png"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "添加设备/配网入口（U2）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z023",
+     "section": 23,
+     "title": "添加设备/配网入口（U2）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "添加设备/配网入口（U2）",
+     "states": [
+      {
+       "id": "Z023-S60",
+       "state": "点添加设备→**权限弹窗①定位**",
+       "files": [
+        "device__add_entry__opened.png"
+       ],
+       "notes": "\"要允许 Swan Audio 获取此设备的位置信息吗？\"+确切位置/大致位置图示+按钮：仅在使用该应用时允许/仅限这一次/不允许；**已选允许**（仅在使用该应用时允许）"
+      },
+      {
+       "id": "Z023-S61",
+       "state": "**权限弹窗②附近设备（蓝牙）**",
+       "files": [
+        "device__add_page__after_permission.png"
+       ],
+       "notes": "\"要允许 Swan Audio 查找、连接到附近设备以及确定附近设备的相对位置吗？\"+允许/不允许；**已选允许**"
+      },
+      {
+       "id": "Z023-S62",
+       "state": "添加设备页（权限后完整态）",
+       "files": [
+        "device__add_page__final.png"
+       ],
+       "notes": "蓝牙配网（持续自动搜索中…→正在检查蓝牙权限）+ Wifi配网（进入手机无线网络设置，连接待配网的设备热点/当前是通过wifi链接设备）+ 如何配网？右上帮助链接（**未点击**）+ 底部 前往设备 钮（**未点击**——不深入配网流程）"
+      },
+      {
+       "id": "Z023-S145",
+       "state": "补充采证",
+       "files": [
+        "ui-device-addpage.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "U3 辅助维度",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z024",
+     "section": 24,
+     "title": "U3 辅助维度",
+     "anchors": [],
+     "bounds": [],
+     "raw": "U3 辅助维度",
+     "states": [],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "首页顶部频道条联动（U1）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z025",
+     "section": 25,
+     "title": "首页顶部频道条联动（U1）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "首页顶部频道条联动（U1）",
+     "states": [
+      {
+       "id": "Z025-S129",
+       "state": "整页采证",
+       "files": [
+        "appshell__home__loaded.png"
+       ],
+       "notes": "文件：home__channel_music/ai/speaker/radio.png（推荐频道首屏=appshell__home__loaded.png）"
+      },
+      {
+       "id": "Z025-S139",
+       "state": "补充采证",
+       "files": [
+        "home__channel_ai.png",
+        "home__channel_music.png",
+        "home__channel_radio.png",
+        "home__channel_speaker.png",
+        "ui-home-verify.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "扫一扫 O-9 终结论（U2）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z026",
+     "section": 26,
+     "title": "扫一扫 O-9 终结论（U2）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "扫一扫 O-9 终结论（U2）",
+     "states": [
+      {
+       "id": "Z026-S130",
+       "state": "整页采证",
+       "files": [
+        "tabme__scan_recheck2.png",
+        "tabme__scan_page__opened.png"
+       ],
+       "notes": "整页采证集（源文档说明节）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "小薇 AI 入口形态（U3）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z027",
+     "section": 27,
+     "title": "小薇 AI 入口形态（U3）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "小薇 AI 入口形态（U3）",
+     "states": [
+      {
+       "id": "Z027-S131",
+       "state": "整页采证",
+       "files": [
+        "home__xiaowei_entry__opened2.png"
+       ],
+       "notes": "文件：home__xiaowei_entry__opened2.png"
+      },
+      {
+       "id": "Z027-S140",
+       "state": "补充采证",
+       "files": [
+        "home__xiaowei_entry__opened.png"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "person_info_page 深测绘（U1）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z037",
+     "section": 28,
+     "title": "禁区全程规避）",
+     "anchors": [
+      "person_info_page"
+     ],
+     "bounds": [],
+     "raw": "person_info_page 深测绘（U1 · 禁区全程规避）",
+     "states": [
+      {
+       "id": "Z037-S132",
+       "state": "整页采证",
+       "files": [
+        "personinfo__page__full.png",
+        "ui-personinfo-full.xml"
+       ],
+       "notes": "文件：personinfo__page__full.png + ui-personinfo-full.xml；页根锚点 person_info_page，标题 个人信息修改"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "帮助与反馈 4 子项（U2）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z029",
+     "section": 29,
+     "title": "帮助与反馈 4 子项（U2）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "帮助与反馈 4 子项（U2）",
+     "states": [
+      {
+       "id": "Z029-S63",
+       "state": "可适配音箱型号",
+       "files": [
+        "help__models__opened.png"
+       ],
+       "notes": "**远程内容页**：t+3s 仍为加载圈（加载态采证）；内容未在采证窗口渲染完成（加载慢观察 O-19）"
+      },
+      {
+       "id": "Z029-S64",
+       "state": "使用说明",
+       "files": [
+        "help__manual__opened.png"
+       ],
+       "notes": "8 主题列表：连接音箱（如何让app连接设备）/平台管理（平台授权的添加与取消操作）/歌曲管理（更改歌单名称和删除歌单）/低音炮/DSP（如何添加使用）/设备管理（如何编辑设备名）/AI（AI充值、角色管理）/其他问题"
+      },
+      {
+       "id": "Z029-S65",
+       "state": "用户反馈",
+       "files": [
+        "help__userfeedback__opened.png"
+       ],
+       "notes": "**反馈信息列表**：历史反馈 2 条（关于APP 1255/1225 带时间戳）+ 右上 ⊕ 新建入口；**新建表单（输入框）未触**（提交=写操作，四态结构留待专项）"
+      },
+      {
+       "id": "Z029-S66",
+       "state": "常见问题",
+       "files": [
+        "help__faq__opened.png"
+       ],
+       "notes": "2 分类：设备连接相关（配网方式、连接问题与设备发现排查）/音乐播放相关（平台授权、VIP 播放规则与播放列表限制）+ **右上 EN 语言切换钮**（i18n 能力实证）"
+      },
+      {
+       "id": "Z029-S146",
+       "state": "补充采证",
+       "files": [
+        "ui-help-feedback.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "关于与升级页测绘 + O-12 终结论（U3）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z030",
+     "section": 30,
+     "title": "关于与升级页测绘 + O-12 终结论（U3）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "关于与升级页测绘 + O-12 终结论（U3）",
+     "states": [
+      {
+       "id": "Z030-S67",
+       "state": "使用政策",
+       "files": [
+        "about__terms__chrome.png"
+       ],
+       "notes": "Chrome URL=`network.hivi.com/privacy`（tab 2）"
+      },
+      {
+       "id": "Z030-S68",
+       "state": "隐私政策协议",
+       "files": [
+        "about__privacy__chrome.png"
+       ],
+       "notes": "Chrome URL=`network.hivi.com/privacy`（同 URL）"
+      },
+      {
+       "id": "Z030-S69",
+       "state": "关于我们",
+       "files": [
+        "about__aboutus__opened.png"
+       ],
+       "notes": "静态公司页：珠海惠威科技有限公司/ZHUHAI SWAN TECHNOLOGY CO.,LTD. logo+35 年简介+400-0909-199/guanwang@hivi.com/www.hivi.com"
+      },
+      {
+       "id": "Z030-S133",
+       "state": "补充采证",
+       "files": [
+        "about__page__opened.png",
+        "ui-about-page.xml"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "搜索主链路（U1）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z031",
+     "section": 31,
+     "title": "搜索主链路（U1）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "搜索主链路（U1）",
+     "states": [
+      {
+       "id": "Z031-S70",
+       "state": "搜索页初始",
+       "files": [
+        "search__page__initial.png"
+       ],
+       "notes": "返回+输入框（placeholder=搜索歌曲或艺术家等，自动聚焦）+搜索钮；**搜索历史区：有标题无条目=空历史态样板**（本轮搜索后产生历史，未回采——后续片可补）"
+      },
+      {
+       "id": "Z031-S71",
+       "state": "输入",
+       "files": [
+        "search__filled_hivi.png"
+       ],
+       "notes": "**CJK 限制**：`adb input text` 中文直接 NPE 异常（工具链限制记录），降级 ASCII 虚拟词 \"hivi\"（逐字符输入，实际落库 \"hi vi\"——字符间被并入空格，连输字符行为待复核）"
+      },
+      {
+       "id": "Z031-S72",
+       "state": "结果页",
+       "files": [
+        "search__results_hivi.png"
+       ],
+       "notes": "**6 结果 Tab**：单曲(选中)/艺人/专辑/歌单/电台/播客；**平台分组结果**：网易云音乐组（1-5 序号+VIP 角标+右侧 + 收藏钮+查看更多∨）→ QQ音乐组（21-23 序号，灰置渐显=懒加载）；无播放触发"
+      },
+      {
+       "id": "Z031-S73",
+       "state": "清空返回",
+       "files": [
+        "search__cleared.png",
+        "ui-search-page.xml",
+        "ui-search-results.xml"
+       ],
+       "notes": "输入框 × 钮清空；返回路径：搜索页 back→首页，**再 back 直接退出 App（无根 Tab 防护）**——返回栈行为差异记录"
+      },
+      {
+       "id": "Z031-S143",
+       "state": "补充采证",
+       "files": [
+        "search__after_back.png",
+        "search__bar_target.png"
+       ],
+       "notes": "按 R6.2 命名家族/语义 dump 页面映射归档（源文档未逐条指认到状态）"
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "电台频道深一层（U2）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z038",
+     "section": 32,
+     "title": "含边界事件 P-9-1）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "电台频道深一层（U2 · 含边界事件 P-9-1）",
+     "states": [
+      {
+       "id": "Z038-S105",
+       "state": "电台列表",
+       "files": [
+        "home__radio_list.png"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z038-S106",
+       "state": "**行体点击行为（重要）**",
+       "files": [
+        "radio__beijing__opened.png"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z038-S107",
+       "state": "播放流向",
+       "files": [
+        "radio__player_page.png"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z038-S108",
+       "state": "止损处置",
+       "files": [
+        "radio__playback_paused.png"
+       ],
+       "notes": ""
+      },
+      {
+       "id": "Z038-S109",
+       "state": "→ 钮行为",
+       "files": [
+        "radio__after_stop_relaunch.png",
+        "ui-radio-list.xml"
+       ],
+       "notes": ""
+      }
+     ],
+     "linkage": ""
+    }
+   ]
+  },
+  {
+   "name": "设置/切服入口定位（U3）",
+   "source": "vm",
+   "zones": [
+    {
+     "id": "Z033",
+     "section": 33,
+     "title": "设置/切服入口定位（U3）",
+     "anchors": [],
+     "bounds": [],
+     "raw": "设置/切服入口定位（U3）",
+     "states": [],
+     "linkage": ""
+    }
+   ]
+  }
+ ]
+}

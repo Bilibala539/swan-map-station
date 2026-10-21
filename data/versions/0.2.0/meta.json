@@ -1,0 +1,22 @@
+{
+ "version": "0.2.0",
+ "demo": true,
+ "demoNote": "Demo 版 · 仅做项目验证",
+ "buildDate": "2026-09-10",
+ "badge": {
+  "mapVersion": "v2",
+  "appRepo": "HiVi-Network-FlutterApp@4d1ed7b",
+  "coreRepo": "hivi_network_flutter_core@402853a",
+  "apk": "5.3.0 (build 32) debug-test",
+  "taskId": "SWAN-20260910-001-feature-boundary"
+ },
+ "stats": {
+  "modules": 18,
+  "features": 141,
+  "zones": 33,
+  "states": 104,
+  "evidenceFiles": 221,
+  "bugCandidates": 2,
+  "oItems": 7
+ }
+}

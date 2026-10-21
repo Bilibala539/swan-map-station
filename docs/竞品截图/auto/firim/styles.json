@@ -1,0 +1,40 @@
+{
+ "page_height": 622,
+ "palette": [
+  {
+   "count": 3,
+   "prop_color": "color rgb(0, 0, 0)"
+  },
+  {
+   "count": 3,
+   "prop_color": "border-top-color rgb(0, 0, 0)"
+  }
+ ],
+ "sample": [
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(0, 0, 0)",
+   "font-family": "\"Microsoft YaHei\"",
+   "font-size": "16px",
+   "font-weight": "400",
+   "height": "606px",
+   "letter-spacing": "normal",
+   "line-height": "normal",
+   "margin": "8px",
+   "padding": "0px",
+   "sel": "body",
+   "tag": "body",
+   "text": "No input file specified."
+  }
+ ],
+ "title": "",
+ "url": "https://www.fir.im/",
+ "viewport": {
+  "h": 622,
+  "w": 1416
+ }
+}

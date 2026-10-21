@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Swan 自动化测试执行通道(流水线执行模块,Linux v2)。平台 POST /api/pipeline/trigger 建任务后由 try_jenkins_dispatch 派发到本任务(form 编码,仅 JOB_ID 一个参数,basic auth 走 /opt/uiautotest/.env.local 的 JENKINS_*)。构建体只做定向认领执行(.venv python scripts/pipeline_agent.py --job-id "$JOB_ID"),不回调任何触发动作(防环:平台 JENKINS_TEST_JOB 只能指向本测试 job)。在 master(167)本地执行,禁止钉 build-176 节点(176 不装 adb、不接手机)。本机需满足:/opt/uiautotest/.venv(部署计划 v3 §4)、adb+plugdev(v3 §8)、/opt/uiautotest/.env.local(SWAN_PHONE 等测试侧键,agent 自读)。任务结果以平台 pipeline_jobs/runs 为准,构建号仅作派发回执(回填任务行 jenkins_job/jenkins_build)。</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>JOB_ID</name>
+          <description>平台流水线任务 ID(pipeline_jobs.job_id,形如 job-日期-短随机)。平台派发自动传入;手工自检时填不存在的值即可空跑(构建绿,不产生任务/run)。此参数必须显式定义:缺失时 Shell 里 $JOB_ID 展开为空,agent 会退回轮询分支误领任意 pending 任务。</description>
+          <defaultValue></defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>cd /opt/uiautotest || exit 1
+/opt/uiautotest/.venv/bin/python scripts/pipeline_agent.py --job-id "$JOB_ID"</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

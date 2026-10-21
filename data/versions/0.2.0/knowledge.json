@@ -1,0 +1,149 @@
+{
+ "pages": [
+  {
+   "name": "Swan (Flutter) 知识库",
+   "relPath": "README.md",
+   "links": [
+    "swan_page_id"
+   ]
+  },
+  {
+   "name": "swan_个人信息页（个人信息修改）",
+   "relPath": "pages/swan_个人信息页.md",
+   "links": [
+    "swan_我的页",
+    "swan_验证码登录页"
+   ]
+  },
+  {
+   "name": "swan_关于与升级页",
+   "relPath": "pages/swan_关于与升级页.md",
+   "links": [
+    "swan_我的页"
+   ]
+  },
+  {
+   "name": "swan_家庭管理页",
+   "relPath": "pages/swan_家庭管理页.md",
+   "links": [
+    "swan_我的页"
+   ]
+  },
+  {
+   "name": "swan_密码登入页",
+   "relPath": "pages/swan_密码登入页.md",
+   "links": [
+    "swan_验证码登录页"
+   ]
+  },
+  {
+   "name": "swan_帮助与反馈页",
+   "relPath": "pages/swan_帮助与反馈页.md",
+   "links": [
+    "swan_我的页"
+   ]
+  },
+  {
+   "name": "swan_平台页",
+   "relPath": "pages/swan_平台页.md",
+   "links": [
+    "swan_首页"
+   ]
+  },
+  {
+   "name": "swan_我的页",
+   "relPath": "pages/swan_我的页.md",
+   "links": [
+    "swan_个人信息页",
+    "swan_关于与升级页",
+    "swan_家庭管理页",
+    "swan_帮助与反馈页",
+    "swan_收藏分组详情页",
+    "swan_收藏页",
+    "swan_音质设置页",
+    "swan_首页"
+   ]
+  },
+  {
+   "name": "swan_播放页",
+   "relPath": "pages/swan_播放页.md",
+   "links": [
+    "swan_首页"
+   ]
+  },
+  {
+   "name": "swan_收藏分组详情页",
+   "relPath": "pages/swan_收藏分组详情页.md",
+   "links": [
+    "swan_我的页",
+    "swan_收藏页",
+    "swan_首页"
+   ]
+  },
+  {
+   "name": "swan_收藏页（SWAN收藏）",
+   "relPath": "pages/swan_收藏页.md",
+   "links": [
+    "swan_我的页",
+    "swan_收藏分组详情页",
+    "swan_首页"
+   ]
+  },
+  {
+   "name": "swan_设备页",
+   "relPath": "pages/swan_设备页.md",
+   "links": [
+    "swan_首页"
+   ]
+  },
+  {
+   "name": "swan_音质设置页",
+   "relPath": "pages/swan_音质设置页.md",
+   "links": [
+    "swan_我的页"
+   ]
+  },
+  {
+   "name": "swan_首页",
+   "relPath": "pages/swan_首页.md",
+   "links": [
+    "swan_平台页",
+    "swan_我的页",
+    "swan_播放页",
+    "swan_收藏分组详情页",
+    "swan_收藏页",
+    "swan_设备页",
+    "swan_验证码登录页",
+    "swan_验证码输入页"
+   ]
+  },
+  {
+   "name": "swan_验证码登录页",
+   "relPath": "pages/swan_验证码登录页.md",
+   "links": [
+    "swan_个人信息页",
+    "swan_密码登入页",
+    "swan_首页",
+    "swan_验证码输入页"
+   ]
+  },
+  {
+   "name": "swan_验证码输入页",
+   "relPath": "pages/swan_验证码输入页.md",
+   "links": [
+    "swan_首页",
+    "swan_验证码登录页"
+   ]
+  },
+  {
+   "name": "Swan 知识库中文索引（人读入口）",
+   "relPath": "digest/中文索引.md",
+   "links": [
+    "双向链接"
+   ]
+  }
+ ],
+ "stats": {
+  "files": 17
+ }
+}

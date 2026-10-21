@@ -1,0 +1,156 @@
+{
+ "page_height": 325,
+ "palette": [
+  {
+   "count": 47,
+   "prop_color": "color rgb(102, 112, 133)"
+  },
+  {
+   "count": 42,
+   "prop_color": "border-top-color rgb(102, 112, 133)"
+  },
+  {
+   "count": 13,
+   "prop_color": "color rgb(23, 32, 51)"
+  },
+  {
+   "count": 13,
+   "prop_color": "border-top-color rgb(23, 32, 51)"
+  },
+  {
+   "count": 6,
+   "prop_color": "color rgb(0, 0, 0)"
+  },
+  {
+   "count": 6,
+   "prop_color": "border-top-color rgb(0, 0, 0)"
+  },
+  {
+   "count": 6,
+   "prop_color": "background-color rgb(250, 251, 252)"
+  },
+  {
+   "count": 5,
+   "prop_color": "border-top-color rgb(230, 233, 239)"
+  },
+  {
+   "count": 5,
+   "prop_color": "background-color rgb(255, 249, 219)"
+  },
+  {
+   "count": 5,
+   "prop_color": "color rgb(173, 104, 0)"
+  },
+  {
+   "count": 5,
+   "prop_color": "border-top-color rgb(173, 104, 0)"
+  },
+  {
+   "count": 1,
+   "prop_color": "background-color rgb(255, 255, 255)"
+  }
+ ],
+ "sample": [
+  {
+   "background-color": "rgb(255, 255, 255)",
+   "border": "0px none rgb(23, 32, 51)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(23, 32, 51)",
+   "font-family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+   "font-size": "13px",
+   "font-weight": "400",
+   "height": "325px",
+   "letter-spacing": "normal",
+   "line-height": "19.5px",
+   "margin": "0px",
+   "padding": "18px 20px 28px",
+   "sel": "body",
+   "tag": "body",
+   "text": "每 2 秒自动刷新 · 显示最近取码记录（含已消费/已过期）\n  \n    手机"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(23, 32, 51)",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(23, 32, 51)",
+   "font-family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+   "font-size": "13px",
+   "font-weight": "400",
+   "height": "249px",
+   "letter-spacing": "normal",
+   "line-height": "19.5px",
+   "margin": "0px",
+   "padding": "0px",
+   "sel": "table",
+   "tag": "table",
+   "text": "手机号验证码生成时间过期时间请求 ID状态\n    13555555555226"
+  },
+  {
+   "background-color": "rgb(250, 251, 252)",
+   "border": "",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(102, 112, 133)",
+   "font-family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+   "font-size": "12px",
+   "font-weight": "600",
+   "height": "34.5px",
+   "letter-spacing": "normal",
+   "line-height": "18px",
+   "margin": "0px",
+   "padding": "8px 12px",
+   "sel": "th",
+   "tag": "th",
+   "text": "手机号"
+  },
+  {
+   "background-color": "rgba(0, 0, 0, 0)",
+   "border": "",
+   "border-radius": "0px",
+   "box-shadow": "none",
+   "cls": "",
+   "color": "rgb(102, 112, 133)",
+   "font-family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+   "font-size": "13px",
+   "font-weight": "400",
+   "height": "43px",
+   "letter-spacing": "normal",
+   "line-height": "19.5px",
+   "margin": "0px",
+   "padding": "9px 12px",
+   "sel": "td",
+   "tag": "td",
+   "text": "13555555555"
+  },
+  {
+   "background-color": "rgb(255, 249, 219)",
+   "border": "0px none rgb(173, 104, 0)",
+   "border-radius": "999px",
+   "box-shadow": "none",
+   "cls": "badge expired",
+   "color": "rgb(173, 104, 0)",
+   "font-family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+   "font-size": "12px",
+   "font-weight": "600",
+   "height": "24px",
+   "letter-spacing": "normal",
+   "line-height": "18px",
+   "margin": "0px",
+   "padding": "3px 9px",
+   "sel": "[class*=\"badge\"]",
+   "tag": "span",
+   "text": "已过期"
+  }
+ ],
+ "title": "短信验证码",
+ "url": "http://192.168.12.167:18080/",
+ "viewport": {
+  "h": 186,
+  "w": 1416
+ }
+}

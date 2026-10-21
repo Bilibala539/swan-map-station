@@ -1,0 +1,2767 @@
+{
+ "modules": [
+  {
+   "id": "M01",
+   "name": "启动与隐私",
+   "featureCount": 5
+  },
+  {
+   "id": "M02",
+   "name": "会话与登录",
+   "featureCount": 7
+  },
+  {
+   "id": "M03",
+   "name": "主框架与导航",
+   "featureCount": 6
+  },
+  {
+   "id": "M04",
+   "name": "首页（顶 Tab 容器）",
+   "featureCount": 8
+  },
+  {
+   "id": "M05",
+   "name": "搜索",
+   "featureCount": 5
+  },
+  {
+   "id": "M06",
+   "name": "播放器",
+   "featureCount": 10
+  },
+  {
+   "id": "M07",
+   "name": "音乐平台聚合",
+   "featureCount": 17
+  },
+  {
+   "id": "M08",
+   "name": "电台/播客",
+   "featureCount": 6
+  },
+  {
+   "id": "M09",
+   "name": "AI 助手",
+   "featureCount": 11
+  },
+  {
+   "id": "M10",
+   "name": "可视音箱 Vision",
+   "featureCount": 6
+  },
+  {
+   "id": "M11",
+   "name": "设备管理与配网",
+   "featureCount": 13
+  },
+  {
+   "id": "M12",
+   "name": "收藏与曲库",
+   "featureCount": 8
+  },
+  {
+   "id": "M13",
+   "name": "个人中心",
+   "featureCount": 10
+  },
+  {
+   "id": "M14",
+   "name": "支付与会员",
+   "featureCount": 8
+  },
+  {
+   "id": "M15",
+   "name": "帮助/关于/反馈",
+   "featureCount": 5
+  },
+  {
+   "id": "M16",
+   "name": "推送/日活/版本",
+   "featureCount": 5
+  },
+  {
+   "id": "M17",
+   "name": "设置/切服/平台通道",
+   "featureCount": 7
+  },
+  {
+   "id": "M18",
+   "name": "视频与投屏",
+   "featureCount": 4
+  }
+ ],
+ "features": [
+  {
+   "id": "M01-F01",
+   "moduleId": "M01",
+   "name": "双入口分平台启动",
+   "status": "已考古-初步卡：模块卡片-app",
+   "entries": [
+    "App:lib/main.dart、App:lib/main_ohos.dart"
+   ],
+   "implementations": [
+    "Core:app/app_bootstrap.dart:148"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z009",
+    "Z013"
+   ],
+   "evidencePages": [
+    "基础态全量采集（flutter_page_debug.py，OCR 可用）",
+    "片 2 新增页面：splash 启动页"
+   ]
+  },
+  {
+   "id": "M01-F02",
+   "moduleId": "M01",
+   "name": "启动状态机（privacy→login→authenticated）",
+   "status": "已考古-初步卡：模块卡片-core",
+   "entries": [],
+   "implementations": [
+    "Core:app/app_startup_gate.dart:27",
+    "Core:app/app_startup_controller.dart:20"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z009",
+    "Z013"
+   ],
+   "evidencePages": [
+    "基础态全量采集（flutter_page_debug.py，OCR 可用）",
+    "片 2 新增页面：splash 启动页"
+   ]
+  },
+  {
+   "id": "M01-F03",
+   "moduleId": "M01",
+   "name": "隐私协议弹窗（拒绝即退出 App）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:app/app_startup_gate.dart:285"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z009",
+    "Z013"
+   ],
+   "evidencePages": [
+    "基础态全量采集（flutter_page_debug.py，OCR 可用）",
+    "片 2 新增页面：splash 启动页"
+   ]
+  },
+  {
+   "id": "M01-F04",
+   "moduleId": "M01",
+   "name": "token 恢复直进主界面（不校验有效性）",
+   "status": "已考古：模块卡片-login",
+   "entries": [],
+   "implementations": [],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z009",
+    "Z013"
+   ],
+   "evidencePages": [
+    "基础态全量采集（flutter_page_debug.py，OCR 可用）",
+    "片 2 新增页面：splash 启动页"
+   ]
+  },
+  {
+   "id": "M01-F05",
+   "moduleId": "M01",
+   "name": "启动调试日志注入",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/debug/agent_startup_debug_log.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z009",
+    "Z013"
+   ],
+   "evidencePages": [
+    "基础态全量采集（flutter_page_debug.py，OCR 可用）",
+    "片 2 新增页面：splash 启动页"
+   ]
+  },
+  {
+   "id": "M02-F06",
+   "moduleId": "M02",
+   "name": "全域",
+   "status": "已考古：模块卡片-login",
+   "entries": [],
+   "implementations": [],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z001",
+    "Z002",
+    "Z003",
+    "Z005",
+    "Z006",
+    "Z007",
+    "Z008",
+    "Z004",
+    "Z034",
+    "Z035",
+    "Z012",
+    "Z014"
+   ],
+   "evidencePages": [
+    "login 页",
+    "login 页（密码模式）",
+    "area 选择归属地页（U4）",
+    "loginpwd 密码登录模式（U5）",
+    "U6 轻量复核",
+    "发码流程（login → code 验证码页）"
+   ]
+  },
+  {
+   "id": "M02-F07",
+   "moduleId": "M02",
+   "name": "短信/密码登录页 `/login`",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/auth/pure_flutter_login_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z001",
+    "Z002",
+    "Z003",
+    "Z005",
+    "Z006",
+    "Z007",
+    "Z008",
+    "Z004",
+    "Z034",
+    "Z035",
+    "Z012",
+    "Z014"
+   ],
+   "evidencePages": [
+    "login 页",
+    "login 页（密码模式）",
+    "area 选择归属地页（U4）",
+    "loginpwd 密码登录模式（U5）",
+    "U6 轻量复核",
+    "发码流程（login → code 验证码页）"
+   ]
+  },
+  {
+   "id": "M02-F08",
+   "moduleId": "M02",
+   "name": "绑定手机号 `/login/bind-phone`（50015 分支）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/auth/pure_flutter_bind_phone_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z001",
+    "Z002",
+    "Z003",
+    "Z005",
+    "Z006",
+    "Z007",
+    "Z008",
+    "Z004",
+    "Z034",
+    "Z035",
+    "Z012",
+    "Z014"
+   ],
+   "evidencePages": [
+    "login 页",
+    "login 页（密码模式）",
+    "area 选择归属地页（U4）",
+    "loginpwd 密码登录模式（U5）",
+    "U6 轻量复核",
+    "发码流程（login → code 验证码页）"
+   ]
+  },
+  {
+   "id": "M02-F09",
+   "moduleId": "M02",
+   "name": "区号选择 `/login/area-code`",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/auth/pure_flutter_area_code_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z001",
+    "Z002",
+    "Z003",
+    "Z005",
+    "Z006",
+    "Z007",
+    "Z008",
+    "Z004",
+    "Z034",
+    "Z035",
+    "Z012",
+    "Z014"
+   ],
+   "evidencePages": [
+    "login 页",
+    "login 页（密码模式）",
+    "area 选择归属地页（U4）",
+    "loginpwd 密码登录模式（U5）",
+    "U6 轻量复核",
+    "发码流程（login → code 验证码页）"
+   ]
+  },
+  {
+   "id": "M02-F10",
+   "moduleId": "M02",
+   "name": "第三方登录（微信/微博/Apple）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:packages/swan_third_party_login"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z001",
+    "Z002",
+    "Z003",
+    "Z005",
+    "Z006",
+    "Z007",
+    "Z008",
+    "Z004",
+    "Z034",
+    "Z035",
+    "Z012",
+    "Z014"
+   ],
+   "evidencePages": [
+    "login 页",
+    "login 页（密码模式）",
+    "area 选择归属地页（U4）",
+    "loginpwd 密码登录模式（U5）",
+    "U6 轻量复核",
+    "发码流程（login → code 验证码页）"
+   ]
+  },
+  {
+   "id": "M02-F11",
+   "moduleId": "M02",
+   "name": "token 三处存储、无 refresh 机制",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/auth_api.dart",
+    "Core:data/data_sources/local/local_storage_service.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z001",
+    "Z002",
+    "Z003",
+    "Z005",
+    "Z006",
+    "Z007",
+    "Z008",
+    "Z004",
+    "Z034",
+    "Z035",
+    "Z012",
+    "Z014"
+   ],
+   "evidencePages": [
+    "login 页",
+    "login 页（密码模式）",
+    "area 选择归属地页（U4）",
+    "loginpwd 密码登录模式（U5）",
+    "U6 轻量复核",
+    "发码流程（login → code 验证码页）"
+   ]
+  },
+  {
+   "id": "M02-F12",
+   "moduleId": "M02",
+   "name": "登出清理（4 触发点）+ 会话失效清栈",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:app/app_session_invalidation_coordinator.dart",
+    "Core:app/app_startup_gate.dart:150"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z001",
+    "Z002",
+    "Z003",
+    "Z005",
+    "Z006",
+    "Z007",
+    "Z008",
+    "Z004",
+    "Z034",
+    "Z035",
+    "Z012",
+    "Z014"
+   ],
+   "evidencePages": [
+    "login 页",
+    "login 页（密码模式）",
+    "area 选择归属地页（U4）",
+    "loginpwd 密码登录模式（U5）",
+    "U6 轻量复核",
+    "发码流程（login → code 验证码页）"
+   ]
+  },
+  {
+   "id": "M03-F13",
+   "moduleId": "M03",
+   "name": "底部四 Tab 壳（推荐/音乐/设备/我的）",
+   "status": "已考古-初步卡：模块卡片-app/core",
+   "entries": [
+    "MaterialApp `home:` 挂载（app_bootstrap.dart:803）；Tab 实测 routeName=homeMain/platform/device/me，testId=tabRecommend/tabPlatform/tabDevice/tabMe"
+   ],
+   "implementations": [
+    "Core:app/app_shell.dart:84（defaultTabs）"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z015"
+   ],
+   "evidencePages": [
+    "AppShell 首页（登录成功判据达成：tab_me 可达）"
+   ]
+  },
+  {
+   "id": "M03-F14",
+   "moduleId": "M03",
+   "name": "命名路由总表（实测 125 条常量）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/app_router.dart（全表枚举完毕）",
+    "Core:core/routes/pure_flutter_router.dart:427（buildPage switch 逐条核对）"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z015"
+   ],
+   "evidencePages": [
+    "AppShell 首页（登录成功判据达成：tab_me 可达）"
+   ]
+  },
+  {
+   "id": "M03-F15",
+   "moduleId": "M03",
+   "name": "死路由 5 条（常量零引用 + buildPage 无 case + 无页面类）  ⚠疑似坑：pushNamed 这些路由将走 default 返回 null，运行时表现待确认",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [],
+   "notes": [
+    "`/main`、`/main/home`：Core:core/routes/app_router.dart:9,10",
+    "`/music_platform/vip`、`/music_platform/vip/pay`、`/music_platform/manage-one`：Core:core/routes/app_router.dart:133,134,135"
+   ],
+   "deadRoute": true,
+   "evidenceZoneIds": [
+    "Z015"
+   ],
+   "evidencePages": [
+    "AppShell 首页（登录成功判据达成：tab_me 可达）"
+   ]
+  },
+  {
+   "id": "M03-F16",
+   "moduleId": "M03",
+   "name": "路由工厂 + 底部播放器包裹规则",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:339"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z015"
+   ],
+   "evidencePages": [
+    "AppShell 首页（登录成功判据达成：tab_me 可达）"
+   ]
+  },
+  {
+   "id": "M03-F17",
+   "moduleId": "M03",
+   "name": "Tab 页缓存与可见性暂停",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:app/app_shell.dart:569"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z015"
+   ],
+   "evidencePages": [
+    "AppShell 首页（登录成功判据达成：tab_me 可达）"
+   ]
+  },
+  {
+   "id": "M03-F18",
+   "moduleId": "M03",
+   "name": "splash `/` 与推荐页共用 RecomendPage（buildPage 中 splash 与 homeRecommend 同 case）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:427"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z015"
+   ],
+   "evidencePages": [
+    "AppShell 首页（登录成功判据达成：tab_me 可达）"
+   ]
+  },
+  {
+   "id": "M04-F19",
+   "moduleId": "M04",
+   "name": "五顶 Tab 容器 `/home/main` （实测 5 个 _KeepAliveTab，home_main_page.dart:143-173）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/home/home_main_page.dart:129"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025"
+   ],
+   "evidencePages": [
+    "首页顶部频道条联动（U1）"
+   ]
+  },
+  {
+   "id": "M04-F20",
+   "moduleId": "M04",
+   "name": "推荐页 `/home/recommend`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/recommend/recomend_page.dart:156"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025"
+   ],
+   "evidencePages": [
+    "首页顶部频道条联动（U1）"
+   ]
+  },
+  {
+   "id": "M04-F21",
+   "moduleId": "M04",
+   "name": "音乐 Tab（搜索入口）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/home/home_music_page.dart:32"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025"
+   ],
+   "evidencePages": [
+    "首页顶部频道条联动（U1）"
+   ]
+  },
+  {
+   "id": "M04-F22",
+   "moduleId": "M04",
+   "name": "电台 Tab（搜索入口）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/home/home_radio_page.dart:27"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025"
+   ],
+   "evidencePages": [
+    "首页顶部频道条联动（U1）"
+   ]
+  },
+  {
+   "id": "M04-F23",
+   "moduleId": "M04",
+   "name": "AI Tab",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/home/home_ai_page.dart:7"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025"
+   ],
+   "evidencePages": [
+    "首页顶部频道条联动（U1）"
+   ]
+  },
+  {
+   "id": "M04-F24",
+   "moduleId": "M04",
+   "name": "可视音箱 Tab",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/home/home_vision_page.dart:65"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025"
+   ],
+   "evidencePages": [
+    "首页顶部频道条联动（U1）"
+   ]
+  },
+  {
+   "id": "M04-F25",
+   "moduleId": "M04",
+   "name": "音乐权益初始化页 `/home/init-music-right` （v1 未确认 → 已裁决）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/recommend/init_music_right_page.dart",
+    "Core:app/init_music_right_prompt_coordinator.dart:33 ⚠疑似坑：一次性弹窗标记 init_music_right_shown；可引导平台为空时不弹也不写标记；蒙层走 root Navigator，AppShell IndexedStack 预构建隐藏 Tab 是其触发时机约束"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025"
+   ],
+   "evidencePages": [
+    "首页顶部频道条联动（U1）"
+   ]
+  },
+  {
+   "id": "M04-F26",
+   "moduleId": "M04",
+   "name": "首页音乐 Tab 平台区块过滤 Spotify  ⚠疑似坑：Spotify 保留在平台页但首页推荐区明确不展示（catalog_mapper 注释言明）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/platform/platform_catalog_mapper.dart:127"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025"
+   ],
+   "evidencePages": [
+    "首页顶部频道条联动（U1）"
+   ]
+  },
+  {
+   "id": "M05-F27",
+   "moduleId": "M05",
+   "name": "全域",
+   "status": "已考古：模块卡片-search",
+   "entries": [],
+   "implementations": [],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z031"
+   ],
+   "evidencePages": [
+    "搜索主链路（U1）"
+   ]
+  },
+  {
+   "id": "M05-F28",
+   "moduleId": "M05",
+   "name": "搜索输入页 `/search`、`/main/search`（双路由常量映射同一 SearchPage）  ⚠疑似坑：8 处入口中 7 处用 searchEntry(`/search`)、qobuz 用 search(`/main/search`)，路由不统一",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:781",
+    "Core:presentation/pages/search/search_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z031"
+   ],
+   "evidencePages": [
+    "搜索主链路（U1）"
+   ]
+  },
+  {
+   "id": "M05-F29",
+   "moduleId": "M05",
+   "name": "搜索结果页 `/search/results`（可播放集合内）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/search/search_results_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z031"
+   ],
+   "evidencePages": [
+    "搜索主链路（U1）"
+   ]
+  },
+  {
+   "id": "M05-F30",
+   "moduleId": "M05",
+   "name": "多入口 8 处实测（推荐页 Port/AppleMusic Port/音乐 Tab/电台 Tab/Qobuz/全国电台/80·90 电台/平台内容页）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/pure_flutter_recommend_page_port.dart:75",
+    "Core:presentation/pages/platform/content/platform_content_page.dart:229"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z031"
+   ],
+   "evidencePages": [
+    "搜索主链路（U1）"
+   ]
+  },
+  {
+   "id": "M05-F31",
+   "moduleId": "M05",
+   "name": "14 条 L2 用例，执行 BLOCKED（ANR，SWAN-20260904-005）",
+   "status": "",
+   "entries": [],
+   "implementations": [],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z031"
+   ],
+   "evidencePages": [
+    "搜索主链路（U1）"
+   ]
+  },
+  {
+   "id": "M06-F32",
+   "moduleId": "M06",
+   "name": "全域 （行为级深考古仍在待测绘清单）",
+   "status": "已考古-L1 边界",
+   "entries": [],
+   "implementations": [],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F33",
+   "moduleId": "M06",
+   "name": "全屏播放页 `/player`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/widgets/player/unified_player_widget.dart:67"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F34",
+   "moduleId": "M06",
+   "name": "底栏迷你播放器 `/player/bottomBar`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/widgets/player/bottom_player_bar_widget.dart:290"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F35",
+   "moduleId": "M06",
+   "name": "播放队列 / 歌词",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/widgets/player/current_queue_bottom_sheet.dart",
+    "Core:presentation/widgets/player/lyric_view.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F36",
+   "moduleId": "M06",
+   "name": "播放会话与状态机 （player_session 共 9 文件：controller/reducer/event/track/projection/chrome/ids/scope/session；保持未深读）",
+   "status": "已考古-L1 边界",
+   "entries": [],
+   "implementations": [
+    "Core:data/player_session/player_session_controller.dart",
+    "Core:data/player_session/player_session_reducer.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F37",
+   "moduleId": "M06",
+   "name": "本地播放（方法通道）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/method_channel_local_playback_port.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F38",
+   "moduleId": "M06",
+   "name": "Wi-Fi 设备播放 （实测 wifi/linkplay 相关服务 25 个，v1 记「30+」不准）",
+   "status": "已考古-L1 边界",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/wifi_playback_reducer.dart",
+    "Core:data/services/wifi_seek_guard.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F39",
+   "moduleId": "M06",
+   "name": "UPnP/DLNA 播放",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/upnp_playback_facade.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F40",
+   "moduleId": "M06",
+   "name": "多房间同步",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/multiroom_sync_coordinator.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M06-F41",
+   "moduleId": "M06",
+   "name": "输出设备切换",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/output_selection_coordinator.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M07-F42",
+   "moduleId": "M07",
+   "name": "平台入口页 `/main/platform`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/platform/platform_page.dart:42"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F43",
+   "moduleId": "M07",
+   "name": "Spotify 入口裁决 （v1 未确认 → 已裁决）：UI 入口 = 平台页 Spotify 卡片（授权前检测本机安装，未装只弹下载引导拦截绑定）；首页音乐 Tab 区块被过滤不展示；**无独立 Spotify 路由**",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/platform/platform_page.dart:560",
+    "Core:data/services/spotify_authorize_install_gate.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F44",
+   "moduleId": "M07",
+   "name": "QQ音乐 `/music_platform/qq`（分类/雷达/歌单多级页）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/qq_classify/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F45",
+   "moduleId": "M07",
+   "name": "QQ 二级页族 7 条：`/music_platform/qq/private-recommend`、`/music_platform/qq/new-song-recommend`、`/music_platform/qq/playlist-classify`、`/music_platform/qq/radar-classify`、`/music_platform/qq/playlist-all-classify`、`/music_platform/qq/playlist-by-label`（v2 新增条目，逐条对齐旧 Fragment 注释）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:757"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F46",
+   "moduleId": "M07",
+   "name": "网易云 `/music_platform/netease`（分类/每日推荐/我的歌单/播客）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/netease_classify/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F47",
+   "moduleId": "M07",
+   "name": "网易云二级页族 7 条：`/music_platform/netease/daily-recommend`、`/music_platform/netease/playlist-classify`、`/music_platform/netease/podcast-classify`、`/music_platform/netease/playlist-all-classify`、`/music_platform/netease/playlist-classify-detail`、`/music_platform/netease/my-podcast`、`/music_platform/netease/my-playlist`（v2 新增条目）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:707"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F48",
+   "moduleId": "M07",
+   "name": "酷狗 `/music_platform/kugou`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/kugou_classify/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F49",
+   "moduleId": "M07",
+   "name": "酷狗二级页 2 条：`/music_platform/kugou/playlist-more`、`/music_platform/kugou/radio-classify`（v2 新增条目）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:771"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F50",
+   "moduleId": "M07",
+   "name": "Qobuz `/music_platform/qobuz`（首页/流派/奖榜/曲库）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/qobuz/qobuz_home_page.dart:40"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F51",
+   "moduleId": "M07",
+   "name": "Qobuz 子页族 4 条：`/music_platform/qobuz/content-list`、`/music_platform/qobuz/genre-filter`、`/music_platform/qobuz/user-playlists`、`/music_platform/qobuz/saved-albums`（v2 新增条目）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:810"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F52",
+   "moduleId": "M07",
+   "name": "AppleMusic `/music_platform/apple_music`（榜单/播客/直播）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/apple_music_page.dart:35",
+    "Core:data/services/apple_music_http_service.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F53",
+   "moduleId": "M07",
+   "name": "AppleMusic 详情族 6 条：`/music_platform/apple_music/weekly_top_detail`、`podcast_detail`、`video_live_detail`、`song_chart_detail`、`album_chart_detail`、`playlist_chart_detail`（统一收敛 AppleMusicDetailRoutePage 按 pageType 分型；v2 新增条目）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:824"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F54",
+   "moduleId": "M07",
+   "name": "艺人页 `/music_platform/artists(/detail)`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/artist/artists_page.dart:34"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F55",
+   "moduleId": "M07",
+   "name": "排行榜 `/music_platform/rank-list`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F56",
+   "moduleId": "M07",
+   "name": "平台授权管理 `/music_platform/manage-one`  ⚠疑似坑：v1 路由标注与实测不符——该路由是死路由，真实入口经 qobuz_music_web_auth_launcher.dart:32 直接 push widget（MusicPlatformQobuzAuthPage），不经命名路由",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/platform/auth/music_platform_qobuz_auth_page.dart:20",
+    "Core:data/services/platform_auth/qobuz_music_web_auth_launcher.dart:32"
+   ],
+   "notes": [],
+   "deadRoute": true,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F57",
+   "moduleId": "M07",
+   "name": "平台 VIP 播放提示",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/platform_vip_playback_hint.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M07-F58",
+   "moduleId": "M07",
+   "name": "平台二级路由统一入口（PureFlutterRouter.pushNamed 失败降级 rootNavigator.pushNamed；v2 新增条目）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/platform/platform_page.dart:522"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z019",
+    "Z020",
+    "Z021"
+   ],
+   "evidencePages": [
+    "平台页整页（U1）",
+    "平台行清单与授权状态联动（U1/U2 核心）",
+    "U3 滚动/空态维度"
+   ]
+  },
+  {
+   "id": "M08-F59",
+   "moduleId": "M08",
+   "name": "电台 Hub `/music_platform/radio`（v1 未单列，实测独立 case 返回电台聚合页；v2 新增条目）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:534"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z038"
+   ],
+   "evidencePages": [
+    "电台频道深一层（U2）"
+   ]
+  },
+  {
+   "id": "M08-F60",
+   "moduleId": "M08",
+   "name": "全国电台 `/music_platform/radio/country`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/radio/fm_country_radio_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z038"
+   ],
+   "evidencePages": [
+    "电台频道深一层（U2）"
+   ]
+  },
+  {
+   "id": "M08-F61",
+   "moduleId": "M08",
+   "name": "80/90 电台 `/music_platform/radio/80s`、`/music_platform/radio/90s`（同页 FmHarmonyRadioPage 按 kind 分型）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/radio/fm_harmony_radio_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z038"
+   ],
+   "evidencePages": [
+    "电台频道深一层（U2）"
+   ]
+  },
+  {
+   "id": "M08-F62",
+   "moduleId": "M08",
+   "name": "城市选择 `/music_platform/radio/select-city`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/music_platform/radio/fm_select_city_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z038"
+   ],
+   "evidencePages": [
+    "电台频道深一层（U2）"
+   ]
+  },
+  {
+   "id": "M08-F63",
+   "moduleId": "M08",
+   "name": "FM 数据服务",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/fm_radio_http_service.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z038"
+   ],
+   "evidencePages": [
+    "电台频道深一层（U2）"
+   ]
+  },
+  {
+   "id": "M08-F64",
+   "moduleId": "M08",
+   "name": "播客收藏态",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/podcast_collection_state_store.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z038"
+   ],
+   "evidencePages": [
+    "电台频道深一层（U2）"
+   ]
+  },
+  {
+   "id": "M09-F65",
+   "moduleId": "M09",
+   "name": "AI 角色主页 `/home/aiRoles`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/ai/ai_page.dart:44"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025",
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）",
+    "首页顶部频道条联动（U1）"
+   ],
+   "evidenceStateIds": [
+    "Z025-S139"
+   ]
+  },
+  {
+   "id": "M09-F66",
+   "moduleId": "M09",
+   "name": "AI 对话 `/ai/chat`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/ai/ai_chat_page.dart:38"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M09-F67",
+   "moduleId": "M09",
+   "name": "AI 历史 `/ai/history`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/ai/ai_history_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z025",
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）",
+    "首页顶部频道条联动（U1）"
+   ],
+   "evidenceStateIds": [
+    "Z025-S139"
+   ]
+  },
+  {
+   "id": "M09-F68",
+   "moduleId": "M09",
+   "name": "角色编辑 `/ai/role/create`（v1 并记 manage，v2 拆分）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/ai/ai_role_editor_page.dart:20"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M09-F69",
+   "moduleId": "M09",
+   "name": "形象 DIY `/ai/role/images`、`/ai/role/images/diy`（v1 未单列 diy 子路由；v2 新增条目）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:452"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M09-F70",
+   "moduleId": "M09",
+   "name": "角色管理 `/ai/role/manage`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/ai/ai_role_manage_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M09-F71",
+   "moduleId": "M09",
+   "name": "AI 平台管理 `/ai/platform/manage`（仅展示 AI 分区平台并复用授权链路，对齐 ManageOnePlatformFragment(platformId=2)）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/ai/ai_platform_manage_page.dart:14"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M09-F72",
+   "moduleId": "M09",
+   "name": "实时通话 `/ai/realtime-call`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/ai/ai_realtime_call_page.dart:28"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M09-F73",
+   "moduleId": "M09",
+   "name": "AI 网关与仓库 [保持未考古]（原因：流式协议与仓库层属行为级深考古，本轮只确认锚点存在）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/ai_conversation_gateway.dart",
+    "Core:data/services/ai_repository.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M09-F74",
+   "moduleId": "M09",
+   "name": "AI 音乐/文本音频联动 [保持未考古]（原因：同上，协调器行为未深读）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/ai_music_playback_coordinator.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M09-F75",
+   "moduleId": "M09",
+   "name": "AI 音频包 `Core:packages/swan_ai_audio`（v2 新增条目）",
+   "status": "已考古-L1 边界",
+   "entries": [],
+   "implementations": [
+    "Core:packages/swan_ai_audio"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z027"
+   ],
+   "evidencePages": [
+    "小薇 AI 入口形态（U3）"
+   ]
+  },
+  {
+   "id": "M10-F76",
+   "moduleId": "M10",
+   "name": "壁纸 `/vision/wallpaper`（允许未绑定预览）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/vision/vision_wallpaper.dart:48"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M10-F77",
+   "moduleId": "M10",
+   "name": "唤醒词 `/vision/wake-words`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/vision/wake_words/vision_wake_words_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M10-F78",
+   "moduleId": "M10",
+   "name": "AI 角色 `/vision/ai-roles`（v1 未单列；v2 新增条目）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:482"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M10-F79",
+   "moduleId": "M10",
+   "name": "语音包 `/vision/voice-pack`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/vision/ai_roles/vision_voice_pack_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M10-F80",
+   "moduleId": "M10",
+   "name": "高级设置族 `/vision/advanced-settings`、`/vision/advanced-settings/platform`、`/vision/advanced-settings/scheme-editor`（实测 3 页同文件）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/vision/advanced/vision_advanced_pages.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M10-F81",
+   "moduleId": "M10",
+   "name": "Vision 数据层 [保持未考古]（原因：repositories/models 目录级确认，未逐文件）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:data/repositories/vision/",
+    "Core:data/models/vision/"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M11-F82",
+   "moduleId": "M11",
+   "name": "设备页 `/main/device`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/device/device_page.dart:22"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F83",
+   "moduleId": "M11",
+   "name": "添加设备 `/device/add`（BLE/WiFi 双卡片）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/device/add_device_page.dart:78"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F84",
+   "moduleId": "M11",
+   "name": "BLE 配网 `/device/ble-provisioning`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/device/ble_provisioning_page.dart",
+    "Core:data/services/ble_wifi_password_store.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F85",
+   "moduleId": "M11",
+   "name": "WiFi 配网 `/device/wifi-provisioning`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/device/wifi_provisioning_page.dart",
+    "Core:data/services/hotspot_provisioning_policy.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F86",
+   "moduleId": "M11",
+   "name": "设备发现（BLE/mDNS/UPnP）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/bluetooth_device_discovery_service.dart",
+    "Core:data/services/linkplay_mdns_discovery.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F87",
+   "moduleId": "M11",
+   "name": "设备设置族 `/device/setting`、`/device/network`、`/device/params`、`/device/voice`、`/device/name-edit`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/device/setting/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F88",
+   "moduleId": "M11",
+   "name": "固件升级 [保持未考古]（原因：升级全链路（协调器/进度/保护存储/门控）为待测绘清单明确排除项）",
+   "status": "",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/firmware_upgrade_coordinator.dart",
+    "Core:app/firmware_upgrade_bootstrap.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F89",
+   "moduleId": "M11",
+   "name": "RCHIVE DSP 控制页 `/device/rchive-dsp`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/rchive_dsp/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F90",
+   "moduleId": "M11",
+   "name": "AW 耳机设置 `/device/aw-earphone`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/aw_earphone/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F91",
+   "moduleId": "M11",
+   "name": "低音炮三页 `/device/subwoofer/preview`、`/device/subwoofer/main`、`/device/subwoofer/connect`（v1 记 `/device/subwoofer/*`，实测 3 路由齐全，main/connect 为 v2 补全）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/subwoofer/subwoofer_pages.dart:71"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F92",
+   "moduleId": "M11",
+   "name": "远程控制面板/侧栏",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/device/device_remote_control_sheet.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F93",
+   "moduleId": "M11",
+   "name": "兼容机型 `/device/compatible-model`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/device/setting/compatible_model_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M11-F94",
+   "moduleId": "M11",
+   "name": "BLE 传输/蓝牙发现包 `Core:packages/swan_ble_transport`、`Core:packages/swan_bluetooth_discovery_ohos`（v2 新增条目）",
+   "status": "已考古-L1 边界",
+   "entries": [],
+   "implementations": [
+    "Core:packages/swan_ble_transport"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z022",
+    "Z023",
+    "Z024"
+   ],
+   "evidencePages": [
+    "设备页整页（U1）",
+    "添加设备/配网入口（U2）",
+    "U3 辅助维度"
+   ]
+  },
+  {
+   "id": "M12-F95",
+   "moduleId": "M12",
+   "name": "我的收藏 `/me/my-collects`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/my_collects/my_collects_page.dart:19"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidencePages": [
+    "一级入口点击响应（U2）"
+   ],
+   "evidenceZoneIds": [
+    "Z036"
+   ],
+   "evidenceStateIds": [
+    "Z036-S97"
+   ]
+  },
+  {
+   "id": "M12-F96",
+   "moduleId": "M12",
+   "name": "歌单页 `/player/playlist`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/player/playlist/playlist_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M12-F97",
+   "moduleId": "M12",
+   "name": "统一歌单详情 `/player/playlist-detail`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/player/playlist_detail/playlist_detail_page.dart:29"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M12-F98",
+   "moduleId": "M12",
+   "name": "统一音乐库 `/player/unifiedMusic`（实测 4875 行）",
+   "status": "已考古-L1 边界",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/player/unified_music/unified_music_page.dart:59"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M12-F99",
+   "moduleId": "M12",
+   "name": "批量操作 `/player/bulk-operate`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/player/unified_music/bulk_operate_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M12-F100",
+   "moduleId": "M12",
+   "name": "选择歌单 `/player/select-playlist`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/player/select_playlist/"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M12-F101",
+   "moduleId": "M12",
+   "name": "收藏变更分发",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/pure_flutter_favorite_change_dispatcher.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M12-F102",
+   "moduleId": "M12",
+   "name": "播放历史 `/me/play-history`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/player/play_history/play_history_page.dart:19"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M13-F103",
+   "moduleId": "M13",
+   "name": "我的主页 `/main/me`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/me_page.dart:43"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M13-F104",
+   "moduleId": "M13",
+   "name": "个人信息页 `/me/person-info`（v1 未单列；v2 新增条目）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:560"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M13-F105",
+   "moduleId": "M13",
+   "name": "资料编辑族 `/me/edit-nickname`、`/me/edit-password`、`/me/edit-phone`、`/me/edit-email`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/edit/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M13-F106",
+   "moduleId": "M13",
+   "name": "我的二维码 `/me/my-qrcode`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/my_qr_code_page.dart:27"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M13-F107",
+   "moduleId": "M13",
+   "name": "家庭页 `/me/family`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/family_page.dart:23"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M13-F108",
+   "moduleId": "M13",
+   "name": "扫码 `/me/scan-qr-code`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/scan/scan_qr_code_page.dart:22"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z018",
+    "Z026",
+    "Z036",
+    "Z037"
+   ],
+   "evidencePages": [
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "person_info_page 深测绘（U1）",
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "扫一扫 O-9 终结论（U2）"
+   ],
+   "evidenceStateIds": [
+    "Z036-S103"
+   ]
+  },
+  {
+   "id": "M13-F109",
+   "moduleId": "M13",
+   "name": "Pad 扫码登录确认 `/me/scan/pad-login-confirm`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/scan/pad_login_confirm_page.dart:19"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M13-F110",
+   "moduleId": "M13",
+   "name": "账号解绑 `/me/account-unbind`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/account_unbind_page.dart:17"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M13-F111",
+   "moduleId": "M13",
+   "name": "区号选择（个人中心侧） `/me/select-area-code`（与登录侧 `/login/area-code` 并存；v2 新增条目）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:core/routes/pure_flutter_router.dart:608"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M13-F112",
+   "moduleId": "M13",
+   "name": "消息中心 `/me/messages(/detail)`（detail 子页为 v2 补全）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/message/message_page.dart:13"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z016",
+    "Z036",
+    "Z018",
+    "Z026",
+    "Z037"
+   ],
+   "evidencePages": [
+    "tab_me 我的页整页（U1）",
+    "一级入口点击响应（U2）",
+    "U3 退出/清理类入口定位（**只定位未点击**）",
+    "扫一扫 O-9 终结论（U2）",
+    "person_info_page 深测绘（U1）"
+   ]
+  },
+  {
+   "id": "M14-F113",
+   "moduleId": "M14",
+   "name": "充值 `/me/recharge`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/recharge/recharge_page.dart:18",
+    "Core:presentation/pages/me/recharge/payment_flow_navigator.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidencePages": [
+    "一级入口点击响应（U2）"
+   ],
+   "evidenceZoneIds": [
+    "Z036"
+   ],
+   "evidenceStateIds": [
+    "Z036-S98"
+   ]
+  },
+  {
+   "id": "M14-F114",
+   "moduleId": "M14",
+   "name": "支付结果 `/me/recharge/pay-result`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/recharge/pay_result_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M14-F115",
+   "moduleId": "M14",
+   "name": "退款/发票 `/me/refund`、`/me/invoice`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/recharge/refund_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M14-F116",
+   "moduleId": "M14",
+   "name": "订单权益 `/me/order-equity(/detail)`（detail 为 v2 补全）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/order_equity/order_equity_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M14-F117",
+   "moduleId": "M14",
+   "name": "充值记录 `/me/recharge-record(/detail)`（detail 为 v2 补全）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/recharge/recharge_record_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M14-F118",
+   "moduleId": "M14",
+   "name": "支付协调器（网络恢复/结算/用户就绪）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:app/payment_network_recovery_coordinator.dart",
+    "Core:app/payment_settlement_notifier.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M14-F119",
+   "moduleId": "M14",
+   "name": "商品目录",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/payment_product_catalog.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M14-F120",
+   "moduleId": "M14",
+   "name": "支付包 `Core:packages/swan_payment`（v2 新增条目）",
+   "status": "已考古-L1 边界",
+   "entries": [],
+   "implementations": [
+    "Core:packages/swan_payment"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M15-F121",
+   "moduleId": "M15",
+   "name": "帮助与反馈 `/me/help-feedback`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/help/help_and_feedback_page.dart:11"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z029",
+    "Z030"
+   ],
+   "evidencePages": [
+    "帮助与反馈 4 子项（U2）",
+    "关于与升级页测绘 + O-12 终结论（U3）"
+   ]
+  },
+  {
+   "id": "M15-F122",
+   "moduleId": "M15",
+   "name": "网络帮助 `/me/help-network`、设备连接帮助 `/me/help-device-connect`、连接教程 `/me/how-to-connect`（后两条为 v2 补全）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/help/help_network_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z029",
+    "Z030"
+   ],
+   "evidencePages": [
+    "帮助与反馈 4 子项（U2）",
+    "关于与升级页测绘 + O-12 终结论（U3）"
+   ]
+  },
+  {
+   "id": "M15-F123",
+   "moduleId": "M15",
+   "name": "意见反馈 `/me/feedback`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/help/feedback_page.dart:18"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z029",
+    "Z030"
+   ],
+   "evidencePages": [
+    "帮助与反馈 4 子项（U2）",
+    "关于与升级页测绘 + O-12 终结论（U3）"
+   ]
+  },
+  {
+   "id": "M15-F124",
+   "moduleId": "M15",
+   "name": "关于 `/me/about(/detail)`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/me/about/about_detail_page.dart:24"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z029",
+    "Z030"
+   ],
+   "evidencePages": [
+    "帮助与反馈 4 子项（U2）",
+    "关于与升级页测绘 + O-12 终结论（U3）"
+   ]
+  },
+  {
+   "id": "M15-F125",
+   "moduleId": "M15",
+   "name": "反馈未读红点",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/pure_flutter_user_feedback_unread_port.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z029",
+    "Z030"
+   ],
+   "evidencePages": [
+    "帮助与反馈 4 子项（U2）",
+    "关于与升级页测绘 + O-12 终结论（U3）"
+   ]
+  },
+  {
+   "id": "M16-F126",
+   "moduleId": "M16",
+   "name": "日活上报",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/daily_active_reporter.dart:14"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M16-F127",
+   "moduleId": "M16",
+   "name": "推送通知 Port （v1 未确认 → 已裁决）⚠疑似坑（重大）：纯 Flutter 端为 **no-op 空实现**——register() 空体、inboundStream 永不发事件、badge 无任何外部调用方；推送到达链路在本基线不存在，消息中心红点/角标不来自真推送",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/pure_flutter_push_notification_port.dart:8",
+    "Core:core/platform_ports/push_notification_port.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M16-F128",
+   "moduleId": "M16",
+   "name": "应用更新检查",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/app_update_coordinator.dart:294"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M16-F129",
+   "moduleId": "M16",
+   "name": "前台活动上报",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:app/app_foreground_activity_reporter.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M16-F130",
+   "moduleId": "M16",
+   "name": "业务码监听（会话失效来源）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:app/app_business_code_listener.dart",
+    "Core:data/data_sources/remote/business_code_interceptor.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M17-F131",
+   "moduleId": "M17",
+   "name": "服务端切服（Release 禁切）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:data/services/server_environment_manager.dart:98"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z033"
+   ],
+   "evidencePages": [
+    "设置/切服入口定位（U3）"
+   ]
+  },
+  {
+   "id": "M17-F132",
+   "moduleId": "M17",
+   "name": "方法通道 13 条（实测恰 13：add_device/apple_music/apple_music_sdk_auth/bottom_player/music_platform_sdk/network/player/recommended_page/spotify/unified_music/upnp/upnp_scan/volume_key）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:channels/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z033"
+   ],
+   "evidencePages": [
+    "设置/切服入口定位（U3）"
+   ]
+  },
+  {
+   "id": "M17-F133",
+   "moduleId": "M17",
+   "name": "OHOS 平台通道",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:platform_channels/ohos/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z033"
+   ],
+   "evidencePages": [
+    "设置/切服入口定位（U3）"
+   ]
+  },
+  {
+   "id": "M17-F134",
+   "moduleId": "M17",
+   "name": "平台端口层（AppSystemPort 等）",
+   "status": "已考古-初步卡：模块卡片-core",
+   "entries": [],
+   "implementations": [
+    "Core:core/platform_ports/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z033"
+   ],
+   "evidencePages": [
+    "设置/切服入口定位（U3）"
+   ]
+  },
+  {
+   "id": "M17-F135",
+   "moduleId": "M17",
+   "name": "音量键接管",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:app/volume_key_bootstrap.dart"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z033"
+   ],
+   "evidencePages": [
+    "设置/切服入口定位（U3）"
+   ]
+  },
+  {
+   "id": "M17-F136",
+   "moduleId": "M17",
+   "name": "多语言 l10n（实测 zh/zh_Hant/en 三语）",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:l10n/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z033"
+   ],
+   "evidencePages": [
+    "设置/切服入口定位（U3）"
+   ]
+  },
+  {
+   "id": "M17-F137",
+   "moduleId": "M17",
+   "name": "Core 仓 packages 层共 13 个包（hivi_upnp_core/hivi_upnp_flutter/swan_ai_audio/swan_app_system/swan_apple_music_auth/swan_ble_transport/swan_bluetooth_discovery_ohos/swan_local_audio/swan_music_platform_sdk/swan_payment/swan_system_volume/swan_third_party_login/upnp2）（v2 新增条目）",
+   "status": "已考古-L1 边界",
+   "entries": [],
+   "implementations": [
+    "Core:packages/"
+   ],
+   "notes": [],
+   "deadRoute": false,
+   "evidenceZoneIds": [
+    "Z033"
+   ],
+   "evidencePages": [
+    "设置/切服入口定位（U3）"
+   ]
+  },
+  {
+   "id": "M18-F138",
+   "moduleId": "M18",
+   "name": "平台视频分类 `/music_platform/qq/video-classify`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/platform/video/platform_video_classify_page.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M18-F139",
+   "moduleId": "M18",
+   "name": "视频播放页 `/music_platform/video-player`",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/platform/video/platform_video_player_page.dart:37"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M18-F140",
+   "moduleId": "M18",
+   "name": "视频投屏浮窗",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/platform/video/platform_video_cast_floating.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  },
+  {
+   "id": "M18-F141",
+   "moduleId": "M18",
+   "name": "投屏设备选择",
+   "status": "已考古-L1",
+   "entries": [],
+   "implementations": [
+    "Core:presentation/pages/platform/video/platform_video_projection_device_sheet.dart"
+   ],
+   "notes": [],
+   "deadRoute": false
+  }
+ ]
+}

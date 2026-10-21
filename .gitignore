@@ -1,0 +1,40 @@
+# 构建产物
+node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+
+# 运行日志
+*.log
+
+# 测试证据截图（留在 Toolchain，不入代码仓）
+qa-shots/
+qa-shots-030/
+
+# 历史基线与交付快照（本地留存）
+frontend-backup-0920-src/
+delivery-030/
+
+# 红线：证据二进制默认不入仓——图片含未掩码测试账号手机号，
+# 掩码管线（stage_evidence_for_deploy.py）仅覆盖文本转储。
+# 获取证据资产：R6.1 整站迁移拷贝，或跑 stage 管线产出脱敏副本。
+data/assets/
+
+# 临时
+server-809.log
+server-8091.log
+
+# Python(平台侧并入)
+__pycache__/
+*.pyc
+
+# 平台运行数据与凭据(不进仓)
+output/
+*.sqlite3
+*.sqlite3-*
+.env.local
+allure-results/
+logs/
+.DS_Store
+
+# IDE
+.idea/

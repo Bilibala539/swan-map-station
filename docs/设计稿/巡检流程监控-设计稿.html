@@ -1,0 +1,396 @@
+<!doctype html>
+<!--
+  巡检流程总览 · 设计稿 changelog
+  v0.1 2026-10-09 主会话初稿:三泳道流程+点击抽屉+4 情景演示
+  v0.2 2026-10-09 产品设计师审稿修订(裁决依据=docs/平台UI设计规范.md+docs/agent模块档案/巡检机制.md):
+  [数据] 删 upload_gate(v1 清单无此检查项,上传失败由第 6 项"登记↔归档一致"兜住);disk167 改 .167 真阈值(80~90% 记 L3/≥90% 升 L2);pending/dev_heart 补双档阈值;svc_timer "重启"→"拉起"(timer 无 restart);检查项 lvl 统一取最严档;dispatch/exec 补"未纳巡检";devices/disk 两情景文案级别改对(>24h 与 ≥90% 均属 L2 非 L3)
+  [状态色] 已自愈 蓝→绿(全站蓝=执行中,自愈是终态"成了");黄=未纳巡检、灰=受影响 经裁决保留
+  [防 AI 味] 字号/圆角/阴影/遮罩档位收敛;删圈外色;抽屉补 Esc 关闭
+  v0.3 2026-10-09 按用户反馈重做信息架构(用户原话"没太看懂这个页面是表达什么意思,要一眼就能看懂的"):
+  [3 秒测试] 首屏=一句人话大状态:全绿"一切正常,下一轮巡检 19:43/19:47";异常"N 项异常"+逐行"环节——后果人话";巡检时间/覆盖度在 meta 行。结论由页面直接给出,不让用户从胶囊颜色推理
+  [主链极简] 16 模块收敛为大环节状态灯+底座一行;首屏只留 好(安静白卡)/坏(红卡最重) 两个视觉权重;检查项口径/模块明细/受影响关系/事件时间线全部进点击后的抽屉;泳道/模块盒/chip 图例整体退役
+  [数据] CHECKS 口径(n/spec/lvl)与 v0.2 一致零改动,仅新增 imp 字段=该检查坏时的后果人话(展示文案,非巡检逻辑,不新造口径);新增 NO_DATA 集合把".176 侧 3 项无跨机数据源"做成诚实"无数据"灰态;情景按钮仍仅评审用
+  v0.4 2026-10-09 按用户反馈拆双链(用户原话"打包和执行自动化测试任务分开来搞…打包的流程和执行自动化测试的流程是不一样的"):
+  [双链] 首屏两条并行流程链——打包链(.176):拉代码→编译→出包→登记归档;执行链(.167):调度触发→派发→设备→执行→上报;两链之间一行轻量衔接(出包交付,上下游关系,不混成一条线)
+  [诚实口径] 拉代码/代码问题在巡检 v1 无独立检查项——环节照画、不挂检查(空心态"未巡检"),编译问题由 Jenkins 失败连击间接覆盖;出包环节三查(remoting/磁盘176/产物)数据文件在 .176,显"无数据"
+  [检查归位] 打包链:jk_node/jk_streak(编译)、remoting/disk176/artifact_age(出包)、pkg_consist(登记归档);执行链:svc_sched(调度触发)、svc_dispatch+pending_age(派发)、dev_heart(设备)、api_probe(执行)、disk167(上报);夜间定时器按拍板移入底座;svc_dispatch 为 uiautotest-dispatch 单元,挂在派发环节并在抽屉注明单元名
+  [不回退] v0.3 资产全保留:hero 一句话/首屏只好坏两态/异常红卡最重/点击进抽屉/.176 无数据灰态/情景重演按钮
+  v0.4.1 2026-10-09 主会话裁决修订:svc_dispatch(uiautotest-dispatch=AI/Agent 任务派发服务,非流水线派发)自执行链"派发"环节移入底座,模块 tag 注明"Agent 任务派发·非流水线";执行链"派发"只挂 pending_age(流水线派发积压由其覆盖);归位后 打包链 6/执行链 5/底座 5,仍 16 项不增不减
+  v0.5 2026-10-12 纯视觉推倒重来(用户原话"页面还是太丑了"),信息架构与 16 项口径零改动,只动 <style> 与版本号:
+  [字体阶梯] 五档全部拉开:hero 23/700、异常环节名 17/600(区块标题档只给红卡)、正常环节名 14/600、链标题 13/600+host 转中性胶囊、卡内状态字与正文 12-13;消除"均码"感
+  [版式节奏] 主内容 max-width 1240 居中(规范 3.3);区块间距成倍拉开:hero 下 26px、链块间 22px、链题与链 10px、底座上 18px、footer 上 32px+顶部 1px 分隔线
+  [卡片质感] 补规范阴影一档 0 2px 10px rgba(23,32,51,.03)(此前无阴影是"裸 HTML 感"主因之一);红卡底色加重为唯一大色块+17px 环节名,成为版面焦点;空心卡(未巡检/无数据)改虚线边+透明底,与实心白卡形成材质差
+  [状态形态统一] 全页"正常"统一为绿点形态(链 9 点+底座 ::before 点),底座行加前置状态点与链条同构;hero 异常条目加 3px 红左边条(呼应 toast 竖条先例);箭头降透明度退后,让状态点当主角
+  [抽屉] 宽度 440→480 对齐规范增补计划 min(480px,94vw);表头加 #fafbfc 底(6.7 B 节先例);关闭按钮 hover 反馈;小节标签字重 600 标签化
+  v0.6 2026-10-12 二次视觉重做(用户仍评"太丑",本轮引入专业设计技能审计后再动手;信息架构与 16 项口径仍零改动,JS 仅箭头字符改 CSS 画线一处):
+  [审计结论] v0.5 病灶:链条上等重白卡+文字箭头,"链"的连接语义不成立;正常环节边框无概念支撑(惯性加框);单段阴影"贴地"不"浮起";顶栏 17px 与 hero 23px 双头打架;时间/host 等机器数据无等宽系统
+  [方向] 静默控制台:正常节点去边框去阴影只留白底(链上的点),异常红卡独占 边框+双层阴影+17px 名字 成页面唯一重元素;顶栏降 13px 面包屑化,hero 成为唯一标题级;机器数据(.176/.167/时间/host)统一 mono 双声道(规范 3.2 主键等宽先例);环节间文字箭头改 CSS 连接线+chevron
+  [与规范冲突·定稿需增补] ①阴影:红卡用语义色 tint 双层阴影 0 1px 2px+0 6px 16px(rgba(201,42,42,.08/.07)),突破红线"阴影两档单段"——浮起感是红卡焦点的核心手段;②过渡曲线统一 cubic-bezier(0.32,0.72,0,1)(0.12-0.22s),突破"为做而做的动效不做"——此处均为状态反馈动效非装饰;③正常节点 hover 才浮现边框,属"展示态减重"新手法,建议随 6.9 一并增补
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>巡检流程总览 · 设计稿 v0.6</title>
+<style>
+/* ==================== token:与平台 UI 规范 2.1 完全一致 ==================== */
+:root{
+  --ink:#172033; --muted:#667085; --line:#e6e9ef; --bg:#f5f7fb;
+  --card:#fff; --brand:#405cf5; --good:#087f5b; --bad:#c92a2a; --warn:#ad6800;
+  --good-weak:#e6fcf5; --bad-weak:#fff5f5; --brand-weak:#edf2ff; --warn-weak:#fff9db;
+  --neutral-weak:#f1f3f8; --hover:#f8f9ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:14px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);max-width:1240px;margin:0 auto;padding:28px 32px 56px}
+.mono{font-family:Consolas,Menlo,monospace;font-size:12px;font-variant-numeric:tabular-nums}
+b{font-weight:600}
+
+/* ==================== 顶栏(降级为面包屑带,hero 是页面唯一标题级) ==================== */
+.bar{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.bar-title{font-size:13px;font-weight:500;color:var(--muted)}
+.bar-sub{color:var(--muted);font-size:12px;margin-left:8px;font-weight:400}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg button{border:0;background:none;padding:6px 13px;font-size:12px;color:var(--muted);cursor:pointer;border-right:1px solid var(--line);transition:background .12s cubic-bezier(.32,.72,0,1)}
+.seg button:hover{background:var(--hover)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--brand-weak);color:var(--brand);font-weight:600}
+.stage:focus-visible,.base:focus-visible,.seg button:focus-visible,.dr-close:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* ==================== 首屏:一句人话大状态(3 秒层;页面唯一 23px) ==================== */
+.hero{margin-bottom:30px}
+.hero-line{font-size:23px;font-weight:700;line-height:1.5}
+.hero-line.ok{color:var(--ink)}
+.hero-line.bad{color:var(--bad)}
+.hero-item{font-size:14px;margin-top:10px;padding:1px 0 1px 12px;border-left:3px solid var(--bad);line-height:1.5}
+.hero-item b{color:var(--bad)}
+.hero-meta{color:var(--muted);font-size:12px;margin-top:14px;line-height:1.9}
+
+/* ==================== 双链:链上的点,异常是链上唯一的重物 ==================== */
+.chainblock{margin-top:26px}
+.chain-title{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;margin-bottom:12px}
+.lane-sub{font-family:Consolas,Menlo,monospace;font-size:11px;font-weight:500;color:var(--muted);background:var(--neutral-weak);border-radius:999px;padding:2px 10px}
+.chain{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+/* 正常节点:无边框无阴影的白块——链上的点,hover 才浮现边界(v0.6 减重核心) */
+.stage{display:flex;flex-direction:column;align-items:flex-start;gap:5px;background:var(--card);border:1px solid transparent;border-radius:10px;padding:12px 16px;cursor:pointer;transition:border-color .12s cubic-bezier(.32,.72,0,1),background .12s cubic-bezier(.32,.72,0,1),box-shadow .12s cubic-bezier(.32,.72,0,1)}
+.stage:hover{border-color:var(--brand);background:var(--hover)}
+.stage .head{display:flex;align-items:center;gap:9px}
+.stage .light{width:10px;height:10px;border-radius:999px;flex-shrink:0}
+.stage .s-name{font-size:14px;font-weight:600;color:var(--ink)}
+.stage .s-st{font-size:12px;color:var(--muted);font-weight:400}
+.stage.ok .light{background:var(--good)}
+/* 暂不可判节点(未巡检/无数据):虚线空心,与实心白块形成材质差 */
+.stage.unknown{border:1px dashed var(--line);background:transparent;transition:none}
+.stage.unknown .light{background:none;border:2px solid var(--line)}
+.stage.unknown .s-name{color:var(--muted);font-weight:500}
+.stage.unknown:hover{border-color:var(--muted);background:var(--card)}
+/* 异常节点:页面唯一重物——实红边+红tint双层阴影+17px 名字(与规范阴影条款冲突,changelog 已注明) */
+.stage.bad{border:1.5px solid var(--bad);background:var(--bad-weak);padding:15px 20px;box-shadow:0 1px 2px rgba(201,42,42,.08),0 6px 16px rgba(201,42,42,.07)}
+.stage.bad:hover{border-color:var(--bad);background:var(--bad-weak)}
+.stage.bad .light{background:var(--bad)}
+.stage.bad .s-name{font-size:17px}
+.stage.bad .impact{font-size:13px;color:var(--bad);line-height:1.55;margin-top:1px}
+/* 环节连接:CSS 画线+chevron,替代文字箭头 */
+.arr{flex-shrink:0;position:relative;width:22px;height:12px}
+.arr::before{content:'';position:absolute;left:1px;right:6px;top:50%;height:1.5px;background:var(--muted);opacity:.45;transform:translateY(-50%)}
+.arr::after{content:'';position:absolute;right:3px;top:50%;width:6px;height:6px;border-right:1.5px solid var(--muted);border-top:1.5px solid var(--muted);opacity:.45;transform:translateY(-50%) rotate(45deg)}
+
+/* 两链之间的轻量衔接:出包交付,不混成一条线 */
+.linkrow{font-size:12px;color:var(--muted);margin:16px 0 2px 4px}
+
+/* 底座:两条链共同的地基,低调实底条;坏时变红 */
+.base{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);cursor:pointer;margin-top:24px;padding:10px 16px;border-radius:10px;background:var(--neutral-weak);transition:background .12s cubic-bezier(.32,.72,0,1),box-shadow .12s cubic-bezier(.32,.72,0,1)}
+.base::before{content:'';width:8px;height:8px;border-radius:999px;background:var(--good);flex-shrink:0}
+.base:hover{background:var(--line)}
+.base.bad{color:var(--bad);background:var(--bad-weak)}
+.base.bad::before{background:var(--bad)}
+.base.bad:hover{background:var(--bad-weak);box-shadow:inset 0 0 0 1px var(--bad)}
+.base.bad b{color:var(--bad)}
+
+/* ==================== 详情抽屉(规范 4.4 风格,二级) ==================== */
+#scrim{position:fixed;inset:0;background:rgba(15,23,42,.35);opacity:0;pointer-events:none;transition:opacity .18s cubic-bezier(.32,.72,0,1);z-index:9}
+#scrim.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;right:-500px;width:480px;max-width:94vw;height:100vh;background:var(--card);box-shadow:-8px 0 30px rgba(23,32,51,.14);z-index:10;transition:right .22s cubic-bezier(.32,.72,0,1);display:flex;flex-direction:column}
+#drawer.on{right:0}
+.dr-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dr-head h3{font-size:17px;font-weight:600}
+.dr-close{border:0;background:none;font-size:12px;color:var(--muted);cursor:pointer;padding:5px 10px;border-radius:8px}
+.dr-close:hover{background:var(--neutral-weak);color:var(--ink)}
+.dr-body{padding:16px 20px;overflow-y:auto;flex:1}
+.dr-body table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 6px}
+.dr-body th{text-align:left;color:var(--muted);font-weight:500;font-size:12px;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap;background:#fafbfc}
+.dr-body td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.dr-body h4{font-size:14px;margin:18px 0 4px}
+.dr-body h4:first-of-type{margin-top:6px}
+.dr-sec{font-size:12px;color:var(--muted);margin:14px 0 5px;font-weight:600}
+/* 事件时间线:左侧轴+节点,替代虚线分行 */
+.ev{position:relative;font-size:12px;padding:0 0 14px 20px;display:flex;gap:10px;line-height:1.6}
+.ev:last-child{padding-bottom:2px}
+.ev::before{content:'';position:absolute;left:3px;top:6px;width:7px;height:7px;border-radius:999px;background:var(--card);border:1.5px solid var(--muted)}
+.ev::after{content:'';position:absolute;left:6.5px;top:16px;bottom:2px;width:1px;background:var(--line)}
+.ev:last-child::after{display:none}
+.ev .t{color:var(--muted);white-space:nowrap;font-family:Consolas,monospace}
+
+/* ==================== 徽章胶囊(规范 2.2) ==================== */
+.badge{border-radius:999px;padding:3px 9px;font-size:12px;font-weight:600;display:inline-block;white-space:nowrap}
+.badge.ok{color:var(--good);background:var(--good-weak)}
+.badge.bad{color:var(--bad);background:var(--bad-weak)}
+.badge.heal{color:var(--good);background:var(--good-weak)}
+.badge.lvl{color:var(--muted);background:var(--neutral-weak);font-weight:500}
+.badge.nodata{color:var(--muted);background:var(--neutral-weak)}
+.badge.aff{color:var(--muted);background:var(--neutral-weak)}
+
+footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.9}
+footer b{color:var(--ink)}
+@media (max-width:760px){body{padding:16px}.arr{width:14px}.arr::before{right:2px}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div><span class="bar-title">巡检流程总览</span><span class="bar-sub">机器监控子区块 · 设计稿 v0.6</span></div>
+  <div class="seg" id="scn-bar">
+    <button data-scn="normal" class="on">全部正常</button>
+    <button data-scn="today">重演今日 · 上传白名单事故</button>
+    <button data-scn="devices">模拟 · 设备池掉线</button>
+    <button data-scn="disk">模拟 · 平台磁盘将满</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-line ok" id="hero-line"></div>
+  <div id="hero-items"></div>
+  <div class="hero-meta" id="hero-meta"></div>
+</div>
+
+<div id="chains"></div>
+<div class="base" id="base" title="点击查看底座服务明细"></div>
+
+<div id="scrim"></div>
+<aside id="drawer">
+  <div class="dr-head"><h3 id="dr-title">详情</h3><button class="dr-close" id="dr-close">关闭</button></div>
+  <div class="dr-body" id="dr-body"></div>
+</aside>
+
+<footer>
+  <b>接入说明（定稿后并入 page-machines，作机器监控子区块）</b><br>
+  1. 数据源：.167 侧 <span class="mono">/opt/patrol/last_status.json</span>，.176 侧 <span class="mono">/opt/swan-build/patrol/status.json</span>；巡检为每日 2 轮的 30min 级数据，进页签拉一次+手动刷新，不进 1s 轮询。<br>
+  2. 首屏三层：一句人话大状态（3 秒）→ 打包链/执行链两条状态灯+底座行（10 秒）→ 点环节开抽屉看检查项口径与事件（按需）；「无数据」= .176 侧 3 项（remoting/磁盘/产物）待 v2 跨机通道，不判好坏；拉代码环节 v1 无检查项，照画不挂检查。<br>
+  3. 状态色沿用平台语义色（一色一义）：绿=正常 红=异常 黄=未纳巡检 灰=未知/无数据/受影响；蓝不占用（全站蓝=执行中）；状态必配文字，不裸色。<br>
+  4. 情景演示按钮仅本稿评审用，正式版不并入：只渲染真实快照，快照缺失/超期显示"巡检数据缺失"+重试（规范 4.7）。<br>
+  5. 本稿为静态演示，演示数据 = 2026-10-09 真实事件（上传白名单事故时间线 / 首轮巡检结果）。
+</footer>
+
+<script>
+/* ==================== 检查项定义（口径与巡检 v1 清单一致，改动只动这里；imp=坏时的后果人话） ==================== */
+const CHECKS = {
+  svc_dash:{n:'dashboard 服务',spec:'systemd active；停→L1 自动重启',lvl:'L1',imp:'平台服务停了，页面与接口全部不可用'},
+  api_probe:{n:'API 探活',spec:'health/configs/devices/apks =200；非 200 → L2',lvl:'L2',imp:'平台接口无响应，页面与机器通道可能都不通'},
+  disk167:{n:'磁盘水位(.167)',spec:'80~90% 记 L3 / ≥90% → L2',lvl:'L2',imp:'.167 磁盘将满，报告与证据可能写不下'},
+  pkg_consist:{n:'登记↔归档一致',spec:'登记 60min 宽限后归档缺文件 → L2',lvl:'L2',imp:'包登记成功但文件丢失，这些包下载会失败'},
+  svc_sched:{n:'调度器服务',spec:'systemd active；停→L1 自动重启',lvl:'L1',imp:'调度器停了，流水线不再定时排队'},
+  pending_age:{n:'pending 年龄',spec:'最老 >1h → L2 / >7 天 → L1 自动取消',lvl:'L1',imp:'流水线任务排队卡住，迟迟不开跑'},
+  svc_timer:{n:'nightly 触发器',spec:'systemd timer active；停→L1 自动拉起',lvl:'L1',imp:'每夜自动流水线不会触发'},
+  dev_heart:{n:'设备心跳',spec:'停 >24h → L2 / 停 >7 天未 offline → L1 下线',lvl:'L1',imp:'测试机失联，可领用设备变少'},
+  jk_node:{n:'build-176 节点',spec:'master /computer API 查在线；offline → L2',lvl:'L2',imp:'Jenkins 看不到构建节点，打包无法派发'},
+  jk_streak:{n:'构建连败',spec:'连败 ≥2 → L2 / 单次失败 → L3',lvl:'L2',imp:'构建连败，新包出不来'},
+  remoting:{n:'remoting 进程',spec:'pgrep -f remoting.jar；断连 → L2',lvl:'L2',imp:'构建进程掉线，打包停摆'},
+  disk176:{n:'磁盘水位(.176)',spec:'≥80% 告警 / ≥90% 严重',lvl:'L2',imp:'.176 磁盘将满，产物可能写不下'},
+  artifact_age:{n:'产物新鲜度',spec:'最新产物 >48h → L2（对齐 04:17 打包节奏）',lvl:'L2',imp:'超过 48h 没有新产物，每日打包可能停了'},
+  svc_otp:{n:'otp-gateway 服务',spec:'systemd active；停→L1 自动重启',lvl:'L1',imp:'取码服务停了，登录类用例会失败'},
+  svc_dispatch:{n:'任务派发服务',spec:'systemd active；停→L1 自动重启',lvl:'L1',imp:'新开发任务接不进来，AI 任务派发中断'},
+  svc_map:{n:'map-station 服务',spec:'systemd active；停→L1 自动重启',lvl:'L1',imp:'地图站停了，地图页打不开'},
+};
+/* v1 无跨机通道：.176 侧三项状态文件在 .176，页面不判好坏（诚实"无数据"，合并留 v2） */
+const NO_DATA = new Set(['remoting','disk176','artifact_age']);
+
+/* ==================== 模块（检查项的容器，明细只在抽屉出现） ==================== */
+const MODULES = {
+  git:      {name:'GitLab 源码',    tag:'git.hivi.com 双仓',        checks:[]},
+  jkmaster: {name:'Jenkins master',tag:'.167:8082',                checks:['jk_node','jk_streak']},
+  agent176: {name:'build-176 agent',tag:'remoting 节点',           checks:['remoting']},
+  build:    {name:'打包构建',      tag:'scripts/build_swan_apk.py',checks:['artifact_age','disk176']},
+  pkg:      {name:'包管理',        tag:'登记→上传→output/apks',    checks:['pkg_consist']},
+  sched:    {name:'流水线调度',    tag:'pipeline_configs→next_run_at',checks:['svc_sched']},
+  dispf:    {name:'建单派发',      tag:'pipeline_jobs→Jenkins',    checks:['pending_age']},
+  dsv:      {name:'任务派发服务',  tag:'Agent 任务派发·非流水线',  checks:['svc_dispatch']},
+  devpool:  {name:'设备池',        tag:'devices 表+conftest 领取', checks:['dev_heart']},
+  execm:    {name:'执行领取',      tag:'pipeline_agent.py·经平台 API',checks:['api_probe']},
+  reportm:  {name:'上报与证据',    tag:'runs/cases→历史→禅道',     checks:['disk167']},
+  core:     {name:'平台核心 dashboard',tag:':8080',                checks:['svc_dash']},
+  otp:      {name:'otp-gateway',   tag:':18080 取码',              checks:['svc_otp']},
+  map:      {name:'map-station',   tag:'swan-map-station 单元',    checks:['svc_map']},
+  timer:    {name:'nightly 定时器',tag:'systemd timer',            checks:['svc_timer']},
+  cases:    {name:'用例域',        tag:'sync_cases 仓库同步',      checks:[], uncovered:'未纳巡检'},
+  laya:     {name:'laya judge',    tag:'.176:8089 GPU 判定',       checks:[], uncovered:'未纳巡检'},
+};
+
+/* ==================== 双链：两条并行流程 + 底座 ==================== */
+const CHAINS = [
+  {id:'build', name:'打包链', host:'主战场 .176', stages:[
+    {id:'pull',    name:'拉代码',   mods:['git']},
+    {id:'compile', name:'编译',     mods:['jkmaster','agent176']},
+    {id:'pack',    name:'出包',     mods:['build']},
+    {id:'archive', name:'登记归档', mods:['pkg']},
+  ]},
+  {id:'exec', name:'执行链', host:'主战场 .167', stages:[
+    {id:'sched',  name:'调度触发', mods:['sched']},
+    {id:'disp',   name:'派发',     mods:['dispf']},
+    {id:'dev',    name:'设备',     mods:['devpool']},
+    {id:'run',    name:'执行',     mods:['execm']},
+    {id:'report', name:'上报',     mods:['reportm']},
+  ]},
+];
+const BASE = ['core','otp','map','timer','dsv','cases','laya'];
+
+/* ==================== 情景演示（bad=异常 heal=已自愈；imp/impBase=该情景的后果人话覆盖） ==================== */
+const SCN = {
+  normal: {label:'全部正常', over:{}, heal:[], imp:{}, impBase:{},
+    head:'2026-10-09 11:29 首轮实况：服务 7/7 active、磁盘 36%、L1 零命中。'},
+  today: {label:'重演今日', over:{pkg_consist:'bad',jk_streak:'bad'}, aff:['build','agent176'], heal:[],
+    imp:{compile:'构建连败 19 次，新包出不来', archive:'包登记成功但归档缺文件，18 个包下载不了'}, impBase:{},
+    head:'2026-10-09 事故回放：登录闸 401 挡住归档上传，登记成功但归档缺文件——打包链的编译与登记归档两个环节同时异常，一眼定位。'},
+  devices: {label:'设备池掉线', over:{dev_heart:'bad'}, aff:[], heal:[], imp:{}, impBase:{},
+    head:'模拟：测试机 USB/adb 掉线——设备池心跳变红；停超 24h 进 L2 取证，停超 7 天且未 offline 的由 L1 自动下线。'},
+  disk: {label:'平台磁盘将满', over:{disk167:'bad'}, aff:[], heal:[], imp:{}, impBase:{},
+    head:'模拟：.167 根分区 91%——上报环节变红；≥90% 属 L2 取证项。磁盘只告警不自愈（清理动作有数据风险，80~90% 记 L3）。'},
+};
+/* 今日事故时间线（按模块挂到抽屉里） */
+const EVENTS = {
+  pkg:[['09-30 16:08','登录闸上线，机器通道白名单漏登记上传端点'],['10-01 04:17','#43 首败，累计 19 连败'],['10-09 11:11','白名单补一行 ("POST","/api/apks/")，重启验证通过'],['10-09 11:18','.176 补传 18/18，sha256 端到端对齐']],
+  jkmaster:[['10-09 11:29','首轮巡检抓到连败 8 次，取证定位=归档上传 Broken pipe'],['10-10 04:17','修复后首批构建（观察点）']],
+};
+const SCEN_EVENTS = {
+  devpool:[['巡检规则','心跳停 >7 天 → L1 自动下线（动作前复核+审计 JSONL）']],
+  core:[['巡检规则','磁盘只告警不自愈：清理动作有数据风险；80~90% 记 L3，≥90% 升 L2 取证']],
+};
+
+/* ==================== 状态推导 ==================== */
+let curScn='normal';
+function chkState(id,scn){ return NO_DATA.has(id)?'nodata':(SCN[scn].over[id]||'ok'); }
+/* 环节状态：nocheck=环节存在但 v1 无检查项(拉代码)；nodata=有检查但数据在 .176(出包)；bad/ok 正常判定 */
+function stageState(st,scn){
+  const all=st.mods.flatMap(id=>MODULES[id].checks);
+  const cs=all.filter(c=>!NO_DATA.has(c));
+  if(!all.length) return 'nocheck';
+  if(!cs.length) return 'nodata';
+  return cs.some(c=>chkState(c,scn)==='bad')?'bad':'ok';
+}
+function stageImpact(st,scn){
+  if(SCN[scn].imp && SCN[scn].imp[st.id]) return SCN[scn].imp[st.id];
+  for(const id of st.mods){
+    for(const c of MODULES[id].checks){
+      if(!NO_DATA.has(c)&&chkState(c,scn)==='bad') return CHECKS[c].imp;
+    }
+  }
+  return '';
+}
+function allStages(){
+  return CHAINS.flatMap(ch=>ch.stages);
+}
+function badBase(scn){
+  return BASE.filter(id=>MODULES[id].checks.some(c=>!NO_DATA.has(c)&&chkState(c,scn)==='bad'));
+}
+function baseImpact(id,scn){
+  if(SCN[scn].impBase && SCN[scn].impBase[id]) return SCN[scn].impBase[id];
+  return MODULES[id].checks.filter(c=>!NO_DATA.has(c)&&chkState(c,scn)==='bad').map(c=>CHECKS[c].imp).join('；');
+}
+
+/* ==================== 渲染 ==================== */
+function render(){
+  document.querySelectorAll('#scn-bar button').forEach(b=>b.classList.toggle('on',b.dataset.scn===curScn));
+  const broken=allStages().filter(st=>stageState(st,curScn)==='bad');
+  const bbase=badBase(curScn);
+  const heroEl=document.getElementById('hero-line'), itemsEl=document.getElementById('hero-items');
+  const metaEl=document.getElementById('hero-meta');
+  const total=Object.keys(CHECKS).length, covered=total-NO_DATA.size;
+  if(!broken.length&&!bbase.length){
+    heroEl.textContent='一切正常，下一轮巡检 19:43 / 19:47';
+    heroEl.className='hero-line ok';
+    itemsEl.innerHTML='';
+    metaEl.innerHTML=`巡检 <b class="mono">2026-10-09 11:29</b> · 覆盖 ${covered}/${total} 项检查`
+      +`<br>拉代码环节 v1 暂无检查项 · .176 侧 ${NO_DATA.size} 项（remoting/磁盘/产物）待 v2 跨机通道，暂无数据`;
+  }else{
+    heroEl.textContent=(broken.length+bbase.length)+' 项异常';
+    heroEl.className='hero-line bad';
+    itemsEl.innerHTML=
+      broken.map(st=>`<div class="hero-item"><b>${st.name}</b>——${stageImpact(st,curScn)}</div>`).join('')
+      +bbase.map(id=>`<div class="hero-item"><b>${MODULES[id].name}</b>——${baseImpact(id,curScn)}</div>`).join('');
+    metaEl.innerHTML=`巡检 <b class="mono">2026-10-09 11:29</b> 抓到 · 下一轮 <b class="mono">19:43 / 19:47</b> · 覆盖 ${covered}/${total} 项检查`;
+  }
+  document.getElementById('chains').innerHTML=CHAINS.map(ch=>
+    `<div class="chainblock"><div class="chain-title">${ch.name}<span class="lane-sub">${ch.host}</span></div>`
+    +`<div class="chain">${ch.stages.map((st,i)=>{
+      const s=stageState(st,curScn);
+      const cls=s==='bad'?'bad':(s==='ok'?'ok':'unknown');
+      const stTxt=s==='ok'?'<span class="s-st">正常</span>'
+        :(s==='nocheck'?'<span class="s-st">未巡检</span>'
+        :(s==='nodata'?'<span class="s-st">无数据</span>':'<span class="badge bad">异常</span>'));
+      const impact=s==='bad'?`<div class="impact">${stageImpact(st,curScn)}</div>`:'';
+      return `${i?'<span class="arr" aria-hidden="true"></span>':''}<div class="stage ${cls}" data-chain="${ch.id}" data-stage="${st.id}" title="点击看${ch.name}·${st.name}明细">`
+        +`<div class="head"><span class="light"></span><span class="s-name">${st.name}</span>${stTxt}</div>${impact}</div>`;
+    }).join('')}</div></div>`
+  ).join('<div class="linkrow">↓ 出包交付：登记归档后的包供执行链领取安装（同一流水线，上下游交付）</div>');
+  document.querySelectorAll('.stage').forEach(el=>el.onclick=()=>openStage(el.dataset.chain,el.dataset.stage));
+  const baseEl=document.getElementById('base');
+  if(!bbase.length){
+    baseEl.className='base';
+    baseEl.innerHTML='底座服务全部正常（dashboard / 取码 / map-station / nightly 定时器 / Agent 任务派发；用例同步、laya 未纳巡检）· 点击看明细';
+  }else{
+    baseEl.className='base bad';
+    baseEl.innerHTML='底座服务异常：'+bbase.map(id=>`<b>${MODULES[id].name}</b>——${baseImpact(id,curScn)}`).join('；')+' · 点击看明细';
+  }
+  baseEl.onclick=openBase;
+}
+
+/* ==================== 抽屉（二级：模块/检查项口径/事件） ==================== */
+function openDrawer(title,mods){
+  document.getElementById('dr-title').textContent=title;
+  const scn=SCN[curScn];
+  const hasNoData=mods.some(id=>MODULES[id].checks.some(c=>NO_DATA.has(c)));
+  const ndHtml=hasNoData?'<div class="dr-sec">「无数据」：检查项已在 .176 侧运行，状态文件待 v2 跨机通道，暂不判定好坏。</div>':'';
+  document.getElementById('dr-body').innerHTML=
+    `<div class="dr-sec">情景：${scn.label}</div><p style="font-size:12px;color:var(--muted)">${scn.head}</p>`
+    +mods.map(id=>{
+      const m=MODULES[id];
+      let inner;
+      if(m.checks.length){
+        inner=`<table><tr><th>检查项</th><th>口径</th><th>级别</th><th>状态</th></tr>`
+          +m.checks.map(c=>{
+            const s=chkState(c,curScn), heal=SCN[curScn].heal.includes(c);
+            const cls=heal?'heal':s;
+            const txt=heal?'已自愈':(s==='bad'?'异常':(s==='nodata'?'无数据':'正常'));
+            return `<tr><td>${CHECKS[c].n}</td><td class="mono" style="font-size:12px">${CHECKS[c].spec}</td><td><span class="badge lvl">${CHECKS[c].lvl}</span></td><td><span class="badge ${cls}">${txt}</span></td></tr>`;
+          }).join('')+'</table>';
+      }else{
+        inner=`<div class="dr-sec">${m.uncovered?(m.uncovered==='未纳巡检'?'未纳巡检：巡检 v1 未覆盖，试跑一周复盘（10-16 前后）时评估是否加项':m.uncovered+'：巡检不单独设项'):'外部依赖，不做检查'}</div>`;
+      }
+      const evs=(EVENTS[id]||[]).concat((curScn!=='normal'&&SCEN_EVENTS[id])?SCEN_EVENTS[id]:[]);
+      const evHtml=evs.length?`<div class="dr-sec">相关事件</div>`+evs.map(e=>`<div class="ev"><span class="t">${e[0]}</span><span>${e[1]}</span></div>`).join(''):'';
+      return `<h4>${m.name} <span class="mono" style="font-size:12px;color:var(--muted);font-weight:400">${m.tag}</span>${(SCN[curScn].aff||[]).includes(id)?' <span class="badge aff">受影响</span>':''}</h4>${inner}${evHtml}`;
+    }).join('')+ndHtml;
+  document.getElementById('drawer').classList.add('on');
+  document.getElementById('scrim').classList.add('on');
+}
+function openStage(chainId,stageId){
+  const ch=CHAINS.find(c=>c.id===chainId);
+  const st=ch.stages.find(s=>s.id===stageId);
+  openDrawer(ch.name+' · '+st.name,st.mods);
+}
+function openBase(){
+  openDrawer('底座服务',BASE);
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('on');
+  document.getElementById('scrim').classList.remove('on');
+}
+document.getElementById('dr-close').onclick=closeDrawer;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+document.getElementById('scrim').onclick=closeDrawer;
+document.getElementById('scn-bar').onclick=e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  curScn=b.dataset.scn; closeDrawer(); render();
+};
+render();
+</script>
+</body>
+</html>

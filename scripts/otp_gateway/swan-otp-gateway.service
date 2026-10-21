@@ -1,0 +1,23 @@
+[Unit]
+Description=Swan authorized automation OTP gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=swan-otp-gateway
+Group=swan-otp-gateway
+WorkingDirectory=/opt/swan-otp-gateway/app
+EnvironmentFile=/etc/swan-otp-gateway/env
+Environment=OTP_DB=/var/lib/swan-otp-gateway/otp.sqlite3
+ExecStart=/usr/bin/python3 -m otp_gateway.server --host 0.0.0.0 --port 18080
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/swan-otp-gateway
+
+[Install]
+WantedBy=multi-user.target

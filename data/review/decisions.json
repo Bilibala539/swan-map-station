@@ -1,0 +1,40 @@
+{
+ "version": "0.2.0",
+ "cases": {
+  "AUTH-001": {
+   "status": "stored",
+   "reason": null,
+   "note": "",
+   "reviewer": "审核员",
+   "decidedAt": "2026-09-29T09:50:52"
+  },
+  "TS-001": {
+   "status": "rejected",
+   "reason": "定义错误",
+   "note": "批量驳回测试备注需要十个字以上",
+   "reviewer": "审核员",
+   "decidedAt": "2026-09-29T09:50:53"
+  },
+  "TS-002": {
+   "status": "rejected",
+   "reason": "定义错误",
+   "note": "批量驳回测试备注需要十个字以上",
+   "reviewer": "审核员",
+   "decidedAt": "2026-09-29T09:50:53"
+  },
+  "TS-003": {
+   "status": "rejected",
+   "reason": "定义错误",
+   "note": "批量驳回测试备注需要十个字以上",
+   "reviewer": "审核员",
+   "decidedAt": "2026-09-29T09:50:53"
+  }
+ },
+ "gates": {
+  "AUTH-001": {
+   "definition": true,
+   "script": true
+  }
+ },
+ "updated": "2026-09-29T09:57:52"
+}

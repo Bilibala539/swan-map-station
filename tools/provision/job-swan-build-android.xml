@@ -1,0 +1,68 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Swan 打包:检出(app+core 双仓)→ flutter build → sha256 → 跨机 HTTP 登记 167 平台 /api/apks。由平台 POST /api/builds 触发(参数已经平台侧白名单校验,坑 15);也可手工 Build with Parameters。构建环境由脚本自行注入(JAVA_HOME/ANDROID_HOME/FLUTTER_HOME 从 176 .env.local 读取,坑 11),176 本机需满足:/opt/uiautotest/.env.local 含 GITLAB_BOT 凭据与 DASHBOARD_URL、/opt/uiautotest/.venv/bin/python 存在、git 在 PATH。</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>BRANCH</name>
+          <description>构建分支(dev/master/harmony)</description>
+          <defaultValue>dev</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SERVER_TYPE</name>
+          <description>服务器类型(formal=正式服→release / test=测试服→profile)</description>
+          <defaultValue>test</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>COMMIT</name>
+          <description>指定 commit(1-40 位十六进制;留空=分支最新)</description>
+          <defaultValue></defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>NOTES</name>
+          <description>登记备注(URL 编码串,平台 quote 传入,脚本侧 unquote 解码;手工触发也须传 URL 编码值)</description>
+          <defaultValue></defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>build-176</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <!-- 与 Windows 还原版的差异:commit 值传递修复延续(EXTRA 累加拼接);显式 bash shebang
+         (Jenkins 无 shebang 时走 /bin/sh=dash,pipefail 不可用);打包输出 tee 到临时文件解析
+         apk_id,成功后触发冒烟套件(M5 打包→冒烟联动,exit-0 保护,冒烟失败不影响打包结果) -->
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -xe
+set -o pipefail
+cd /opt/uiautotest
+EXTRA=""
+if [ -n "$COMMIT" ]; then EXTRA="$EXTRA --commit $COMMIT"; fi
+if [ -n "$NOTES" ]; then EXTRA="$EXTRA --notes $NOTES"; fi
+OUTF=/tmp/build_swan_out.$$
+/opt/uiautotest/.venv/bin/python scripts/build_swan_apk.py --branch "$BRANCH" --server-type "$SERVER_TYPE" $EXTRA 2>&amp;1 | tee "$OUTF"
+APK_ID=$(grep -oE 'apk_id=[^ ]+' "$OUTF" | head -1 | cut -d= -f2 || true)
+rm -f "$OUTF"
+if [ -n "$APK_ID" ]; then
+  /opt/uiautotest/.venv/bin/python scripts/trigger_smoke.py --suite SMKE --branch "$BRANCH" --apk-id "$APK_ID" || echo "[WARN] smoke trigger failed (打包结果不受影响)"
+else
+  echo "[WARN] 未解析到 apk_id,跳过冒烟触发"
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

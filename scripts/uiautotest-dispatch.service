@@ -1,0 +1,27 @@
+[Unit]
+Description=Swan AI task dispatch worker (big leader)
+# 轮询平台队列/派发小领导/收 outbox/终态企微通知(设计 docs/AI任务与平台登录设计.md 7.2)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=autotest
+Group=autotest
+WorkingDirectory=/opt/uiautotest
+# WECOM_CHAT_ID 等(群 chat_id 不进 git,团队纪律);无该文件也能起,通知只记事件降级
+EnvironmentFile=-/opt/uiautotest/.env.local
+Environment=DASHBOARD_URL=http://127.0.0.1:8080
+Environment=DISPATCH_STUB=0
+# 派发通道:worker 以 autotest 跑而小领导 tmux/inbox 属 jks——必须配 SSH 通道,
+# 否则 167 任务会打到 autotest 自己的 tmux/inbox(留空=本地直连,仅 .229 联测用)
+#Environment=DISPATCH_SSH_167=jks@127.0.0.1
+# 企微回退机:默认 .176(已装 wecom-cli),一般无需改
+#Environment=DISPATCH_SSH_WECOM=jks@192.168.12.176
+# 需要 git worktree / tmux / ssh(.176 派发),不做 ProtectSystem 加固
+ExecStart=/usr/bin/python3 /opt/uiautotest/scripts/dispatch_worker.py --loop 10
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
